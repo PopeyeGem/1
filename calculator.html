@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حاسبة السعرات الحرارية المتقدمة - Popeye Gym</title>
+    <meta name="description" content="حاسبة سعرات حرارية متقدمة لحساب البروتين والكربوهيدرات والدهون - Popeye Gym">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Calculator CSS -->
+    <link rel="stylesheet" href="calculator.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo-section">
+                <div class="logo">P</div>
+                <div class="brand-text">
+                    <h1>Popeye Gym</h1>
+                </div>
+            </div>
+            <a href="index.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+                العودة للرئيسية
+            </a>
+        </div>
+    </header>
+
+    <!-- Calculator Container -->
+    <div class="calculator-container">
+        <!-- Calculator Header -->
+        <div class="calc-header">
+            <h1 class="calc-title">حاسبة السعرات الحرارية المتقدمة</h1>
+            <p class="calc-subtitle">احسب احتياجاتك اليومية من السعرات والبروتين والكربوهيدرات بدقة عالية</p>
+        </div>
+
+        <!-- Calculator Body -->
+        <div class="calc-body">
+            <!-- Alert Section -->
+            <div id="alert" class="alert">
+                <span id="alert-message"></span>
+            </div>
+
+            <!-- Form Section -->
+            <div class="form-grid">
+                <div class="form-group">
+                    <label class="form-label">العمر (سنة)</label>
+                    <input type="number" id="age" class="form-input" placeholder="مثال: 25" min="10" max="100">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">الجنس</label>
+                    <select id="gender" class="form-select">
+                        <option value="">اختر الجنس</option>
+                        <option value="male">ذكر</option>
+                        <option value="female">أنثى</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">الوزن (كيلوغرام)</label>
+                    <input type="number" id="weight" class="form-input" placeholder="مثال: 70" min="20" max="300" step="0.1">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">الطول (سم)</label>
+                    <input type="number" id="height" class="form-input" placeholder="مثال: 175" min="100" max="250">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">مستوى النشاط</label>
+                    <select id="activity" class="form-select">
+                        <option value="">اختر مستوى النشاط</option>
+                        <option value="sedentary">قليل النشاط (عمل مكتبي)</option>
+                        <option value="light">نشاط خفيف (1-3 أيام رياضة)</option>
+                        <option value="moderate">نشاط متوسط (3-5 أيام رياضة)</option>
+                        <option value="active">نشاط عالي (6-7 أيام رياضة)</option>
+                        <option value="very_active">نشاط عالي جداً (رياضة مكثفة)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">الهدف</label>
+                    <select id="goal" class="form-select">
+                        <option value="">اختر هدفك</option>
+                        <option value="lose">فقدان الوزن</option>
+                        <option value="maintain">الحفاظ على الوزن</option>
+                        <option value="gain">زيادة الوزن والعضلات</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">مستوى الخبرة</label>
+                    <select id="experience" class="form-select">
+                        <option value="">اختر مستوى خبرتك</option>
+                        <option value="beginner">مبتدئ (أقل من سنة)</option>
+                        <option value="intermediate">متوسط (1-3 سنوات)</option>
+                        <option value="advanced">متقدم (أكثر من 3 سنوات)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">نسبة الدهون (اختياري)</label>
+                    <input type="number" id="body-fat" class="form-input" placeholder="مثال: 15" min="5" max="50" step="0.1">
+                </div>
+            </div>
+
+            <!-- Calculate Button -->
+            <button class="calculate-btn" onclick="calculateCalories()">
+                <i class="fas fa-calculator"></i>
+                احسب احتياجاتي
+            </button>
+
+            <!-- Results Section -->
+            <div id="results" class="results-section">
+                <h3 class="results-title">نتائج الحساب</h3>
+                <div class="results-grid">
+                    <div class="result-card">
+                        <div class="result-icon">🔥</div>
+                        <div class="result-label">السعرات اليومية</div>
+                        <div class="result-value" id="calories-result">0</div>
+                        <div class="result-unit">سعرة حرارية</div>
+                    </div>
+
+                    <div class="result-card">
+                        <div class="result-icon">💪</div>
+                        <div class="result-label">البروتين</div>
+                        <div class="result-value" id="protein-result">0</div>
+                        <div class="result-unit">جرام</div>
+                    </div>
+
+                    <div class="result-card">
+                        <div class="result-icon">🍞</div>
+                        <div class="result-label">الكربوهيدرات</div>
+                        <div class="result-value" id="carbs-result">0</div>
+                        <div class="result-unit">جرام</div>
+                    </div>
+
+                    <div class="result-card">
+                        <div class="result-icon">🥑</div>
+                        <div class="result-label">الدهون</div>
+                        <div class="result-value" id="fats-result">0</div>
+                        <div class="result-unit">جرام</div>
+                    </div>
+
+                    <div class="result-card">
+                        <div class="result-icon">⚡</div>
+                        <div class="result-label">معدل الأيض الأساسي</div>
+                        <div class="result-value" id="bmr-result">0</div>
+                        <div class="result-unit">سعرة حرارية</div>
+                    </div>
+
+                    <div class="result-card">
+                        <div class="result-icon">📊</div>
+                        <div class="result-label">مؤشر كتلة الجسم</div>
+                        <div class="result-value" id="bmi-result">0</div>
+                        <div class="result-unit">BMI</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Calculator JavaScript -->
+    <script src="calculator.js"></script>
+</body>
+</html><!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حاسبة السعرات الحرارية المتقدمة - Popeye Gym</title>
+    <meta name="description" content="حاسبة سعرات حرارية متقدمة لحساب البروتين والكربوهيدرات والدهون - Popeye Gym">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Calculator CSS -->
+    <link rel="stylesheet" href="calculator.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo-section">
+                <div class="logo">P</div>
+                <div class="brand-text">
+                    <h1>Popeye Gym</h1>
+                </div>
+            </div>
+            <a href="index.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+                العودة للرئيسية
+            </a>
+        </div>
+    </header>
+
+    <!-- Calculator Container -->
+    <div class="calculator-container">
+        <!-- Calculator Header -->
+        <div class="calc-header">
+            <h1 class="calc-title">حاسبة السعرات الحرارية المتقدمة</h1>
+            <p class="calc-subtitle">احسب احتياجاتك اليومية من السعرات والبروتين والكربوهيدرات بدقة عالية</p>
+        </div>
+
+        <!-- Calculator Body -->
+        <div class="calc-body">
+            <!-- Alert Section -->
+            <div id="alert" class="alert">
+                <span id="alert-message"></span>
+            </div>
+
+            <!-- Form Section -->
+            <div class="form-grid">
+                <div class="form-group">
+                    <label class="form-label">العمر (سنة)</label>
+                    <input type="number" id="age" class="form-input" placeholder="مثال: 25" min="10" max="100">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">الجنس</label>
+                    <select id="gender" class="form-select">
+                        <option value="">اختر الجنس</option>
+                        <option value="male">ذكر</option>
+                        <option value="female">أنثى</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">الوزن (كيلوغرام)</label>
+                    <input type="number" id="weight" class="form-input" placeholder="مثال: 70" min="20" max="300" step="0.1">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">الطول (سم)</label>
+                    <input type="number" id="height" class="form-input" placeholder="مثال: 175" min="100" max="250">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">مستوى النشاط</label>
+                    <select id="activity" class="form-select">
+                        <option value="">اختر مستوى النشاط</option>
+                        <option value="sedentary">قليل النشاط (عمل مكتبي)</option>
+                        <option value="light">نشاط خفيف (1-3 أيام رياضة)</option>
+                        <option value="moderate">نشاط متوسط (3-5 أيام رياضة)</option>
+                        <option value="active">نشاط عالي (6-7 أيام رياضة)</option>
+                        <option value="very_active">نشاط عالي جداً (رياضة مكثفة)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">الهدف</label>
+                    <select id="goal" class="form-select">
+                        <option value="">اختر هدفك</option>
+                        <option value="lose">فقدان الوزن</option>
+                        <option value="maintain">الحفاظ على الوزن</option>
+                        <option value="gain">زيادة الوزن والعضلات</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">مستوى الخبرة</label>
+                    <select id="experience" class="form-select">
+                        <option value="">اختر مستوى خبرتك</option>
+                        <option value="beginner">مبتدئ (أقل من سنة)</option>
+                        <option value="intermediate">متوسط (1-3 سنوات)</option>
+                        <option value="advanced">متقدم (أكثر من 3 سنوات)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">نسبة الدهون (اختياري)</label>
+                    <input type="number" id="body-fat" class="form-input" placeholder="مثال: 15" min="5" max="50" step="0.1">
+                </div>
+            </div>
+
+            <!-- Calculate Button -->
+            <button class="calculate-btn" onclick="calculateCalories()">
+                <i class="fas fa-calculator"></i>
+                احسب احتياجاتي
+            </button>
+
+            <!-- Results Section -->
+            <div id="results" class="results-section">
+                <h3 class="results-title">نتائج الحساب</h3>
+                <div class="results-grid">
+                    <div class="result-card">
+                        <div class="result-icon">🔥</div>
+                        <div class="result-label">السعرات اليومية</div>
+                        <div class="result-value" id="calories-result">0</div>
+                        <div class="result-unit">سعرة حرارية</div>
+                    </div>
+
+                    <div class="result-card">
+                        <div class="result-icon">💪</div>
+                        <div class="result-label">البروتين</div>
+                        <div class="result-value" id="protein-result">0</div>
+                        <div class="result-unit">جرام</div>
+                    </div>
+
+                    <div class="result-card">
+                        <div class="result-icon">🍞</div>
+                        <div class="result-label">الكربوهيدرات</div>
+                        <div class="result-value" id="carbs-result">0</div>
+                        <div class="result-unit">جرام</div>
+                    </div>
+
+                    <div class="result-card">
+                        <div class="result-icon">🥑</div>
+                        <div class="result-label">الدهون</div>
+                        <div class="result-value" id="fats-result">0</div>
+                        <div class="result-unit">جرام</div>
+                    </div>
+
+                    <div class="result-card">
+                        <div class="result-icon">⚡</div>
+                        <div class="result-label">معدل الأيض الأساسي</div>
+                        <div class="result-value" id="bmr-result">0</div>
+                        <div class="result-unit">سعرة حرارية</div>
+                    </div>
+
+                    <div class="result-card">
+                        <div class="result-icon">📊</div>
+                        <div class="result-label">مؤشر كتلة الجسم</div>
+                        <div class="result-value" id="bmi-result">0</div>
+                        <div class="result-unit">BMI</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Calculator JavaScript -->
+    <script src="calculator.js"></script>
+</body>
+</html>
