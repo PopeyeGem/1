@@ -3747,19 +3747,6 @@
                 padding: 0.5rem;
             }
 
-            .footer-logo {
-                width: 50px;
-                height: 50px;
-                margin: 0 auto 1rem;
-                display: block;
-            }
-
-            .footer-logo img {
-                width: 100%;
-                height: 100%;
-                object-fit: contain;
-                border-radius: 50%;
-            }
 
             .footer-brand h3 {
                 font-size: 1.5rem;
@@ -5871,7 +5858,7 @@
                         </div>
                         <div class="brand-text">
                             <h1>Popeye Gym</h1>
-                            <p>يمكننا مساعدتك على التدرب بطريقة آمنة وذكية وصحية</p>
+                            <p>We can help you train safely, smartly and healthily</p>
                         </div>
                     </div>
                 </div>
@@ -5886,7 +5873,7 @@
                         <input
                             type="text"
                             id="compact-search-input"
-                            placeholder="بحث سريع..."
+                            placeholder="search..."
                             onkeypress="if(event.key === 'Enter') performComprehensiveSearch()"
                         />
                         <i class="fas fa-search search-icon" onclick="performComprehensiveSearch()"></i>
@@ -5922,6 +5909,10 @@
                             <div class="nav-dropdown-item" onclick="openPopeyeModal('pricing')">
                                 <i class="fas fa-money-bill-wave"></i>
                                 <span>أسعار الاشتراكات</span>
+                            </div>
+                            <div class="nav-dropdown-item subscription-payment-menu" onclick="openSubscriptionModal(); event.stopPropagation();">
+                                <i class="fas fa-credit-card"></i>
+                                <span>تجديد ودفع الاشتراك</span>
                             </div>
                         </div>
                     </div>
@@ -6079,10 +6070,7 @@
                                     <span class="pricing-label">3 شهور:</span>
                                     <span class="pricing-value">950 جنيه</span>
                                 </div>
-                                <div class="pricing-item">
-                                    <span class="pricing-label">20 حصة:</span>
-                                    <span class="pricing-value">400 جنيه</span>
-                                </div>
+
                             </div>
                         </div>
 
@@ -6110,11 +6098,36 @@
                                     <span class="pricing-bonus">3 أيام في الأسبوع</span>
                                 </div>
                                 <div class="pricing-item">
-                                    <span class="pricing-label">20 حصة:</span>
-                                    <span class="pricing-value">400 جنيه</span>
+                                    <span class="pricing-label">شهر:</span>
+                                    <span class="pricing-value">350 جنيه</span>
+                                    <span class="pricing-bonus">6 أيام في الأسبوع</span>
                                 </div>
+                                <div class="pricing-item">
+                                    <span class="pricing-label">شهرين:</span>
+                                    <span class="pricing-value">650 جنيه</span>
+                                    <span class="pricing-bonus">6 أيام في الأسبوع</span>
+                                </div>
+
                             </div>
                         </div>
+                    </div>
+
+                    <!-- Subscription Renewal Button - Premium -->
+                    <div class="subscription-renewal-section-modal">
+                        <button class="subscription-renewal-btn-modal" onclick="openSubscriptionModal()">
+                            <div class="renewal-btn-content-modal">
+                                <div class="renewal-icon-modal">
+                                    <i class="fas fa-credit-card"></i>
+                                </div>
+                                <div class="renewal-text-modal">
+                                    <span class="renewal-title-modal">تجديد ودفع الاشتراك</span>
+                                    <span class="renewal-subtitle-modal">ادفع اشتراكك بسهولة وأمان</span>
+                                </div>
+                                <div class="renewal-arrow-modal">
+                                    <i class="fas fa-arrow-left"></i>
+                                </div>
+                            </div>
+                        </button>
                     </div>
 
                     <!-- Training Schedule -->
@@ -6197,6 +6210,24 @@
                         </div>
                     </div>
 
+                    <!-- Subscription Renewal Button -->
+                    <div class="subscription-renewal-section">
+                        <button class="subscription-renewal-btn" onclick="openSubscriptionModal()">
+                            <div class="renewal-btn-content">
+                                <div class="renewal-icon">
+                                    <i class="fas fa-credit-card"></i>
+                                </div>
+                                <div class="renewal-text">
+                                    <span class="renewal-title">تجديد ودفع الاشتراك</span>
+                                    <span class="renewal-subtitle">ادفع اشتراكك بسهولة وأمان</span>
+                                </div>
+                                <div class="renewal-arrow">
+                                    <i class="fas fa-arrow-left"></i>
+                                </div>
+                            </div>
+                        </button>
+                    </div>
+
                     <!-- Contact Section -->
                     <div class="popeye-contact-section">
                         <div class="contact-header">
@@ -6206,7 +6237,7 @@
                             <h3 class="contact-title">تواصل معنا</h3>
                         </div>
                         <div class="contact-links">
-                            <a href="https://wa.me/01555037364" target="_blank" class="contact-link whatsapp-link">
+                            <a href="https://wa.me/2001555037364" target="_blank" class="contact-link whatsapp-link">
                                 <div class="contact-icon">
                                     <i class="fab fa-whatsapp"></i>
                                 </div>
@@ -6551,6 +6582,82 @@
                         available: true,
                         cost: 35,
                         estimatedDays: '2-3 أيام'
+                    }
+                },
+                {
+                    id: '11',
+                    name: 'Yava Labs Creatine Flavored - كرياتين مونوهيدرات بالطعم',
+                    description: 'كرياتين مونوهيدرات عالي الجودة من Yava Labs - 4050mg كرياتين مونوهيدرات + 450mg تورين لكل 3 جرام، تركيبة قوية لزيادة الأداء والطاقة',
+                    category: 'كرياتين',
+                    currentPrice: 1100,
+                    originalPrice: 1200,
+                    discount: 8,
+                    features: [
+                        'كرياتين مونوهيدرات 4050mg لكل حصة',
+                        'تورين 450mg لكل حصة',
+                        'حجم الحصة: 3 جرام',
+                        'تركيبة متطورة لزيادة الطاقة',
+                        'يعزز القوة والأداء الرياضي',
+                        'تحسين الأداء في التمارين عالية الكثافة',
+                        'تسريع التعافي بين المجموعات',
+                        'زيادة حجم العضلات وامتلائها',
+                        'سهل الذوبان والامتصاص',
+                        'خالي من المواد المضافة الضارة',
+                        'مختبر علمياً ومضمون الجودة',
+                        'من العلامة التجارية المميزة Yava Labs'
+                    ],
+                    image: 'images/criatine8.png',
+                    inStock: true,
+                    shipping: {
+                        available: true,
+                        cost: 30,
+                        estimatedDays: '2-3 أيام'
+                    },
+                    usage: 'يُخلط 3 جرام مع 200-300 مل من الماء أو المشروب المفضل. يُتناول مرة واحدة يومياً، ويُفضل قبل أو بعد التمرين.',
+                    nutritionPer3g: {
+                        creatineMonohydrate: 4.05,
+                        taurine: 0.45,
+                        additives: 0,
+                        sugar: 0
+                    }
+                },
+                {
+                    id: '12',
+                    name: 'Superior 100% Creatine Monohydrate - سوبريور كرياتين',
+                    description: 'سوبريور كرياتين مونوهيدرات 100% نقي - 300 جرام، 50 حصة، أفضل المكملات لبناء العضلات وزيادة القوة للرياضيين',
+                    category: 'كرياتين',
+                    currentPrice: 1100,
+                    originalPrice: 1200,
+                    discount: 8,
+                    features: [
+                        'كرياتين مونوهيدرات 100% نقي',
+                        'الوزن: 300 جرام',
+                        'عدد الحصص: 50 حصة',
+                        '6 جرام لكل حصة',
+                        'تركيبة Superior المتميزة',
+                        'أفضل كرياتين لبناء العضلات في مصر',
+                        'زيادة القوة والطاقة العضلية',
+                        'تحسين الأداء الرياضي والتحمل',
+                        'تسريع التعافي العضلي بعد التمرين',
+                        'زيادة حجم وامتلاء العضلات',
+                        'سهل الذوبان في الماء',
+                        'خالي من المواد المضافة',
+                        'مختبر علمياً ومضمون الجودة عالمياً',
+                        'مناسب للرياضيين المحترفين والمبتدئين'
+                    ],
+                    image: 'images/criatine7.jpg',
+                    inStock: true,
+                    shipping: {
+                        available: true,
+                        cost: 30,
+                        estimatedDays: '2-3 أيام'
+                    },
+                    usage: 'اخلط مكيال واحد (6 جرام) مع 200-250 مل من الماء أو العصير، وتناوله مرتين يومياً قبل وبعد التمرين. للحصول على نتائج أفضل، استبدل الماء بمشروب من الكربوهيدرات.',
+                    nutritionPer6g: {
+                        creatineMonohydrate: 6,
+                        additives: 0,
+                        artificialFlavors: 0,
+                        sugar: 0
                     }
                 }
             ];
@@ -7168,10 +7275,7 @@
                                     <span class="pricing-label">3 شهور:</span>
                                     <span class="pricing-value">950 جنيه</span>
                                 </div>
-                                <div class="pricing-item">
-                                    <span class="pricing-label">20 حصة:</span>
-                                    <span class="pricing-value">400 جنيه</span>
-                                </div>
+
                             </div>
                         </div>
 
@@ -7199,9 +7303,16 @@
                                     <span class="pricing-bonus">3 أيام في الأسبوع</span>
                                 </div>
                                 <div class="pricing-item">
-                                    <span class="pricing-label">20 حصة:</span>
-                                    <span class="pricing-value">400 جنيه</span>
+                                    <span class="pricing-label">شهر:</span>
+                                    <span class="pricing-value">350 جنيه</span>
+                                    <span class="pricing-bonus">6 أيام في الأسبوع</span>
                                 </div>
+                                <div class="pricing-item">
+                                    <span class="pricing-label">شهرين:</span>
+                                    <span class="pricing-value">650 جنيه</span>
+                                    <span class="pricing-bonus">6 أيام في الأسبوع</span>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -7417,7 +7528,7 @@
                             <h3 class="contact-title">تواصل معنا</h3>
                         </div>
                         <div class="contact-links">
-                            <a href="https://wa.me/01555037364" target="_blank" class="contact-link whatsapp-link">
+                            <a href="https://wa.me/2001555037364" target="_blank" class="contact-link whatsapp-link">
                                 <div class="contact-icon">
                                     <i class="fab fa-whatsapp"></i>
                                 </div>
@@ -7524,8 +7635,9 @@
                     text: `💪 جيم باباي - معدات اللياقة البدنية والمكملات الغذائية
 
   💰 أسعار الاشتراك:
-  • الرجال - شهري: 350 جنيه
-  • النساء - شهري: 250 جنيه (3 أيام/أسبوع)
+  • الرجال - شهري: 350 جنيه، شهرين: 650 جنيه
+  • النساء - 3 أيام/أسبوع: شهر 250 جنيه، شهرين 450 جنيه
+  • النساء - 6 أيام/أسبوع: شهر 350 جنيه، شهرين 650 جنيه
   • يومي: 30 جنيه
 
   ⏰ المواعيد:
@@ -11465,7 +11577,7 @@
                     <!-- Search Section -->
                     <div class="food-search-section">
                         <div class="search-container">
-                            <input type="text" id="food-search" class="search-input" placeholder="ابحث عن الطعام..." />
+                            <input type="text" id="food-search" class="search-input" placeholder="Quick search..." />
                             <i class="fas fa-search search-icon"></i>
                         </div>
                     </div>
@@ -12210,12 +12322,8 @@
             <div class="footer-content">
                 <!-- Right Section - Brand Info -->
                 <div class="footer-brand">
-                    <div class="footer-logo">
-                        <img src="/images/logo.png" alt="Popeye Gym Logo">
-                    </div>
                     <h3>Popeye Gym</h3>
-
-
+                    <p>يمكننا مساعدتك على التدرب بطريقة آمنة وذكية وصحية</p>
                 </div>
 
                 <!-- Combined Contact Section -->
@@ -15240,6 +15348,1335 @@
                 }, 'image/png', 1.0);
             }
 
+        </script>
+
+        <!-- Subscription Payment Modal -->
+        <div id="subscription-modal" class="subscription-modal-overlay hidden">
+            <div class="subscription-modal-content">
+                <!-- Modal Header -->
+                <div class="subscription-modal-header">
+                    <button class="subscription-back-btn hidden" onclick="subscriptionGoBack()">
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                    <h2 class="subscription-modal-title">تجديد ودفع الاشتراك</h2>
+                    <button class="subscription-share-btn" onclick="shareSubscription()">
+                        <i class="fas fa-share-alt"></i>
+                    </button>
+                </div>
+
+                <!-- Page 1: Package Selection -->
+                <div class="subscription-page active" id="packageSelection">
+                    <div class="package-header">
+                        <h3>اختر باقة الاشتراك</h3>
+                        <p>اختر الباقة التي تناسب احتياجاتك</p>
+                    </div>
+
+                    <div class="packages-grid">
+                        <!-- Men's Packages -->
+                        <div class="package-card men-package">
+                            <div class="package-header-card">
+                                <i class="fas fa-mars"></i>
+                                <h4>اشتراك الرجال</h4>
+                            </div>
+                            <div class="package-options">
+                                <div class="package-option" onclick="selectPackage('men', 'daily', '30', 'يومي')">
+                                    <span class="option-duration">يومي</span>
+                                    <span class="option-price">30 جنيه</span>
+                                </div>
+                                <div class="package-option" onclick="selectPackage('men', 'monthly', '350', 'شهر')">
+                                    <span class="option-duration">شهر</span>
+                                    <span class="option-price">350 جنيه</span>
+                                </div>
+                                <div class="package-option" onclick="selectPackage('men', 'twomonths', '650', 'شهرين')">
+                                    <span class="option-duration">شهرين</span>
+                                    <span class="option-price">650 جنيه</span>
+                                </div>
+                                <div class="package-option" onclick="selectPackage('men', 'threemonths', '950', '3 شهور')">
+                                    <span class="option-duration">3 شهور</span>
+                                    <span class="option-price">950 جنيه</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Women's Packages -->
+                        <div class="package-card women-package">
+                            <div class="package-header-card">
+                                <i class="fas fa-venus"></i>
+                                <h4>اشتراك النساء</h4>
+                            </div>
+                            <div class="package-options">
+                                <div class="package-option" onclick="selectPackage('women', 'daily', '30', 'يومي')">
+                                    <span class="option-duration">يومي</span>
+                                    <span class="option-price">30 جنيه</span>
+                                </div>
+                                <div class="package-option" onclick="selectPackage('women', 'monthly', '250', 'شهر (3 أيام/أسبوع)')">
+                                    <span class="option-duration">شهر</span>
+                                    <span class="option-price">250 جنيه</span>
+                                    <span class="option-note">3 أيام في الأسبوع</span>
+                                </div>
+                                <div class="package-option" onclick="selectPackage('women', 'twomonths', '450', 'شهرين (3 أيام/أسبوع)')">
+                                    <span class="option-duration">شهرين</span>
+                                    <span class="option-price">450 جنيه</span>
+                                    <span class="option-note">3 أيام في الأسبوع</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Page 2: Payment Method Selection -->
+                <div class="subscription-page" id="paymentSelection">
+                    <div class="payment-header">
+                        <h3>اختر وسيلة الدفع</h3>
+                        <div class="selected-package-info">
+                            <span id="selectedPackageInfo"></span>
+                        </div>
+                    </div>
+
+                    <!-- Regular Payment Methods -->
+                    <div class="payment-section">
+                        <h4><i class="fas fa-money-bill-wave"></i> الدفع العادي</h4>
+                        <div class="payment-methods-grid">
+                            <div class="payment-method" onclick="selectPaymentMethod('vodafone')">
+                                <img src="images/vedafone.jpg" alt="Vodafone Cash">
+                                <span>Vodafone Cash</span>
+                            </div>
+                            <div class="payment-method" onclick="selectPaymentMethod('orange')">
+                                <img src="images/orange.png" alt="Orange Cash">
+                                <span>Orange Cash</span>
+                            </div>
+                            <div class="payment-method" onclick="selectPaymentMethod('we')">
+                                <img src="images/wepay.png" alt="WE Cash">
+                                <span>WE Cash</span>
+                            </div>
+                            <div class="payment-method" onclick="selectPaymentMethod('bank')">
+                                <img src="images/bank.png" alt="Bank Transfer">
+                                <span>التحويل البنكي</span>
+                            </div>
+                            <div class="payment-method" onclick="selectPaymentMethod('instapay')">
+                                <img src="images/inistapay.png" alt="InstaPay">
+                                <span>InstaPay</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- QR Payment Methods -->
+                    <div class="payment-section">
+                        <h4><i class="fas fa-qrcode"></i> الدفع عن طريق QR</h4>
+                        <div class="payment-methods-grid">
+                            <div class="payment-method" onclick="selectPaymentMethod('vodafone-qr')">
+                                <img src="images/vedafone.jpg" alt="Vodafone QR">
+                                <span>Vodafone Cash QR</span>
+                            </div>
+                            <div class="payment-method" onclick="selectPaymentMethod('instapay-qr')">
+                                <img src="images/inistapay.png" alt="InstaPay QR">
+                                <span>InstaPay QR</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Page 3: Payment Details -->
+                <div class="subscription-page" id="paymentDetails">
+                    <div class="payment-details-header">
+                        <div class="payment-method-header">
+                            <img id="paymentMethodImage" src="" alt="">
+                            <h3 id="paymentMethodTitle"></h3>
+                        </div>
+                    </div>
+
+                    <div class="payment-info-section">
+                        <!-- Regular Payment Info -->
+                        <div id="regularPaymentInfo" class="payment-info">
+                            <div class="number-display">
+                                <label>رقم المحفظة:</label>
+                                <div class="number-container">
+                                    <span id="walletNumber">01065278069</span>
+                                    <button class="copy-btn" onclick="copyNumber()">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Bank Transfer Payment Info -->
+                        <div id="bankPaymentInfo" class="payment-info hidden">
+                            <div class="bank-details" id="bankDetails">
+                                <div class="bank-info">
+                                    <label>رقم الحساب:</label>
+                                    <div class="number-container">
+                                        <span>2130333000037498</span>
+                                        <button class="copy-btn" onclick="copyBankAccount()">
+                                            <i class="fas fa-copy"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="bank-info">
+                                    <label>اسم الحساب:</label>
+                                    <span>خالد محمد أحمد أحمد</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- QR Payment Info -->
+                        <div id="qrPaymentInfo" class="payment-info hidden">
+                            <div class="qr-display">
+                                <img id="qrImage" src="" alt="QR Code">
+                            </div>
+                            <button class="show-more-btn" onclick="showMoreQRInfo()">
+                                <i class="fas fa-chevron-down"></i>
+                                طلب باقي المعلومات
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Phone Number Input -->
+                    <div class="form-section hidden" id="phoneSection">
+                        <label for="senderPhone">الحساب المحول منه:</label>
+                        <input type="tel" id="senderPhone" placeholder="01xxxxxxxxx">
+                    </div>
+
+
+                    <!-- Description -->
+                    <div class="description-section">
+                        <p><i class="fas fa-info-circle"></i> سيتم مراجعة البيانات على واتساب وتسجيل اشتراكك.</p>
+                    </div>
+
+                    <!-- Complete Payment Button -->
+                    <button class="complete-payment-btn" onclick="completePayment()">
+                        <i class="fab fa-whatsapp"></i>
+                        إتمام الاشتراك
+                    </button>
+                </div>
+
+                <!-- Close Button -->
+                <button class="subscription-close-btn" onclick="closeSubscriptionModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+
+        <style>
+            /* Subscription Renewal Button Styles */
+            .subscription-renewal-section {
+                margin: 2rem 0;
+                padding: 0 1rem;
+            }
+
+            .subscription-renewal-btn {
+                width: 100%;
+                background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+                border: none;
+                border-radius: 20px;
+                padding: 1.5rem;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                box-shadow: 0 8px 25px rgba(220, 53, 69, 0.3);
+                position: relative;
+                overflow: hidden;
+            }
+
+            .subscription-renewal-btn:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 12px 35px rgba(220, 53, 69, 0.4);
+            }
+
+            .subscription-renewal-btn::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+                transition: left 0.6s ease;
+            }
+
+            .subscription-renewal-btn:hover::before {
+                left: 100%;
+            }
+
+            .renewal-btn-content {
+                display: flex;
+                align-items: center;
+                gap: 1.5rem;
+                color: white;
+                position: relative;
+                z-index: 1;
+            }
+
+            .renewal-icon {
+                width: 60px;
+                height: 60px;
+                background: rgba(255, 255, 255, 0.2);
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.5rem;
+            }
+
+            .renewal-text {
+                flex: 1;
+                text-align: right;
+            }
+
+            .renewal-title {
+                display: block;
+                font-size: 1.3rem;
+                font-weight: 700;
+                margin-bottom: 0.5rem;
+            }
+
+            .renewal-subtitle {
+                display: block;
+                font-size: 0.9rem;
+                opacity: 0.9;
+            }
+
+            .renewal-arrow {
+                font-size: 1.2rem;
+                opacity: 0.8;
+            }
+
+            /* Subscription Modal Styles */
+            .subscription-modal-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.8);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 3000;
+                padding: 1rem;
+                backdrop-filter: blur(10px);
+            }
+
+            .subscription-modal-content {
+                background: white;
+                border-radius: 25px;
+                width: 95vw;
+                max-width: 500px;
+                max-height: 85vh;
+                overflow-y: auto;
+                box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+                position: relative;
+            }
+
+            .subscription-modal-header {
+                background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+                color: white;
+                padding: 1.5rem;
+                border-top-left-radius: 25px;
+                border-top-right-radius: 25px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                position: sticky;
+                top: 0;
+                z-index: 100;
+            }
+
+            .subscription-back-btn,
+            .subscription-share-btn {
+                background: rgba(255, 255, 255, 0.2);
+                border: 1px solid rgba(255, 255, 255, 0.3);
+                color: white;
+                width: 35px;
+                height: 35px;
+                border-radius: 50%;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 0.9rem;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            }
+
+            .subscription-back-btn {
+                margin-right: 20px;
+            }
+
+            .subscription-share-btn {
+                margin-left: 20px;
+            }
+
+            .subscription-back-btn:hover,
+            .subscription-share-btn:hover {
+                background: rgba(255, 255, 255, 0.3);
+                transform: scale(1.1);
+            }
+
+            .subscription-modal-title {
+                font-size: 1.4rem;
+                font-weight: 700;
+                margin: 0;
+                text-align: center;
+                flex: 1;
+            }
+
+            .subscription-close-btn {
+                position: absolute;
+                top: 15px;
+                left: 15px;
+                background: rgba(0, 0, 0, 0.5);
+                border: none;
+                color: white;
+                width: 35px;
+                height: 35px;
+                border-radius: 50%;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.3s ease;
+                z-index: 101;
+            }
+
+            .subscription-close-btn:hover {
+                background: rgba(0, 0, 0, 0.7);
+                transform: scale(1.1);
+            }
+
+            /* Page Navigation */
+            .subscription-page {
+                display: none;
+                padding: 2rem;
+            }
+
+            .subscription-page.active {
+                display: block;
+            }
+
+            /* Package Selection Styles */
+            .package-header {
+                text-align: center;
+                margin-bottom: 2rem;
+            }
+
+            .package-header h3 {
+                color: #dc3545;
+                font-size: 1.5rem;
+                margin-bottom: 0.5rem;
+                font-weight: 700;
+            }
+
+            .package-header p {
+                color: #2c3e50;
+                font-size: 1rem;
+                font-weight: 500;
+            }
+
+            .packages-grid {
+                display: grid;
+                gap: 1.5rem;
+            }
+
+            .package-card {
+                border: 2px solid rgba(220, 53, 69, 0.2);
+                border-radius: 15px;
+                overflow: hidden;
+                transition: all 0.3s ease;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+                background: #ffffff;
+                cursor: pointer;
+            }
+
+            .package-card:hover {
+                border-color: rgba(220, 53, 69, 0.6);
+                box-shadow: 0 8px 25px rgba(220, 53, 69, 0.15);
+                transform: translateY(-2px);
+            }
+
+            .package-card.men-package {
+                border-color: rgba(220, 53, 69, 0.4);
+            }
+
+            .package-card.women-package {
+                border-color: rgba(220, 53, 69, 0.3);
+            }
+
+            .package-header-card {
+                background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+                padding: 1rem;
+                text-align: center;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 0.5rem;
+            }
+
+            .men-package .package-header-card {
+                background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+                color: white;
+            }
+
+            .women-package .package-header-card {
+                background: linear-gradient(135deg, #dc3545 0%, #b82333 100%);
+                color: white;
+            }
+
+            .package-header-card i {
+                font-size: 1.2rem;
+            }
+
+            .package-header-card h4 {
+                margin: 0;
+                font-size: 1.1rem;
+            }
+
+            .package-options {
+                padding: 1rem;
+            }
+
+            .package-option {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 1rem;
+                margin-bottom: 0.5rem;
+                border: 1px solid #e9ecef;
+                border-radius: 10px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                background: white;
+            }
+
+            .package-option:hover {
+                border-color: #dc3545;
+                background: rgba(220, 53, 69, 0.05);
+                transform: translateY(-2px);
+                box-shadow: 0 4px 15px rgba(220, 53, 69, 0.2);
+            }
+
+            .option-duration {
+                font-weight: 600;
+                color: #2c3e50;
+            }
+
+            .option-price {
+                font-weight: 700;
+                color: #dc3545;
+                font-size: 1.1rem;
+            }
+
+            .option-note {
+                font-size: 0.8rem;
+                color: #6c757d;
+                margin-top: 0.2rem;
+            }
+
+            /* Payment Method Selection */
+            .payment-header {
+                text-align: center;
+                margin-bottom: 2rem;
+            }
+
+            .payment-header h3 {
+                color: #2c3e50;
+                font-size: 1.5rem;
+                margin-bottom: 1rem;
+            }
+
+            .selected-package-info {
+                background: transparent;
+                color: #2c3e50;
+                padding: 1rem;
+                border-radius: 10px;
+                font-weight: 600;
+                border: 2px solid rgba(220, 53, 69, 0.2);
+            }
+
+            .payment-section {
+                margin-bottom: 2rem;
+            }
+
+            .payment-section h4 {
+                color: #2c3e50;
+                margin-bottom: 1rem;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+            .payment-methods-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+                gap: 1rem;
+            }
+
+            .payment-method {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding: 1.5rem 1rem;
+                border: 2px solid #e9ecef;
+                border-radius: 15px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                background: white;
+            }
+
+            .payment-method:hover {
+                border-color: #dc3545;
+                background: rgba(220, 53, 69, 0.05);
+                transform: translateY(-3px);
+                box-shadow: 0 6px 20px rgba(220, 53, 69, 0.2);
+            }
+
+            .payment-method img {
+                width: 60px;
+                height: 60px;
+                object-fit: contain;
+                margin-bottom: 0.5rem;
+            }
+
+            .payment-method span {
+                font-size: 0.9rem;
+                font-weight: 600;
+                color: #2c3e50;
+                text-align: center;
+            }
+
+            /* Payment Details */
+            .payment-details-header {
+                text-align: center;
+                margin-bottom: 2rem;
+            }
+
+            .payment-method-header {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 1rem;
+                background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+                padding: 1.5rem;
+                border-radius: 15px;
+            }
+
+            .payment-method-header img {
+                width: 50px;
+                height: 50px;
+                object-fit: contain;
+            }
+
+            .payment-method-header h3 {
+                margin: 0;
+                color: #2c3e50;
+                font-size: 1.3rem;
+            }
+
+            .payment-info-section {
+                margin-bottom: 2rem;
+            }
+
+            .number-display,
+            .bank-info {
+                margin-bottom: 1.5rem;
+            }
+
+            .number-display label,
+            .bank-info label {
+                display: block;
+                color: #2c3e50;
+                font-weight: 600;
+                margin-bottom: 0.5rem;
+            }
+
+            .number-container {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                background: #f8f9fa;
+                padding: 1rem;
+                border-radius: 10px;
+                border: 2px solid #e9ecef;
+            }
+
+            .number-container span {
+                flex: 1;
+                font-size: 1.1rem;
+                font-weight: 700;
+                color: #dc3545;
+                letter-spacing: 1px;
+            }
+
+            .copy-btn {
+                background: #dc3545;
+                border: none;
+                color: white;
+                width: 40px;
+                height: 40px;
+                border-radius: 8px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .copy-btn:hover {
+                background: #c82333;
+                transform: scale(1.1);
+            }
+
+            .qr-display {
+                text-align: center;
+                margin-bottom: 1rem;
+            }
+
+            .qr-display img {
+                max-width: 200px;
+                max-height: 200px;
+                border-radius: 15px;
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            }
+
+            .show-more-btn {
+                width: 100%;
+                background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+                border: none;
+                color: white;
+                padding: 1rem;
+                border-radius: 10px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 0.5rem;
+            }
+
+            .show-more-btn:hover {
+                background: linear-gradient(135deg, #5a6268 0%, #343a40 100%);
+                transform: translateY(-2px);
+            }
+
+            .form-section {
+                margin-bottom: 1.5rem;
+            }
+
+            .form-section label {
+                display: block;
+                color: #2c3e50;
+                font-weight: 600;
+                margin-bottom: 0.5rem;
+            }
+
+            .form-section input {
+                width: 100%;
+                padding: 1rem;
+                border: 2px solid #e9ecef;
+                border-radius: 10px;
+                font-size: 1rem;
+                transition: all 0.3s ease;
+            }
+
+            .form-section input:focus {
+                outline: none;
+                border-color: #dc3545;
+                box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
+            }
+
+            .upload-container {
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+
+            .upload-button {
+                width: 120px;
+                height: 120px;
+                border: 3px dashed rgba(220, 53, 69, 0.4);
+                border-radius: 15px;
+                background: linear-gradient(135deg, rgba(220, 53, 69, 0.05), rgba(220, 53, 69, 0.1));
+                cursor: pointer;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 0.5rem;
+                transition: all 0.3s ease;
+                position: relative;
+                overflow: hidden;
+                box-shadow: 0 4px 15px rgba(220, 53, 69, 0.1);
+            }
+
+            .upload-button:hover {
+                border-color: rgba(220, 53, 69, 0.7);
+                background: linear-gradient(135deg, rgba(220, 53, 69, 0.1), rgba(220, 53, 69, 0.15));
+                transform: translateY(-2px);
+                box-shadow: 0 8px 25px rgba(220, 53, 69, 0.2);
+            }
+
+            .upload-button i {
+                font-size: 2rem;
+                color: #dc3545;
+                transition: all 0.3s ease;
+            }
+
+            .upload-button span {
+                font-size: 0.85rem;
+                color: #2c3e50;
+                font-weight: 600;
+                text-align: center;
+            }
+
+            .upload-button.has-image {
+                border: 3px solid rgba(40, 167, 69, 0.6);
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+            }
+
+            .upload-button.has-image i,
+            .upload-button.has-image span {
+                display: none;
+            }
+
+            .upload-button.has-image::after {
+                content: '✓';
+                position: absolute;
+                top: 5px;
+                right: 5px;
+                width: 25px;
+                height: 25px;
+                background: #28a745;
+                color: white;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: bold;
+                font-size: 0.9rem;
+            }
+
+            .upload-preview {
+                display: none;
+            }
+
+            .description-section {
+                background: rgba(23, 162, 184, 0.1);
+                padding: 1rem;
+                border-radius: 10px;
+                border-left: 4px solid #17a2b8;
+                margin-bottom: 2rem;
+            }
+
+            .description-section p {
+                margin: 0;
+                color: #2c3e50;
+                font-size: 0.9rem;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+            .description-section i {
+                color: #17a2b8;
+            }
+
+            .complete-payment-btn {
+                width: 100%;
+                background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+                border: 2px solid rgba(220, 53, 69, 0.3);
+                color: white;
+                padding: 1.5rem;
+                border-radius: 15px;
+                font-size: 1.1rem;
+                font-weight: 700;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 0.5rem;
+                box-shadow: 0 8px 25px rgba(220, 53, 69, 0.3);
+            }
+
+            .complete-payment-btn:hover {
+                background: linear-gradient(135deg, #c82333 0%, #a71e2a 100%);
+                transform: translateY(-3px);
+                box-shadow: 0 12px 35px rgba(220, 53, 69, 0.4);
+            }
+
+            .hidden {
+                display: none !important;
+            }
+
+            /* Subscription Menu Item Styles - Same as other menu items */
+            .subscription-payment-menu {
+                background: none !important;
+                color: var(--text-color) !important;
+                border-radius: 0 !important;
+                margin-top: 0 !important;
+                font-weight: 500 !important;
+            }
+
+            .subscription-payment-menu:hover {
+                background: #ffffff !important;
+                color: var(--primary-color) !important;
+                transform: none !important;
+                box-shadow: none !important;
+            }
+
+            .subscription-payment-menu i {
+                color: var(--primary-color) !important;
+            }
+
+            /* Subscription Button in Modal Styles */
+            .subscription-renewal-section-modal {
+                margin: 2rem 0;
+                padding: 0 1rem;
+            }
+
+            .subscription-renewal-btn-modal {
+                width: 100%;
+                background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+                border: none;
+                border-radius: 20px;
+                padding: 1.5rem;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                box-shadow: 0 8px 25px rgba(220, 53, 69, 0.3);
+                position: relative;
+                overflow: hidden;
+            }
+
+            .subscription-renewal-btn-modal:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 12px 35px rgba(220, 53, 69, 0.4);
+            }
+
+            .subscription-renewal-btn-modal::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+                transition: left 0.6s ease;
+            }
+
+            .subscription-renewal-btn-modal:hover::before {
+                left: 100%;
+            }
+
+            .renewal-btn-content-modal {
+                display: flex;
+                align-items: center;
+                gap: 1.5rem;
+                color: white;
+                position: relative;
+                z-index: 1;
+            }
+
+            .renewal-icon-modal {
+                width: 60px;
+                height: 60px;
+                background: rgba(255, 255, 255, 0.2);
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.5rem;
+            }
+
+            .renewal-text-modal {
+                flex: 1;
+                text-align: right;
+            }
+
+            .renewal-title-modal {
+                display: block;
+                font-size: 1.3rem;
+                font-weight: 700;
+                margin-bottom: 0.5rem;
+            }
+
+            .renewal-subtitle-modal {
+                display: block;
+                font-size: 0.9rem;
+                opacity: 0.9;
+            }
+
+            .renewal-arrow-modal {
+                font-size: 1.2rem;
+                opacity: 0.8;
+            }
+
+            /* Responsive Design */
+            @media (max-width: 768px) {
+                .subscription-modal-content {
+                    width: 98vw;
+                    max-height: 95vh;
+                }
+
+                .subscription-page {
+                    padding: 1rem;
+                }
+
+                .payment-methods-grid {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+
+                .packages-grid {
+                    gap: 1rem;
+                }
+
+                .renewal-btn-content {
+                    gap: 1rem;
+                }
+
+                .renewal-icon {
+                    width: 50px;
+                    height: 50px;
+                    font-size: 1.2rem;
+                }
+
+                .renewal-title {
+                    font-size: 1.1rem;
+                }
+
+                .renewal-subtitle {
+                    font-size: 0.8rem;
+                }
+            }
+        </style>
+
+        <script>
+            // Subscription Modal Variables
+            let selectedPackage = null;
+            let selectedPaymentMethod = null;
+            let currentPage = 'packageSelection';
+
+            // Open Subscription Modal
+            function openSubscriptionModal() {
+                document.getElementById('subscription-modal').classList.remove('hidden');
+                showPage('packageSelection');
+                document.querySelector('.subscription-back-btn').classList.add('hidden');
+            }
+
+            // Close Subscription Modal
+            function closeSubscriptionModal() {
+                document.getElementById('subscription-modal').classList.add('hidden');
+                resetSubscriptionModal();
+            }
+
+            // Reset Modal State
+            function resetSubscriptionModal() {
+                selectedPackage = null;
+                selectedPaymentMethod = null;
+                currentPage = 'packageSelection';
+                showPage('packageSelection');
+                document.querySelector('.subscription-back-btn').classList.add('hidden');
+
+                // Reset form inputs
+                document.getElementById('senderPhone').value = '';
+
+                // Hide form sections
+                document.getElementById('phoneSection').classList.add('hidden');
+                document.getElementById('regularPaymentInfo').classList.remove('hidden');
+                document.getElementById('qrPaymentInfo').classList.add('hidden');
+                document.getElementById('bankPaymentInfo').classList.add('hidden');
+            }
+
+            // Show Page
+            function showPage(pageId) {
+                document.querySelectorAll('.subscription-page').forEach(page => {
+                    page.classList.remove('active');
+                });
+                document.getElementById(pageId).classList.add('active');
+                currentPage = pageId;
+
+                // Show/hide back button
+                if (pageId !== 'packageSelection') {
+                    document.querySelector('.subscription-back-btn').classList.remove('hidden');
+                } else {
+                    document.querySelector('.subscription-back-btn').classList.add('hidden');
+                }
+            }
+
+            // Go Back Function
+            function subscriptionGoBack() {
+                if (currentPage === 'paymentDetails') {
+                    showPage('paymentSelection');
+                } else if (currentPage === 'paymentSelection') {
+                    showPage('packageSelection');
+                }
+            }
+
+            // Select Package
+            function selectPackage(type, duration, price, displayName) {
+                selectedPackage = {
+                    type: type,
+                    duration: duration,
+                    price: price,
+                    displayName: displayName
+                };
+
+                // Update selected package info
+                const packageInfo = `${type === 'men' ? 'اشتراك رجال' : 'اشتراك نساء'} - ${displayName} - ${price} جنيه`;
+                document.getElementById('selectedPackageInfo').textContent = packageInfo;
+
+                // Move to payment selection
+                showPage('paymentSelection');
+            }
+
+            // Select Payment Method
+            function selectPaymentMethod(method) {
+                selectedPaymentMethod = method;
+
+                // Configure payment details based on method
+                const methodImage = document.getElementById('paymentMethodImage');
+                const methodTitle = document.getElementById('paymentMethodTitle');
+
+                switch(method) {
+                    case 'vodafone':
+                        methodImage.src = 'images/vedafone.jpg';
+                        methodTitle.textContent = 'Vodafone Cash';
+                        showRegularPayment('01065278069');
+                        break;
+                    case 'orange':
+                        methodImage.src = 'images/orange.png';
+                        methodTitle.textContent = 'Orange Cash';
+                        showRegularPayment('01065278069');
+                        break;
+                    case 'we':
+                        methodImage.src = 'images/wepay.png';
+                        methodTitle.textContent = 'WE Cash';
+                        showRegularPayment('01065278069');
+                        break;
+                    case 'bank':
+                        methodImage.src = 'images/bank.png';
+                        methodTitle.textContent = 'التحويل البنكي';
+                        showBankPayment();
+                        break;
+                    case 'instapay':
+                        methodImage.src = 'images/inistapay.png';
+                        methodTitle.textContent = 'InstaPay';
+                        showRegularPayment('01065278069');
+                        break;
+                    case 'vodafone-qr':
+                        methodImage.src = 'images/vedafone.jpg';
+                        methodTitle.textContent = 'Vodafone Cash QR';
+                        showQRPayment('images/qrfedafone.jpg');
+                        break;
+                    case 'instapay-qr':
+                        methodImage.src = 'images/inistapay.png';
+                        methodTitle.textContent = 'InstaPay QR';
+                        showQRPayment('images/qrinistapay.jpg');
+                        break;
+                }
+
+                showPage('paymentDetails');
+            }
+
+            // Show Regular Payment
+            function showRegularPayment(number) {
+                document.getElementById('regularPaymentInfo').classList.remove('hidden');
+                document.getElementById('qrPaymentInfo').classList.add('hidden');
+                document.getElementById('bankPaymentInfo').classList.add('hidden');
+                document.getElementById('phoneSection').classList.remove('hidden');
+
+                document.getElementById('walletNumber').textContent = number;
+            }
+
+            // Show Bank Payment
+            function showBankPayment() {
+                document.getElementById('regularPaymentInfo').classList.add('hidden');
+                document.getElementById('qrPaymentInfo').classList.add('hidden');
+                document.getElementById('bankPaymentInfo').classList.remove('hidden');
+                document.getElementById('phoneSection').classList.remove('hidden');
+            }
+
+            // Show QR Payment
+            function showQRPayment(qrImageSrc) {
+                document.getElementById('regularPaymentInfo').classList.add('hidden');
+                document.getElementById('qrPaymentInfo').classList.remove('hidden');
+                document.getElementById('bankPaymentInfo').classList.add('hidden');
+                document.getElementById('phoneSection').classList.add('hidden');
+
+                document.getElementById('qrImage').src = qrImageSrc;
+            }
+
+            // Show More QR Info
+            function showMoreQRInfo() {
+                document.getElementById('phoneSection').classList.remove('hidden');
+            }
+
+            // Copy Number
+            function copyNumber() {
+                const number = document.getElementById('walletNumber').textContent;
+                navigator.clipboard.writeText(number).then(() => {
+                    showAlert('تم نسخ الرقم بنجاح!', 'success');
+                });
+            }
+
+            // Copy Bank Account
+            function copyBankAccount() {
+                const account = '2130333000037498';
+                navigator.clipboard.writeText(account).then(() => {
+                    showAlert('تم نسخ رقم الحساب بنجاح!', 'success');
+                });
+            }
+
+
+            // Complete Payment
+            function completePayment() {
+                if (!selectedPackage || !selectedPaymentMethod) {
+                    showAlert('حدث خطأ. يرجى المحاولة مرة أخرى.', 'error');
+                    return;
+                }
+
+                const phone = document.getElementById('senderPhone').value;
+
+                // Validate required fields for regular payments (including bank transfers)
+                if (!selectedPaymentMethod.includes('qr')) {
+                    if (!phone) {
+                        showAlert('يرجى إدخال الحساب المحول منه', 'error');
+                        return;
+                    }
+                }
+
+                // Create WhatsApp message
+                let message = `*طلب تجديد اشتراك جديد*\n\n`;
+                message += `📋 *تفاصيل الاشتراك:*\n`;
+                message += `• النوع: ${selectedPackage.type === 'men' ? 'اشتراك رجال' : 'اشتراك نساء'}\n`;
+                message += `• المدة: ${selectedPackage.displayName}\n`;
+                message += `• السعر: ${selectedPackage.price} جنيه\n\n`;
+
+                message += `💳 *طريقة الدفع:*\n`;
+                message += `• الوسيلة: ${getPaymentMethodName(selectedPaymentMethod)}\n`;
+
+                if (phone) {
+                    message += `• الحساب المحول منه: ${phone}\n`;
+                }
+
+                message += `\n📞 *يرجى التواصل لتأكيد الاشتراك*\n`;
+                message += `🏋️‍♂️ *Popeye Gym - الجماليه*`;
+
+                // Open WhatsApp
+                const whatsappUrl = `https://wa.me/2001065278069?text=${encodeURIComponent(message)}`;
+                window.open(whatsappUrl, '_blank');
+
+                // Close modal and show success message
+                closeSubscriptionModal();
+                showAlert('تم إرسال طلب الاشتراك! سيتم التواصل معك قريباً.', 'success');
+            }
+
+            // Get Payment Method Name
+            function getPaymentMethodName(method) {
+                const methods = {
+                    'vodafone': 'Vodafone Cash',
+                    'orange': 'Orange Cash',
+                    'we': 'WE Cash',
+                    'bank': 'التحويل البنكي',
+                    'instapay': 'InstaPay',
+                    'vodafone-qr': 'Vodafone Cash QR',
+                    'instapay-qr': 'InstaPay QR'
+                };
+                return methods[method] || method;
+            }
+
+            // Share Subscription
+            function shareSubscription() {
+                if (navigator.share) {
+                    navigator.share({
+                        title: 'تجديد الاشتراك - Popeye Gym',
+                        text: 'جدد اشتراكك في Popeye Gym بسهولة وأمان!',
+                        url: window.location.href
+                    });
+                } else {
+                    // Fallback for browsers that don't support Web Share API
+                    const text = 'جدد اشتراكك في Popeye Gym بسهولة وأمان! ' + window.location.href;
+                    navigator.clipboard.writeText(text).then(() => {
+                        showAlert('تم نسخ الرابط للمشاركة!', 'success');
+                    });
+                }
+            }
+
+            // Close modal when clicking outside
+            document.addEventListener('click', function(e) {
+                const modal = document.getElementById('subscription-modal');
+                if (e.target === modal) {
+                    closeSubscriptionModal();
+                }
+            });
+
+            // Prevent modal content clicks from closing modal
+            document.querySelector('.subscription-modal-content')?.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+
+            // Show Alert Function
+            function showAlert(message, type = 'info') {
+                // Create alert element
+                const alert = document.createElement('div');
+                alert.className = `alert alert-${type}`;
+                alert.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    padding: 15px 20px;
+                    border-radius: 12px;
+                    color: white;
+                    font-weight: 600;
+                    z-index: 10000;
+                    max-width: 350px;
+                    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+                    transform: translateX(100%);
+                    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+                    font-family: 'Arial', sans-serif;
+                    border: 2px solid rgba(255, 255, 255, 0.3);
+                `;
+
+                // Set background color based on type - using site colors
+                switch(type) {
+                    case 'success':
+                        alert.style.background = 'linear-gradient(135deg, #8B0000, #A0001A)'; // Site success color
+                        alert.style.borderColor = 'rgba(255, 255, 255, 0.4)';
+                        break;
+                    case 'error':
+                        alert.style.background = 'linear-gradient(135deg, #dc3545, #c82333)'; // Site primary color
+                        alert.style.borderColor = 'rgba(255, 255, 255, 0.4)';
+                        break;
+                    case 'warning':
+                        alert.style.background = 'linear-gradient(135deg, #dc3545, #ff6b6b)'; // Gradient with site color
+                        alert.style.borderColor = 'rgba(255, 255, 255, 0.4)';
+                        alert.style.color = 'white';
+                        break;
+                    default:
+                        alert.style.background = 'linear-gradient(135deg, #2c3e50, #34495e)'; // Site secondary color
+                        alert.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+                }
+
+                alert.textContent = message;
+                document.body.appendChild(alert);
+
+                // Animate in
+                setTimeout(() => {
+                    alert.style.transform = 'translateX(0) scale(1)';
+                }, 100);
+
+                // Remove after 4 seconds
+                setTimeout(() => {
+                    alert.style.transform = 'translateX(100%) scale(0.9)';
+                    alert.style.opacity = '0';
+                    setTimeout(() => {
+                        if (document.body.contains(alert)) {
+                            document.body.removeChild(alert);
+                        }
+                    }, 400);
+                }, 4000);
+            }
         </script>
 
         <!-- Modern Validation Warning Modal -->
