@@ -4655,6 +4655,37 @@
                 box-shadow: var(--shadow);
             }
 
+            .out-of-stock-badge {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+                color: white;
+                padding: 0.8rem 1.5rem;
+                border-radius: 50px;
+                font-weight: 700;
+                font-size: 1rem;
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+                z-index: 15;
+                text-align: center;
+                white-space: nowrap;
+                border: 3px solid rgba(255, 255, 255, 0.3);
+                backdrop-filter: blur(5px);
+            }
+
+            .product-card.out-of-stock {
+                opacity: 0.85;
+            }
+
+            .product-card.out-of-stock .product-image {
+                filter: grayscale(40%);
+            }
+
+            .product-card.out-of-stock:hover .product-image {
+                filter: grayscale(20%);
+            }
+
             .favorite-btn {
                 position: absolute;
                 top: 1rem;
@@ -6337,7 +6368,7 @@
                         'مختبر علمياً ومضمون الجودة'
                     ],
                     image: 'images/criatine2.jpg',
-                    inStock: true,
+                    inStock: false,
                     shipping: {
                         available: true,
                         cost: 30,
@@ -6419,7 +6450,7 @@
                         'جودة عالية مضمونة'
                     ],
                     image: 'images/crazypump.jpg',
-                    inStock: true,
+                    inStock: false,
                     shipping: {
                         available: true,
                         cost: 20,
@@ -6710,15 +6741,13 @@
                 }
 
                 grid.innerHTML = filteredProducts.map(product => `
-                    <div class="product-card" onclick="openModal('${product.id}')">
+                    <div class="product-card ${!product.inStock ? 'out-of-stock' : ''}" onclick="openModal('${product.id}')">
                         <div class="product-image">
                             ${product.image ? 
                                 `<img src="${product.image}" alt="${product.name}" style="width: 100%; height: 100%; object-fit: contain; object-position: center;">` : 
                                 `<i class="${getProductIcon(product.category)} product-placeholder"></i>`
                             }
-                            <div class="discount-badge">
-                                -${product.discount}%
-                            </div>
+                            ${product.inStock ? `<div class="discount-badge">-${product.discount}%</div>` : `<div class="out-of-stock-badge"><i class="fas fa-times-circle" style="margin-left: 0.5rem;"></i>غير متوفر حالياً</div>`}
                             <button class="favorite-btn ${favorites.includes(product.id) ? 'favorited' : ''}" onclick="event.stopPropagation(); toggleFavorite('${product.id}')" aria-label="إضافة للمفضلة">
                                 <i class="fas fa-heart"></i>
                             </button>
