@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rain Effect - تأثير المطر</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .rain-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            overflow: hidden;
+        }
+
+        #rainCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .lightning {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0);
+            pointer-events: none;
+            z-index: 9998;
+            transition: background 0.1s ease;
+        }
+
+        .lightning.flash {
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .splash-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            pointer-events: none;
+            z-index: 9997;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <div class="rain-container">
+        <canvas id="rainCanvas"></canvas>
+    </div>
+    <div class="lightning" id="lightning"></div>
+    <div class="splash-container" id="splashContainer"></div>
+
+    <script>
+        (function() {
+            const canvas = document.getElementById('rainCanvas');
+            const ctx = canvas.getContext('2d');
+            const lightning = document.getElementById('lightning');
+
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+
+            const raindrops = [];
+            const splashes = [];
+            const numberOfRaindrops = 400;
+            const windStrength = 2;
+
+            class Raindrop {
+                constructor() {
+                    this.reset();
+                }
+
+                reset() {
+                    this.x = Math.random() * (canvas.width + 200) - 100;
+                    this.y = Math.random() * -canvas.height - 50;
+                    this.length = Math.random() * 25 + 15;
+                    this.speed = Math.random() * 15 + 20;
+                    this.thickness = Math.random() * 2.5 + 0.8;
+                    this.opacity = Math.random() * 0.4 + 0.3;
+                    this.wind = windStrength + Math.random() * 1.5;
+                }
+
+                update() {
+                    this.y += this.speed;
+                    this.x += this.wind;
+
+                    if (this.y > canvas.height) {
+                        if (Math.random() > 0.6) {
+                            splashes.push(new Splash(this.x, canvas.height));
+                        }
+                        this.reset();
+                    }
+
+                    if (this.x > canvas.width + 100) {
+                        this.x = -50;
+                    }
+                }
+
+                draw() {
+                    ctx.beginPath();
+                    ctx.moveTo(this.x, this.y);
+                    ctx.lineTo(this.x + this.wind * 2, this.y + this.length);
+
+                    const gradient = ctx.createLinearGradient(
+                        this.x, this.y,
+                        this.x + this.wind * 2, this.y + this.length
+                    );
+                    gradient.addColorStop(0, `rgba(174, 194, 224, 0)`);
+                    gradient.addColorStop(0.3, `rgba(174, 194, 224, ${this.opacity * 0.5})`);
+                    gradient.addColorStop(0.7, `rgba(200, 220, 255, ${this.opacity})`);
+                    gradient.addColorStop(1, `rgba(220, 235, 255, ${this.opacity * 0.8})`);
+
+                    ctx.strokeStyle = gradient;
+                    ctx.lineWidth = this.thickness;
+                    ctx.lineCap = 'round';
+                    ctx.stroke();
+                }
+            }
+
+            class Splash {
+                constructor(x, y) {
+                    this.x = x;
+                    this.y = y;
+                    this.particles = [];
+                    this.life = 1;
+                    this.decay = 0.03;
+
+                    const numParticles = Math.floor(Math.random() * 5) + 3;
+                    for (let i = 0; i < numParticles; i++) {
+                        this.particles.push({
+                            x: 0,
+                            y: 0,
+                            vx: (Math.random() - 0.5) * 6,
+                            vy: -Math.random() * 5 - 2,
+                            size: Math.random() * 3 + 1
+                        });
+                    }
+                }
+
+                update() {
+                    this.life -= this.decay;
+                    this.particles.forEach(p => {
+                        p.x += p.vx;
+                        p.y += p.vy;
+                        p.vy += 0.3;
+                    });
+                }
+
+                draw() {
+                    if (this.life <= 0) return;
+
+                    ctx.save();
+                    ctx.translate(this.x, this.y);
+
+                    this.particles.forEach(p => {
+                        ctx.beginPath();
+                        ctx.arc(p.x, p.y, p.size * this.life, 0, Math.PI * 2);
+                        ctx.fillStyle = `rgba(200, 220, 255, ${this.life * 0.6})`;
+                        ctx.fill();
+                    });
+
+                    ctx.restore();
+                }
+
+                isDead() {
+                    return this.life <= 0;
+                }
+            }
+
+            class HeavyRaindrop {
+                constructor() {
+                    this.reset();
+                }
+
+                reset() {
+                    this.x = Math.random() * (canvas.width + 300) - 150;
+                    this.y = Math.random() * -200 - 100;
+                    this.length = Math.random() * 40 + 30;
+                    this.speed = Math.random() * 25 + 30;
+                    this.thickness = Math.random() * 3 + 2;
+                    this.opacity = Math.random() * 0.3 + 0.2;
+                    this.wind = windStrength * 1.5 + Math.random() * 2;
+                }
+
+                update() {
+                    this.y += this.speed;
+                    this.x += this.wind;
+
+                    if (this.y > canvas.height) {
+                        for (let i = 0; i < 2; i++) {
+                            splashes.push(new Splash(this.x, canvas.height));
+                        }
+                        this.reset();
+                    }
+
+                    if (this.x > canvas.width + 150) {
+                        this.x = -100;
+                    }
+                }
+
+                draw() {
+                    ctx.beginPath();
+                    ctx.moveTo(this.x, this.y);
+                    ctx.lineTo(this.x + this.wind * 3, this.y + this.length);
+
+                    const gradient = ctx.createLinearGradient(
+                        this.x, this.y,
+                        this.x + this.wind * 3, this.y + this.length
+                    );
+                    gradient.addColorStop(0, `rgba(150, 180, 220, 0)`);
+                    gradient.addColorStop(0.2, `rgba(150, 180, 220, ${this.opacity * 0.4})`);
+                    gradient.addColorStop(0.6, `rgba(180, 200, 235, ${this.opacity})`);
+                    gradient.addColorStop(1, `rgba(200, 220, 255, ${this.opacity * 0.7})`);
+
+                    ctx.strokeStyle = gradient;
+                    ctx.lineWidth = this.thickness;
+                    ctx.lineCap = 'round';
+                    ctx.stroke();
+                }
+            }
+
+            for (let i = 0; i < numberOfRaindrops; i++) {
+                raindrops.push(new Raindrop());
+            }
+
+            for (let i = 0; i < 50; i++) {
+                raindrops.push(new HeavyRaindrop());
+            }
+
+            function triggerLightning() {
+                if (Math.random() > 0.997) {
+                    lightning.classList.add('flash');
+                    setTimeout(() => {
+                        lightning.classList.remove('flash');
+                    }, 100);
+
+                    if (Math.random() > 0.5) {
+                        setTimeout(() => {
+                            lightning.classList.add('flash');
+                            setTimeout(() => {
+                                lightning.classList.remove('flash');
+                            }, 50);
+                        }, 150);
+                    }
+                }
+            }
+
+            function drawMist() {
+                const mistGradient = ctx.createLinearGradient(0, canvas.height - 150, 0, canvas.height);
+                mistGradient.addColorStop(0, 'rgba(180, 200, 220, 0)');
+                mistGradient.addColorStop(0.5, 'rgba(180, 200, 220, 0.05)');
+                mistGradient.addColorStop(1, 'rgba(180, 200, 220, 0.1)');
+
+                ctx.fillStyle = mistGradient;
+                ctx.fillRect(0, canvas.height - 150, canvas.width, 150);
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                drawMist();
+
+                raindrops.forEach(drop => {
+                    drop.update();
+                    drop.draw();
+                });
+
+                for (let i = splashes.length - 1; i >= 0; i--) {
+                    splashes[i].update();
+                    splashes[i].draw();
+                    if (splashes[i].isDead()) {
+                        splashes.splice(i, 1);
+                    }
+                }
+
+                triggerLightning();
+
+                requestAnimationFrame(animate);
+            }
+
+            animate();
+
+            let mouseX = 0;
+            document.addEventListener('mousemove', (e) => {
+                mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+            });
+
+            setInterval(() => {
+                raindrops.forEach(drop => {
+                    drop.wind = windStrength + mouseX * 3;
+                });
+            }, 50);
+
+            console.log('🌧️ تأثير المطر الغزير تم تفعيله بنجاح!');
+        })();
+    </script>
+</body>
+</html>

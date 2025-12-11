@@ -5941,10 +5941,6 @@
                                 <i class="fas fa-money-bill-wave"></i>
                                 <span>أسعار الاشتراكات</span>
                             </div>
-                            <div class="nav-dropdown-item subscription-payment-menu" onclick="openSubscriptionModal(); event.stopPropagation();">
-                                <i class="fas fa-credit-card"></i>
-                                <span>تجديد ودفع الاشتراك</span>
-                            </div>
                         </div>
                     </div>
 
@@ -6143,24 +6139,6 @@
                         </div>
                     </div>
 
-                    <!-- Subscription Renewal Button - Premium -->
-                    <div class="subscription-renewal-section-modal">
-                        <button class="subscription-renewal-btn-modal" onclick="openSubscriptionModal()">
-                            <div class="renewal-btn-content-modal">
-                                <div class="renewal-icon-modal">
-                                    <i class="fas fa-credit-card"></i>
-                                </div>
-                                <div class="renewal-text-modal">
-                                    <span class="renewal-title-modal">تجديد ودفع الاشتراك</span>
-                                    <span class="renewal-subtitle-modal">ادفع اشتراكك بسهولة وأمان</span>
-                                </div>
-                                <div class="renewal-arrow-modal">
-                                    <i class="fas fa-arrow-left"></i>
-                                </div>
-                            </div>
-                        </button>
-                    </div>
-
                     <!-- Training Schedule -->
                     <div class="popeye-schedule-section">
                         <div class="section-header">
@@ -6239,24 +6217,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- Subscription Renewal Button -->
-                    <div class="subscription-renewal-section">
-                        <button class="subscription-renewal-btn" onclick="openSubscriptionModal()">
-                            <div class="renewal-btn-content">
-                                <div class="renewal-icon">
-                                    <i class="fas fa-credit-card"></i>
-                                </div>
-                                <div class="renewal-text">
-                                    <span class="renewal-title">تجديد ودفع الاشتراك</span>
-                                    <span class="renewal-subtitle">ادفع اشتراكك بسهولة وأمان</span>
-                                </div>
-                                <div class="renewal-arrow">
-                                    <i class="fas fa-arrow-left"></i>
-                                </div>
-                            </div>
-                        </button>
                     </div>
 
                     <!-- Contact Section -->
@@ -15379,222 +15339,6 @@
 
         </script>
 
-        <!-- Subscription Payment Modal -->
-        <div id="subscription-modal" class="subscription-modal-overlay hidden">
-            <div class="subscription-modal-content">
-                <!-- Modal Header -->
-                <div class="subscription-modal-header">
-                    <button class="subscription-back-btn hidden" onclick="subscriptionGoBack()">
-                        <i class="fas fa-arrow-right"></i>
-                    </button>
-                    <h2 class="subscription-modal-title">تجديد ودفع الاشتراك</h2>
-                    <button class="subscription-share-btn" onclick="shareSubscription()">
-                        <i class="fas fa-share-alt"></i>
-                    </button>
-                </div>
-
-                <!-- Page 1: Package Selection -->
-                <div class="subscription-page active" id="packageSelection">
-                    <div class="package-header">
-                        <h3>اختر باقة الاشتراك</h3>
-                        <p>اختر الباقة التي تناسب احتياجاتك</p>
-                    </div>
-
-                    <div class="packages-grid">
-                        <!-- Men's Packages -->
-                        <div class="package-card men-package">
-                            <div class="package-header-card">
-                                <i class="fas fa-mars"></i>
-                                <h4>اشتراك الرجال</h4>
-                            </div>
-                            <div class="package-options">
-                                <div class="package-option" onclick="selectPackage('men', 'daily', '30', 'يومي')">
-                                    <span class="option-duration">يومي</span>
-                                    <span class="option-price">30 جنيه</span>
-                                </div>
-                                <div class="package-option" onclick="selectPackage('men', 'monthly', '350', 'شهر')">
-                                    <span class="option-duration">شهر</span>
-                                    <span class="option-price">350 جنيه</span>
-                                </div>
-                                <div class="package-option" onclick="selectPackage('men', 'twomonths', '650', 'شهرين')">
-                                    <span class="option-duration">شهرين</span>
-                                    <span class="option-price">650 جنيه</span>
-                                </div>
-                                <div class="package-option" onclick="selectPackage('men', 'threemonths', '950', '3 شهور')">
-                                    <span class="option-duration">3 شهور</span>
-                                    <span class="option-price">950 جنيه</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Women's Packages -->
-                        <div class="package-card women-package">
-                            <div class="package-header-card">
-                                <i class="fas fa-venus"></i>
-                                <h4>اشتراك النساء</h4>
-                            </div>
-                            <div class="package-options">
-                                <div class="package-option" onclick="selectPackage('women', 'daily', '30', 'يومي')">
-                                    <span class="option-duration">يومي</span>
-                                    <span class="option-price">30 جنيه</span>
-                                </div>
-                                <div class="package-option" onclick="selectPackage('women', 'monthly', '250', 'شهر (3 أيام/أسبوع)')">
-                                    <span class="option-duration">شهر</span>
-                                    <span class="option-price">250 جنيه</span>
-                                    <span class="option-note">3 أيام في الأسبوع</span>
-                                </div>
-                                <div class="package-option" onclick="selectPackage('women', 'twomonths', '450', 'شهرين (3 أيام/أسبوع)')">
-                                    <span class="option-duration">شهرين</span>
-                                    <span class="option-price">450 جنيه</span>
-                                    <span class="option-note">3 أيام في الأسبوع</span>
-                                </div>
-                                <div class="package-option" onclick="selectPackage('women', 'monthly-6days', '350', 'شهر (6 أيام/أسبوع)')">
-                                    <span class="option-duration">شهر</span>
-                                    <span class="option-price">350 جنيه</span>
-                                    <span class="option-note">6 أيام في الأسبوع</span>
-                                </div>
-                                <div class="package-option" onclick="selectPackage('women', 'twomonths-6days', '650', 'شهرين (6 أيام/أسبوع)')">
-                                    <span class="option-duration">شهرين</span>
-                                    <span class="option-price">650 جنيه</span>
-                                    <span class="option-note">6 أيام في الأسبوع</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Page 2: Payment Method Selection -->
-                <div class="subscription-page" id="paymentSelection">
-                    <div class="payment-header">
-                        <h3>اختر وسيلة الدفع</h3>
-                        <div class="selected-package-info">
-                            <span id="selectedPackageInfo"></span>
-                        </div>
-                    </div>
-
-                    <!-- Regular Payment Methods -->
-                    <div class="payment-section">
-                        <h4><i class="fas fa-money-bill-wave"></i> الدفع العادي</h4>
-                        <div class="payment-methods-grid">
-                            <div class="payment-method" onclick="selectPaymentMethod('vodafone')">
-                                <img src="images/vedafone.jpg" alt="Vodafone Cash">
-                                <span>Vodafone Cash</span>
-                            </div>
-                            <div class="payment-method" onclick="selectPaymentMethod('orange')">
-                                <img src="images/orange.png" alt="Orange Cash">
-                                <span>Orange Cash</span>
-                            </div>
-                            <div class="payment-method" onclick="selectPaymentMethod('we')">
-                                <img src="images/wepay.png" alt="WE Cash">
-                                <span>WE Cash</span>
-                            </div>
-                            <div class="payment-method" onclick="selectPaymentMethod('bank')">
-                                <img src="images/bank.png" alt="Bank Transfer">
-                                <span>التحويل البنكي</span>
-                            </div>
-                            <div class="payment-method" onclick="selectPaymentMethod('instapay')">
-                                <img src="images/inistapay.png" alt="InstaPay">
-                                <span>InstaPay</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- QR Payment Methods -->
-                    <div class="payment-section">
-                        <h4><i class="fas fa-qrcode"></i> الدفع عن طريق QR</h4>
-                        <div class="payment-methods-grid">
-                            <div class="payment-method" onclick="selectPaymentMethod('vodafone-qr')">
-                                <img src="images/vedafone.jpg" alt="Vodafone QR">
-                                <span>Vodafone Cash QR</span>
-                            </div>
-                            <div class="payment-method" onclick="selectPaymentMethod('instapay-qr')">
-                                <img src="images/inistapay.png" alt="InstaPay QR">
-                                <span>InstaPay QR</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Page 3: Payment Details -->
-                <div class="subscription-page" id="paymentDetails">
-                    <div class="payment-details-header">
-                        <div class="payment-method-header">
-                            <img id="paymentMethodImage" src="" alt="">
-                            <h3 id="paymentMethodTitle"></h3>
-                        </div>
-                    </div>
-
-                    <div class="payment-info-section">
-                        <!-- Regular Payment Info -->
-                        <div id="regularPaymentInfo" class="payment-info">
-                            <div class="number-display">
-                                <label>رقم المحفظة:</label>
-                                <div class="number-container">
-                                    <span id="walletNumber">01065278069</span>
-                                    <button class="copy-btn" onclick="copyNumber()">
-                                        <i class="fas fa-copy"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Bank Transfer Payment Info -->
-                        <div id="bankPaymentInfo" class="payment-info hidden">
-                            <div class="bank-details" id="bankDetails">
-                                <div class="bank-info">
-                                    <label>رقم الحساب:</label>
-                                    <div class="number-container">
-                                        <span>2130333000037498</span>
-                                        <button class="copy-btn" onclick="copyBankAccount()">
-                                            <i class="fas fa-copy"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="bank-info">
-                                    <label>اسم الحساب:</label>
-                                    <span>خالد محمد أحمد أحمد</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- QR Payment Info -->
-                        <div id="qrPaymentInfo" class="payment-info hidden">
-                            <div class="qr-display">
-                                <img id="qrImage" src="" alt="QR Code">
-                            </div>
-                            <button class="show-more-btn" onclick="showMoreQRInfo()">
-                                <i class="fas fa-chevron-down"></i>
-                                طلب باقي المعلومات
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Phone Number Input -->
-                    <div class="form-section hidden" id="phoneSection">
-                        <label for="senderPhone">الحساب المحول منه:</label>
-                        <input type="tel" id="senderPhone" placeholder="01xxxxxxxxx">
-                    </div>
-
-
-                    <!-- Description -->
-                    <div class="description-section">
-                        <p><i class="fas fa-info-circle"></i> سيتم مراجعة البيانات على واتساب وتسجيل اشتراكك.</p>
-                    </div>
-
-                    <!-- Complete Payment Button -->
-                    <button class="complete-payment-btn" onclick="completePayment()">
-                        <i class="fab fa-whatsapp"></i>
-                        إتمام الاشتراك
-                    </button>
-                </div>
-
-                <!-- Close Button -->
-                <button class="subscription-close-btn" onclick="closeSubscriptionModal()">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-        </div>
-
         <style>
             /* Subscription Renewal Button Styles */
             .subscription-renewal-section {
@@ -16735,153 +16479,40 @@
             </div>
         </div>
 
-        <!-- Professional Winter Snow Effect - Custom Pure JavaScript -->
-        <canvas id="snowCanvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999;"></canvas>
-        
-        <script>
-            // ❄️ Professional Winter Snow Effect - Pure JavaScript
-            // تأثير الثلج الشتوي الاحترافي - جافاسكريبت نقي
-            (function() {
-                const canvas = document.getElementById('snowCanvas');
-                const ctx = canvas.getContext('2d');
-                
-                // تحديد حجم الكانفاس
-                function resizeCanvas() {
-                    canvas.width = window.innerWidth;
-                    canvas.height = window.innerHeight;
-                }
-                resizeCanvas();
-                window.addEventListener('resize', resizeCanvas);
-                
-                // إعدادات رقاقات الثلج
-                const snowflakes = [];
-                const numberOfSnowflakes = 100; // عدد رقاقات الثلج
-                
-                // فئة رقاقة الثلج
-                class Snowflake {
-                    constructor() {
-                        this.reset();
-                    }
-                    
-                    reset() {
-                        this.x = Math.random() * canvas.width;
-                        this.y = Math.random() * -canvas.height;
-                        this.size = Math.random() * 4 + 2; // حجم من 2 إلى 6
-                        this.speed = Math.random() * 1 + 0.5; // سرعة من 0.5 إلى 1.5
-                        this.opacity = Math.random() * 0.6 + 0.3; // شفافية من 0.3 إلى 0.9
-                        this.drift = Math.random() * 0.5 - 0.25; // انحراف جانبي
-                        this.swingSpeed = Math.random() * 0.02 + 0.01; // سرعة التأرجح
-                        this.swingDistance = Math.random() * 50 + 20; // مسافة التأرجح
-                        this.swingOffset = Math.random() * Math.PI * 2; // بداية التأرجح
-                    }
-                    
-                    update() {
-                        // تحريك الثلج للأسفل
-                        this.y += this.speed;
-                        
-                        // تأثير التأرجح (يعطي حركة طبيعية)
-                        this.swingOffset += this.swingSpeed;
-                        this.x += Math.sin(this.swingOffset) * 0.5 + this.drift;
-                        
-                        // إعادة تعيين الموضع عند الوصول للأسفل
-                        if (this.y > canvas.height) {
-                            this.reset();
-                            this.y = -10;
-                        }
-                        
-                        // إعادة تعيين عند الخروج من الجوانب
-                        if (this.x > canvas.width + 50) {
-                            this.x = -50;
-                        } else if (this.x < -50) {
-                            this.x = canvas.width + 50;
-                        }
-                    }
-                    
-                    draw() {
-                        ctx.beginPath();
-                        
-                        // رسم رقاقة ثلج متقدمة (شكل نجمة)
-                        const spikes = 6;
-                        const outerRadius = this.size;
-                        const innerRadius = this.size / 2;
-                        
-                        ctx.save();
-                        ctx.translate(this.x, this.y);
-                        ctx.rotate(this.swingOffset);
-                        
-                        // رسم نجمة سداسية (رقاقة ثلج)
-                        for (let i = 0; i < spikes * 2; i++) {
-                            const radius = i % 2 === 0 ? outerRadius : innerRadius;
-                            const angle = (Math.PI / spikes) * i;
-                            const x = Math.cos(angle) * radius;
-                            const y = Math.sin(angle) * radius;
-                            
-                            if (i === 0) {
-                                ctx.moveTo(x, y);
-                            } else {
-                                ctx.lineTo(x, y);
-                            }
-                        }
-                        
-                        ctx.closePath();
-                        ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
-                        ctx.fill();
-                        
-                        // إضافة توهج خفيف
-                        ctx.shadowBlur = 8;
-                        ctx.shadowColor = `rgba(255, 255, 255, ${this.opacity * 0.5})`;
-                        ctx.fill();
-                        
-                        ctx.restore();
-                    }
-                }
-                
-                // إنشاء رقاقات الثلج
-                for (let i = 0; i < numberOfSnowflakes; i++) {
-                    snowflakes.push(new Snowflake());
-                }
-                
-                // دالة الرسم الرئيسية
-                function animate() {
-                    // مسح الكانفاس
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
-                    
-                    // تحديث ورسم كل رقاقة ثلج
-                    snowflakes.forEach(snowflake => {
-                        snowflake.update();
-                        snowflake.draw();
-                    });
-                    
-                    // طلب الإطار التالي
-                    requestAnimationFrame(animate);
-                }
-                
-                // بدء الرسوم المتحركة
-                animate();
-                
-                // تأثير إضافي: زيادة الانحراف عند تحريك الفأرة
-                let mouseX = 0;
-                let targetMouseX = 0;
-                
-                document.addEventListener('mousemove', (e) => {
-                    targetMouseX = (e.clientX / window.innerWidth - 0.5) * 0.3;
-                });
-                
-                // تحديث سلس لتأثير الفأرة
-                setInterval(() => {
-                    mouseX += (targetMouseX - mouseX) * 0.1;
-                    snowflakes.forEach(snowflake => {
-                        snowflake.drift = mouseX;
-                    });
-                }, 50);
-                
-                console.log('❄️ تأثير الثلج الشتوي الاحترافي تم تفعيله بنجاح!');
-            })();
-        </script>
+        <!-- Professional Heavy Rain Effect - تأثير المطر الغزير -->
+        <div class="rain-container">
+            <canvas id="rainCanvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999;"></canvas>
+        </div>
+        <div class="lightning" id="lightning"></div>
 
         <style>
-            /* تحسينات المظهر الشتوي */
-            /* Winter theme enhancement */
+            .rain-container {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                pointer-events: none;
+                z-index: 9999;
+                overflow: hidden;
+            }
+
+            .lightning {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(255, 255, 255, 0);
+                pointer-events: none;
+                z-index: 9998;
+                transition: background 0.1s ease;
+            }
+
+            .lightning.flash {
+                background: rgba(255, 255, 255, 0.7);
+            }
+
             body::before {
                 content: '';
                 position: fixed;
@@ -16890,45 +16521,270 @@
                 right: 0;
                 bottom: 0;
                 background: linear-gradient(180deg, 
-                    rgba(173, 216, 230, 0.03) 0%, 
-                    rgba(240, 248, 255, 0.02) 50%,
-                    rgba(173, 216, 230, 0.03) 100%);
+                    rgba(50, 70, 100, 0.08) 0%, 
+                    rgba(70, 90, 120, 0.05) 50%,
+                    rgba(50, 70, 100, 0.08) 100%);
                 pointer-events: none;
                 z-index: 0;
-                animation: winterGlow 12s ease-in-out infinite;
+                animation: stormGlow 8s ease-in-out infinite;
             }
             
-            @keyframes winterGlow {
+            @keyframes stormGlow {
                 0%, 100% { 
-                    opacity: 0.4;
-                    filter: blur(0px);
+                    opacity: 0.5;
                 }
                 50% { 
-                    opacity: 0.6;
-                    filter: blur(1px);
+                    opacity: 0.8;
                 }
             }
-            
-            /* تأثير ضباب خفيف في الأعلى */
-            html::after {
-                content: '';
-                position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
-                height: 200px;
-                background: linear-gradient(to bottom, 
-                    rgba(255, 255, 255, 0.1) 0%,
-                    rgba(255, 255, 255, 0) 100%);
-                pointer-events: none;
-                z-index: 1;
-                animation: mistMove 8s ease-in-out infinite;
-            }
-            
-            @keyframes mistMove {
-                0%, 100% { opacity: 0.3; }
-                50% { opacity: 0.5; }
-            }
         </style>
+        
+        <script>
+            (function() {
+                const canvas = document.getElementById('rainCanvas');
+                const ctx = canvas.getContext('2d');
+                const lightning = document.getElementById('lightning');
+
+                function resizeCanvas() {
+                    canvas.width = window.innerWidth;
+                    canvas.height = window.innerHeight;
+                }
+                resizeCanvas();
+                window.addEventListener('resize', resizeCanvas);
+
+                const raindrops = [];
+                const splashes = [];
+                const numberOfRaindrops = 120;
+                const windStrength = 1.5;
+
+                class Raindrop {
+                    constructor() {
+                        this.reset();
+                    }
+
+                    reset() {
+                        this.x = Math.random() * (canvas.width + 200) - 100;
+                        this.y = Math.random() * -canvas.height - 50;
+                        this.length = Math.random() * 20 + 15;
+                        this.speed = Math.random() * 12 + 15;
+                        this.thickness = Math.random() * 1.5 + 0.5;
+                        this.opacity = Math.random() * 0.35 + 0.15;
+                        this.wind = windStrength + Math.random() * 1;
+                    }
+
+                    update() {
+                        this.y += this.speed;
+                        this.x += this.wind;
+
+                        if (this.y > canvas.height) {
+                            if (Math.random() > 0.85) {
+                                splashes.push(new Splash(this.x, canvas.height));
+                            }
+                            this.reset();
+                        }
+
+                        if (this.x > canvas.width + 150) {
+                            this.x = -100;
+                        }
+                    }
+
+                    draw() {
+                        ctx.beginPath();
+                        ctx.moveTo(this.x, this.y);
+                        ctx.lineTo(this.x + this.wind * 2.5, this.y + this.length);
+                        
+                        const gradient = ctx.createLinearGradient(
+                            this.x, this.y,
+                            this.x + this.wind * 2.5, this.y + this.length
+                        );
+                        gradient.addColorStop(0, `rgba(174, 194, 224, 0)`);
+                        gradient.addColorStop(0.2, `rgba(174, 194, 224, ${this.opacity * 0.4})`);
+                        gradient.addColorStop(0.6, `rgba(200, 220, 255, ${this.opacity})`);
+                        gradient.addColorStop(1, `rgba(230, 240, 255, ${this.opacity * 0.9})`);
+
+                        ctx.strokeStyle = gradient;
+                        ctx.lineWidth = this.thickness;
+                        ctx.lineCap = 'round';
+                        ctx.stroke();
+                    }
+                }
+
+                class Splash {
+                    constructor(x, y) {
+                        this.x = x;
+                        this.y = y;
+                        this.particles = [];
+                        this.life = 1;
+                        this.decay = 0.04;
+
+                        const numParticles = Math.floor(Math.random() * 6) + 4;
+                        for (let i = 0; i < numParticles; i++) {
+                            this.particles.push({
+                                x: 0,
+                                y: 0,
+                                vx: (Math.random() - 0.3) * 8,
+                                vy: -Math.random() * 6 - 3,
+                                size: Math.random() * 3.5 + 1.5
+                            });
+                        }
+                    }
+
+                    update() {
+                        this.life -= this.decay;
+                        this.particles.forEach(p => {
+                            p.x += p.vx;
+                            p.y += p.vy;
+                            p.vy += 0.4;
+                        });
+                    }
+
+                    draw() {
+                        if (this.life <= 0) return;
+
+                        ctx.save();
+                        ctx.translate(this.x, this.y);
+
+                        this.particles.forEach(p => {
+                            ctx.beginPath();
+                            ctx.arc(p.x, p.y, p.size * this.life, 0, Math.PI * 2);
+                            ctx.fillStyle = `rgba(200, 220, 255, ${this.life * 0.7})`;
+                            ctx.fill();
+                        });
+
+                        ctx.restore();
+                    }
+
+                    isDead() {
+                        return this.life <= 0;
+                    }
+                }
+
+                class HeavyRaindrop {
+                    constructor() {
+                        this.reset();
+                    }
+
+                    reset() {
+                        this.x = Math.random() * (canvas.width + 200) - 100;
+                        this.y = Math.random() * -200 - 100;
+                        this.length = Math.random() * 25 + 20;
+                        this.speed = Math.random() * 18 + 22;
+                        this.thickness = Math.random() * 2 + 1;
+                        this.opacity = Math.random() * 0.3 + 0.15;
+                        this.wind = windStrength * 1.3 + Math.random() * 1.5;
+                    }
+
+                    update() {
+                        this.y += this.speed;
+                        this.x += this.wind;
+
+                        if (this.y > canvas.height) {
+                            if (Math.random() > 0.7) {
+                                splashes.push(new Splash(this.x, canvas.height));
+                            }
+                            this.reset();
+                        }
+
+                        if (this.x > canvas.width + 100) {
+                            this.x = -80;
+                        }
+                    }
+
+                    draw() {
+                        ctx.beginPath();
+                        ctx.moveTo(this.x, this.y);
+                        ctx.lineTo(this.x + this.wind * 2, this.y + this.length);
+
+                        const gradient = ctx.createLinearGradient(
+                            this.x, this.y,
+                            this.x + this.wind * 2, this.y + this.length
+                        );
+                        gradient.addColorStop(0, `rgba(150, 180, 220, 0)`);
+                        gradient.addColorStop(0.2, `rgba(150, 180, 220, ${this.opacity * 0.4})`);
+                        gradient.addColorStop(0.6, `rgba(180, 205, 240, ${this.opacity})`);
+                        gradient.addColorStop(1, `rgba(200, 220, 250, ${this.opacity * 0.7})`);
+
+                        ctx.strokeStyle = gradient;
+                        ctx.lineWidth = this.thickness;
+                        ctx.lineCap = 'round';
+                        ctx.stroke();
+                    }
+                }
+
+                for (let i = 0; i < numberOfRaindrops; i++) {
+                    raindrops.push(new Raindrop());
+                }
+
+                for (let i = 0; i < 25; i++) {
+                    raindrops.push(new HeavyRaindrop());
+                }
+
+                function triggerLightning() {
+                    if (Math.random() > 0.9992) {
+                        lightning.classList.add('flash');
+                        setTimeout(() => {
+                            lightning.classList.remove('flash');
+                        }, 60);
+
+                        if (Math.random() > 0.7) {
+                            setTimeout(() => {
+                                lightning.classList.add('flash');
+                                setTimeout(() => {
+                                    lightning.classList.remove('flash');
+                                }, 30);
+                            }, 100);
+                        }
+                    }
+                }
+
+                function drawMist() {
+                    const mistGradient = ctx.createLinearGradient(0, canvas.height - 200, 0, canvas.height);
+                    mistGradient.addColorStop(0, 'rgba(160, 180, 210, 0)');
+                    mistGradient.addColorStop(0.4, 'rgba(160, 180, 210, 0.04)');
+                    mistGradient.addColorStop(1, 'rgba(160, 180, 210, 0.12)');
+                    
+                    ctx.fillStyle = mistGradient;
+                    ctx.fillRect(0, canvas.height - 200, canvas.width, 200);
+                }
+
+                function animate() {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                    drawMist();
+
+                    raindrops.forEach(drop => {
+                        drop.update();
+                        drop.draw();
+                    });
+
+                    for (let i = splashes.length - 1; i >= 0; i--) {
+                        splashes[i].update();
+                        splashes[i].draw();
+                        if (splashes[i].isDead()) {
+                            splashes.splice(i, 1);
+                        }
+                    }
+
+                    triggerLightning();
+
+                    requestAnimationFrame(animate);
+                }
+
+                animate();
+
+                let mouseX = 0;
+                document.addEventListener('mousemove', (e) => {
+                    mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+                });
+
+                setInterval(() => {
+                    raindrops.forEach(drop => {
+                        drop.wind = windStrength + mouseX * 4;
+                    });
+                }, 50);
+
+                console.log('🌧️ تأثير المطر الغزير تم تفعيله بنجاح!');
+            })();
+        </script>
     </body>
     </html>
