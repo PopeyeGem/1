@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Popeye Gym - دفع وتجديد الاشتراك</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --primary-red: #DC143C;
+            --dark-red: #B01030;
+            --accent-red: #FF1744;
+            --dark-bg: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-dark: #2c3e50;
+            --text-gray: #6c757d;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            background: var(--dark-bg);
+            color: var(--text-dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .bg-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(ellipse at top right, rgba(220, 20, 60, 0.05) 0%, transparent 50%),
+                radial-gradient(ellipse at bottom left, rgba(220, 20, 60, 0.03) 0%, transparent 50%);
+            z-index: -1;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            border: 1px solid rgba(220, 20, 60, 0.1);
+            margin-top: 20px;
+            position: relative;
+        }
+
+        .home-link {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: var(--primary-red);
+            text-decoration: none;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.9rem;
+            background: rgba(220, 20, 60, 0.05);
+            padding: 8px 15px;
+            border-radius: 50px;
+            transition: var(--transition);
+        }
+
+        .home-link:hover {
+            background: var(--primary-red);
+            color: white;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            margin-top: 20px;
+        }
+
+        .logo {
+            width: 120px;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 0 5px rgba(220, 20, 60, 0.2));
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--primary-red);
+            margin-bottom: 10px;
+        }
+
+        .step-container {
+            display: none;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .step-container.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .btn-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .choice-btn {
+            background: #fdfdfd;
+            border: 2px solid #eee;
+            padding: 20px;
+            border-radius: 20px;
+            color: var(--text-dark);
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .choice-btn:hover, .choice-btn.active {
+            border-color: var(--primary-red);
+            background: rgba(220, 20, 60, 0.05);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(220, 20, 60, 0.1);
+        }
+
+        .choice-btn i {
+            display: block;
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: var(--primary-red);
+        }
+
+        .package-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .package-card {
+            background: #f9f9f9;
+            border: 2px solid #eee;
+            padding: 15px;
+            border-radius: 15px;
+            cursor: pointer;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .package-card:hover, .package-card.active {
+            border-color: var(--primary-red);
+            background: rgba(220, 20, 60, 0.05);
+        }
+
+        .package-card h4 { color: var(--primary-red); font-size: 1rem; }
+        .package-card .price { font-size: 1.2rem; font-weight: 900; }
+
+        .qr-section {
+            text-align: center;
+            margin: 20px 0;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 20px;
+            border: 2px solid #eee;
+        }
+
+        .qr-image {
+            width: 180px;
+            border-radius: 15px;
+            border: 3px solid white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 15px;
+            transition: var(--transition);
+        }
+
+        .qr-image:hover { transform: scale(1.1); }
+
+        .btn-fancy {
+            background: linear-gradient(135deg, var(--primary-red), var(--dark-red));
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-weight: 800;
+            font-size: 1.1rem;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(220, 20, 60, 0.2);
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .btn-fancy:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(220, 20, 60, 0.3);
+        }
+
+        .payment-methods {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin: 20px 0;
+        }
+
+        .method-btn {
+            background: white;
+            border: 2px solid #f0f0f0;
+            border-radius: 15px;
+            padding: 12px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .method-btn img {
+            max-width: 100%;
+            height: 35px;
+            object-fit: contain;
+        }
+
+        .method-btn:hover, .method-btn.active {
+            transform: scale(1.05);
+            border-color: var(--primary-red);
+            background: rgba(220, 20, 60, 0.02);
+            box-shadow: 0 5px 15px rgba(220, 20, 60, 0.1);
+        }
+
+        .cash-number-box {
+            background: #fdfdfd;
+            padding: 20px;
+            border-radius: 20px;
+            text-align: center;
+            margin: 20px 0;
+            border: 1px dashed var(--primary-red);
+        }
+
+        .number-display {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--primary-red);
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .copy-btn {
+            background: var(--primary-red);
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .input-group {
+            margin: 20px 0;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-dark);
+            font-weight: 700;
+        }
+
+        .input-group input {
+            width: 100%;
+            background: #fff;
+            border: 2px solid #eee;
+            padding: 14px;
+            border-radius: 15px;
+            color: var(--text-dark);
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .input-group input:focus {
+            border-color: var(--primary-red);
+            outline: none;
+        }
+
+        .whatsapp-btn {
+            background: #25D366;
+            color: white;
+            width: 100%;
+            padding: 16px;
+            border-radius: 15px;
+            border: none;
+            font-weight: 800;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-decoration: none;
+            margin-top: 15px;
+            box-shadow: 0 10px 20px rgba(37, 211, 102, 0.2);
+            transition: var(--transition);
+        }
+
+        .whatsapp-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(37, 211, 102, 0.3);
+        }
+
+        .back-btn {
+            background: transparent;
+            color: var(--text-gray);
+            border: none;
+            cursor: pointer;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: 600;
+        }
+
+        .account-info {
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            margin-top: 8px;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-pattern"></div>
+    
+    <div class="container">
+        <a href="index.html" class="home-link"><i class="fas fa-home"></i> الرئيسية</a>
+        
+        <div class="header">
+            <img src="images/logo.png" alt="Popeye Gym" class="logo">
+            <h1>دفع وتجديد الاشتراك</h1>
+            <p style="color: var(--text-gray)">يرجى ملء البيانات التالية للمتابعة</p>
+        </div>
+
+        <!-- Step 1: Branch Selection -->
+        <div id="step-branch" class="step-container active">
+            <h3 style="text-align: center; margin-bottom: 15px;">اختر الفرع</h3>
+            <div class="btn-grid">
+                <button class="choice-btn" onclick="selectBranch('kurdy')">
+                    <i class="fas fa-map-marker-alt"></i>
+                    فرع الكردي
+                </button>
+                <button class="choice-btn" onclick="selectBranch('elgmalia')">
+                    <i class="fas fa-building"></i>
+                    فرع الجمالية
+                </button>
+            </div>
+        </div>
+
+        <!-- Step 2: Action Selection (New/Renew) -->
+        <div id="step-action" class="step-container">
+            <button class="back-btn" onclick="showStep('step-branch')"><i class="fas fa-arrow-right"></i> رجوع</button>
+            <h3 style="text-align: center; margin-bottom: 15px;">نوع العملية</h3>
+            <div class="btn-grid">
+                <button class="choice-btn" onclick="selectAction('new')">
+                    <i class="fas fa-user-plus"></i>
+                    اشتراك جديد
+                </button>
+                <button class="choice-btn" onclick="selectAction('renew')">
+                    <i class="fas fa-sync-alt"></i>
+                    تجديد اشتراك
+                </button>
+            </div>
+        </div>
+
+        <!-- Step 3: Information Input (Name/Package Selection) -->
+        <div id="step-info" class="step-container">
+            <button class="back-btn" onclick="showStep('step-action')"><i class="fas fa-arrow-right"></i> رجوع</button>
+            
+            <div class="qr-section">
+                <p style="margin-bottom: 10px; font-weight: 700;">باقات الاشتراك المتاحة</p>
+                <img src="images/qr.png" alt="Packages QR" class="qr-image">
+                <p style="font-size: 0.8rem; color: var(--text-gray);">يمكنك مسح الكود لمشاهدة التفاصيل</p>
+            </div>
+
+            <div id="new-fields" style="display: none;">
+                <div class="input-group">
+                    <label>الاسم بالكامل</label>
+                    <input type="text" id="user-name" placeholder="ادخل اسمك الثلاثي">
+                </div>
+            </div>
+
+            <div id="renew-fields" style="display: none;">
+                <div class="input-group">
+                    <label>كود العضوية</label>
+                    <input type="text" id="membership-code" placeholder="ادخل كود العضوية الخاص بك">
+                </div>
+            </div>
+
+            <h4 style="margin-bottom: 10px;">اختر الباقة المناسبة</h4>
+            <div id="package-list" class="package-grid">
+                <!-- Will be populated dynamically -->
+            </div>
+
+            <button class="btn-fancy" style="margin-top: 20px;" onclick="goToPayment()">
+                متابعة لاختيار وسيلة الدفع
+                <i class="fas fa-credit-card"></i>
+            </button>
+        </div>
+
+        <!-- Step 4: Payment Method -->
+        <div id="step-payment" class="step-container">
+            <button class="back-btn" onclick="showStep('step-info')"><i class="fas fa-arrow-right"></i> رجوع</button>
+            <h3 style="text-align: center; margin-bottom: 15px;">اختر وسيلة الدفع</h3>
+            <div class="payment-methods">
+                <button class="method-btn" onclick="selectMethod('vodafone', '01065278069')">
+                    <img src="images/vedafone.jpg" alt="Vodafone Cash">
+                </button>
+                <button class="method-btn" onclick="selectMethod('orange', '01065278069')">
+                    <img src="images/orange.png" alt="Orange Cash">
+                </button>
+                <button class="method-btn" onclick="selectMethod('instapay', '01065278069')">
+                    <img src="images/inistapay.png" alt="InstaPay">
+                </button>
+                <button class="method-btn" onclick="selectMethod('wepay', '01065278069')">
+                    <img src="images/wepay.png" alt="WE Pay">
+                </button>
+                <button class="method-btn" onclick="selectMethod('bank', '2130333000037498')">
+                    <img src="images/bank.png" alt="Bank">
+                </button>
+            </div>
+
+            <div id="payment-details" style="display: none;">
+                <div class="cash-number-box">
+                    <p style="color: var(--text-gray); margin-bottom: 5px; font-weight: 700;">رقم التحويل:</p>
+                    <span id="display-number" class="number-display">01065278069</span>
+                    <div id="bank-info" class="account-info" style="display: none;">
+                        الاسم: خالد محمد احمد احمد
+                    </div>
+                    <button class="copy-btn" onclick="copyNumber()">نسخ الرقم <i class="fas fa-copy"></i></button>
+                </div>
+
+                <div class="input-group">
+                    <label>الرقم المحول منه المال</label>
+                    <input type="text" id="sender-number" placeholder="ادخل رقم الموبايل أو رقم المحفظة">
+                </div>
+
+                <button class="whatsapp-btn" onclick="sendToWhatsApp()">
+                    <i class="fab fa-whatsapp"></i>
+                    تأكيد وإرسال البيانات عبر واتساب
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let selectedBranch = '';
+        let selectedAction = '';
+        let selectedMethod = '';
+        let selectedPackage = '';
+
+        const packages = {
+            kurdy: [
+                { id: 'k1', name: 'يومي رجال/نساء', price: '40 جنيه' },
+                { id: 'k2', name: 'شهر رجال', price: '400 جنيه' },
+                { id: 'k3', name: 'شهرين رجال', price: '700 جنيه' },
+                { id: 'k4', name: 'شهر نساء', price: '300 جنيه' },
+                { id: 'k5', name: 'شهرين نساء', price: '500 جنيه' }
+            ],
+            elgmalia: [
+                { id: 'g1', name: 'يومي رجال/نساء', price: '30 جنيه' },
+                { id: 'g2', name: 'شهر رجال/نساء', price: '350 جنيه' },
+                { id: 'g3', name: 'شهرين رجال/نساء', price: '650 جنيه' }
+            ]
+        };
+
+        function showStep(stepId) {
+            document.querySelectorAll('.step-container').forEach(s => s.classList.remove('active'));
+            document.getElementById(stepId).classList.add('active');
+        }
+
+        function selectBranch(branch) {
+            selectedBranch = branch;
+            updatePackageList();
+            showStep('step-action');
+        }
+
+        function selectAction(action) {
+            selectedAction = action;
+            document.getElementById('new-fields').style.display = action === 'new' ? 'block' : 'none';
+            document.getElementById('renew-fields').style.display = action === 'renew' ? 'block' : 'none';
+            showStep('step-info');
+        }
+
+        function updatePackageList() {
+            const list = document.getElementById('package-list');
+            list.innerHTML = '';
+            packages[selectedBranch].forEach(pkg => {
+                const card = document.createElement('div');
+                card.className = 'package-card';
+                card.onclick = () => selectPackage(pkg.id, card);
+                card.innerHTML = `<h4>${pkg.name}</h4><div class="price">${pkg.price}</div>`;
+                list.appendChild(card);
+            });
+        }
+
+        function selectPackage(pkgId, element) {
+            selectedPackage = packages[selectedBranch].find(p => p.id === pkgId);
+            document.querySelectorAll('.package-card').forEach(c => c.classList.remove('active'));
+            element.classList.add('active');
+        }
+
+        function goToPayment() {
+            if (selectedAction === 'new' && !document.getElementById('user-name').value) {
+                alert('يرجى إدخال الاسم بالكامل'); return;
+            }
+            if (selectedAction === 'renew' && !document.getElementById('membership-code').value) {
+                alert('يرجى إدخال كود العضوية'); return;
+            }
+            if (!selectedPackage) {
+                alert('يرجى اختيار الباقة'); return;
+            }
+            showStep('step-payment');
+        }
+
+        function selectMethod(method, number) {
+            selectedMethod = method;
+            document.querySelectorAll('.method-btn').forEach(b => b.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+            document.getElementById('display-number').innerText = number;
+            document.getElementById('payment-details').style.display = 'block';
+            document.getElementById('bank-info').style.display = method === 'bank' ? 'block' : 'none';
+        }
+
+        function copyNumber() {
+            const num = document.getElementById('display-number').innerText;
+            navigator.clipboard.writeText(num).then(() => alert('تم نسخ الرقم: ' + num));
+        }
+
+        function sendToWhatsApp() {
+            const senderNum = document.getElementById('sender-number').value;
+            if (!senderNum) { alert('يرجى إدخال الرقم المحول منه المال'); return; }
+
+            const branchName = selectedBranch === 'kurdy' ? 'الكردي' : 'الجمالية';
+            const actionName = selectedAction === 'new' ? 'اشتراك جديد' : 'تجديد اشتراك';
+            const userInfo = selectedAction === 'new' ? 
+                `الاسم: ${document.getElementById('user-name').value}` : 
+                `كود العضوية: ${document.getElementById('membership-code').value}`;
+
+            const text = `تأكيد عملية دفع Popeye Gym:
+---------------------------
+الفرع: ${branchName}
+العملية: ${actionName}
+الباقة: ${selectedPackage.name} (${selectedPackage.price})
+${userInfo}
+وسيلة الدفع: ${selectedMethod}
+رقم التحويل: ${document.getElementById('display-number').innerText}
+الرقم المحول منه: ${senderNum}
+---------------------------`;
+            
+            window.open('https://wa.me/201065278069?text=' + encodeURIComponent(text), '_blank');
+        }
+    </script>
+</body>
+</html>
