@@ -33,8 +33,6 @@
             --fiber-color: #A78BFA;
             --water-color: #38BDF8;
             --water-glow: rgba(56,189,248,0.25);
-            --burn-color: #FB923C;
-            --burn-glow: rgba(251,146,60,0.25);
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
@@ -142,7 +140,7 @@
         /* ── TOP STATS STRIP ── */
         .stats-strip {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             gap: 14px;
             margin-bottom: 24px;
         }
@@ -162,7 +160,6 @@
         }
         .stat-pill.cal::before { background: linear-gradient(90deg, var(--red), #ff6b9d); }
         .stat-pill.remain::before { background: linear-gradient(90deg, var(--gold), #ffd700); }
-        .stat-pill.burn::before { background: linear-gradient(90deg, var(--burn-color), #f97316); }
         .stat-pill.water::before { background: linear-gradient(90deg, var(--water-color), #0ea5e9); }
         .stat-pill:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.3); }
         .stat-pill-icon {
@@ -172,7 +169,6 @@
         }
         .stat-pill.cal .stat-pill-icon { background: rgba(220,20,60,0.12); color: var(--red); }
         .stat-pill.remain .stat-pill-icon { background: rgba(245,166,35,0.12); color: var(--gold); }
-        .stat-pill.burn .stat-pill-icon { background: rgba(251,146,60,0.12); color: var(--burn-color); }
         .stat-pill.water .stat-pill-icon { background: rgba(56,189,248,0.12); color: var(--water-color); }
         .stat-pill-content { flex: 1; min-width: 0; }
         .stat-pill-val {
@@ -181,7 +177,6 @@
         }
         .stat-pill.cal .stat-pill-val { color: var(--red); }
         .stat-pill.remain .stat-pill-val { color: var(--gold); }
-        .stat-pill.burn .stat-pill-val { color: var(--burn-color); }
         .stat-pill.water .stat-pill-val { color: var(--water-color); }
         .stat-pill-label { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1.5px; margin-top: 2px; }
 
@@ -225,16 +220,6 @@
             stroke-dashoffset: 502;
             transition: stroke-dashoffset 1.2s cubic-bezier(0.4,0,0.2,1), stroke 0.5s;
             filter: drop-shadow(0 0 8px rgba(220,20,60,0.5));
-        }
-        .ring-burn {
-            fill: none;
-            stroke: url(#burnGrad);
-            stroke-width: 5;
-            stroke-linecap: round;
-            stroke-dasharray: 502;
-            stroke-dashoffset: 502;
-            transition: stroke-dashoffset 1.2s cubic-bezier(0.4,0,0.2,1);
-            opacity: 0.7;
         }
         .ring-center {
             position: absolute; inset: 0;
@@ -315,9 +300,9 @@
         .macro-card.fiber .macro-bar-fill { background: linear-gradient(90deg, #7c5cda, var(--fiber-color)); }
         .macro-pct { font-size: 0.65rem; color: var(--text-dim); margin-top: 4px; text-align: left; }
 
-        /* Water + Exercise row */
+        /* Water row */
         .bottom-row {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+            display: grid; grid-template-columns: 1fr; gap: 16px;
         }
 
         /* Water tracker */
@@ -375,61 +360,6 @@
         .water-btn.reset { background: transparent; border-color: var(--glass-border); color: var(--text-muted); }
         .water-btn.reset:hover { border-color: var(--red); color: var(--red); }
 
-        /* Exercise card */
-        .exercise-card {
-            background: var(--surface);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            padding: 20px;
-        }
-        .exercise-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
-        .exercise-title { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); }
-        .exercise-burn { font-size: 1.8rem; font-weight: 900; color: var(--burn-color); }
-        .exercise-burn-label { font-size: 0.7rem; color: var(--text-muted); }
-        .exercise-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; max-height: 90px; overflow-y: auto; }
-        .exercise-item {
-            display: flex; align-items: center; justify-content: space-between;
-            background: var(--surface2); border-radius: 10px; padding: 8px 12px;
-            font-size: 0.82rem;
-        }
-        .exercise-item-name { font-weight: 600; color: var(--text); }
-        .exercise-item-cal { color: var(--burn-color); font-weight: 700; }
-        .exercise-item-del {
-            background: transparent; border: none; color: rgba(255,68,68,0.4);
-            cursor: pointer; font-size: 0.75rem; padding: 2px 6px; border-radius: 6px;
-            transition: all 0.2s;
-        }
-        .exercise-item-del:hover { color: #ff4444; background: rgba(255,68,68,0.1); }
-        .exercise-add-row { display: flex; gap: 8px; }
-        .exercise-select {
-            flex: 1;
-            background: var(--surface2);
-            border: 1px solid var(--glass-border);
-            border-radius: 10px;
-            padding: 9px 12px;
-            font-family: 'Cairo', sans-serif;
-            font-size: 0.82rem; color: var(--text);
-            direction: rtl;
-        }
-        .exercise-select:focus { outline: none; border-color: var(--burn-color); }
-        .exercise-select option { background: var(--surface2); }
-        .exercise-qty-input {
-            width: 70px;
-            background: var(--surface2);
-            border: 1px solid var(--glass-border);
-            border-radius: 10px;
-            padding: 9px 10px;
-            font-family: 'Cairo', sans-serif;
-            font-size: 0.82rem; color: var(--text); text-align: center;
-        }
-        .exercise-qty-input:focus { outline: none; border-color: var(--burn-color); }
-        .exercise-add-btn {
-            background: linear-gradient(135deg, var(--burn-color), #f97316);
-            color: white; border: none; border-radius: 10px;
-            padding: 9px 14px; font-family: 'Cairo', sans-serif;
-            font-size: 0.82rem; font-weight: 700; cursor: pointer; transition: all 0.3s;
-        }
-        .exercise-add-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 16px var(--burn-glow); }
 
         /* ── WEEKLY CHART ── */
         .weekly-card {
@@ -814,6 +744,60 @@
         }
         .goal-save-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px var(--red-glow); }
 
+        /* ── MOBILE RESPONSIVE ── */
+        @media (max-width: 768px) {
+            .main { padding: 16px 12px 80px; }
+            .stats-strip { gap: 8px; }
+            .stat-pill { padding: 12px 12px; border-radius: 14px; }
+            .stat-pill-val { font-size: 1.2rem; }
+            .stat-pill-icon { width: 36px; height: 36px; font-size: 1rem; }
+            .dashboard { grid-template-columns: 1fr; }
+            .dash-left { padding: 20px; }
+            .ring-container { width: 150px; height: 150px; }
+            .ring-svg { width: 150px; height: 150px; }
+            .macros-row { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+            .macro-card { padding: 12px; }
+            .macro-val { font-size: 1.2rem; }
+            .dash-actions { gap: 8px; }
+            .action-btn { padding: 10px 14px; font-size: 0.8rem; }
+            .add-meal-card {
+                flex-direction: column; padding: 14px 14px; gap: 10px;
+                margin-bottom: 16px;
+            }
+            .add-meal-card > i { display: none; }
+            .add-meal-input { padding: 11px 14px; font-size: 0.9rem; }
+            .add-meal-btn { width: 100%; justify-content: center; padding: 11px; }
+            .meal-section { border-radius: 16px; }
+            .meal-header { padding: 12px 14px; }
+            .meal-body { padding: 12px 12px; }
+            .search-row { flex-wrap: wrap; }
+            .food-list-header { display: none; }
+            .food-row {
+                grid-template-columns: 1fr auto auto;
+                grid-template-rows: auto auto;
+                gap: 4px; padding: 10px 10px;
+            }
+            .food-row-name { grid-column: 1 / 3; font-size: 0.82rem; }
+            .badge-cal { grid-column: 3; grid-row: 1; }
+            .badge-pro, .badge-carb, .badge-fat, .badge-fib, .badge-qty { font-size: 0.7rem; }
+            .food-row-del { grid-column: 3; grid-row: 2; }
+            .tips-grid { grid-template-columns: 1fr; }
+            .weekly-card { padding: 16px; }
+            .favorites-section { padding: 14px 14px; }
+            .fav-chips { gap: 6px; }
+            .fav-chip { padding: 6px 10px; font-size: 0.75rem; }
+            .header { padding: 12px 16px; }
+            .header-logo { width: 40px; height: 40px; }
+            .header-title { font-size: 1rem; }
+            .goal-btn span { display: none; }
+            .goal-btn::after { content: 'الهدف'; }
+        }
+        @media (max-width: 480px) {
+            .macros-row { grid-template-columns: repeat(2, 1fr); }
+            .stats-strip { grid-template-columns: repeat(3, 1fr); }
+            .stat-pill-label { font-size: 0.6rem; letter-spacing: 0.5px; }
+        }
+
         /* BMI Modal */
         .bmi-result-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 20px; }
         .bmi-result-card {
@@ -926,13 +910,6 @@
                 <div class="stat-pill-label">سعرة متبقية</div>
             </div>
         </div>
-        <div class="stat-pill burn" onclick="focusExercise()" style="cursor:pointer">
-            <div class="stat-pill-icon"><i class="fas fa-running"></i></div>
-            <div class="stat-pill-content">
-                <div class="stat-pill-val" id="strip-burn">0</div>
-                <div class="stat-pill-label">سعرة محروقة</div>
-            </div>
-        </div>
         <div class="stat-pill water" onclick="focusWater()" style="cursor:pointer">
             <div class="stat-pill-icon"><i class="fas fa-tint"></i></div>
             <div class="stat-pill-content">
@@ -955,13 +932,8 @@
                             <stop offset="0%" style="stop-color:#DC143C"/>
                             <stop offset="100%" style="stop-color:#ff6b9d"/>
                         </linearGradient>
-                        <linearGradient id="burnGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                            <stop offset="0%" style="stop-color:#FB923C"/>
-                            <stop offset="100%" style="stop-color:#fbbf24"/>
-                        </linearGradient>
                     </defs>
                     <circle class="ring-bg" cx="90" cy="90" r="80"/>
-                    <circle class="ring-burn" cx="90" cy="90" r="72" id="burn-ring"/>
                     <circle class="ring-progress" cx="90" cy="90" r="80" id="calories-ring"/>
                 </svg>
                 <div class="ring-center">
@@ -1040,36 +1012,6 @@
                     </div>
                 </div>
 
-                <!-- EXERCISE TRACKER -->
-                <div class="exercise-card" id="exercise-section">
-                    <div class="exercise-header">
-                        <div>
-                            <div class="exercise-title">🏋️ التمارين</div>
-                            <div class="exercise-burn-label">سعرة محروقة</div>
-                        </div>
-                        <div class="exercise-burn" id="exercise-total-burn">0</div>
-                    </div>
-                    <div class="exercise-list" id="exercise-list"></div>
-                    <div class="exercise-add-row">
-                        <select class="exercise-select" id="exercise-type">
-                            <option value="">اختر تمرين...</option>
-                            <option value="walking|4">🚶 مشي (4 كم/س)</option>
-                            <option value="running|10">🏃 جري (10 كم/س)</option>
-                            <option value="cycling|7">🚴 دراجة</option>
-                            <option value="swimming|8">🏊 سباحة</option>
-                            <option value="weights|5">🏋️ رفع أثقال</option>
-                            <option value="hiit|12">⚡ HIIT</option>
-                            <option value="yoga|3">🧘 يوغا</option>
-                            <option value="football|8">⚽ كرة قدم</option>
-                            <option value="basketball|7">🏀 كرة سلة</option>
-                            <option value="boxing|10">🥊 ملاكمة</option>
-                            <option value="jumping|9">⛹️ تمارين قفز</option>
-                            <option value="stretching|2">🤸 إطالة</option>
-                        </select>
-                        <input type="number" class="exercise-qty-input" id="exercise-mins" placeholder="دق" min="1" max="300" value="30">
-                        <button class="exercise-add-btn" onclick="addExercise()"><i class="fas fa-plus"></i></button>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -1084,7 +1026,6 @@
             <div style="display:flex;gap:16px;font-size:0.75rem;color:var(--text-muted);align-items:center">
                 <span><span style="color:var(--red)">●</span> سعرات</span>
                 <span><span style="color:var(--gold)">—</span> الهدف</span>
-                <span><span style="color:var(--burn-color)">●</span> محروقة</span>
             </div>
         </div>
         <canvas id="weekly-chart"></canvas>
@@ -1095,11 +1036,8 @@
         <button class="action-btn action-btn-save" onclick="saveDay()">
             <i class="fas fa-save"></i> حفظ يوم
         </button>
-        <button class="action-btn action-btn-pdf" onclick="downloadPDF()">
-            <i class="fas fa-file-alt"></i> تصدير تقرير
-        </button>
-        <button class="action-btn action-btn-bmi" onclick="openBMIModal()">
-            <i class="fas fa-calculator"></i> BMI & TDEE
+        <button class="action-btn action-btn-pdf" onclick="downloadImage()">
+            <i class="fas fa-image"></i> تحميل كصورة
         </button>
         <div class="spacer"></div>
         <button class="action-btn action-btn-clear" onclick="clearAll()">
@@ -1356,23 +1294,6 @@ const FOOD_DB = [
     { name:'بسكويت شوكولاتة', en:'Chocolate Biscuit', cat:'حلويات', calories:55, protein:0.8, carbs:7, fats:2.7, fiber:0.4 },
 ];
 
-// ══════════════════════════════════════════════════════
-//  EXERCISE DATABASE
-// ══════════════════════════════════════════════════════
-const EXERCISE_DB = {
-    walking: { name:'🚶 مشي', met: 4 },
-    running: { name:'🏃 جري', met: 10 },
-    cycling: { name:'🚴 دراجة', met: 7 },
-    swimming: { name:'🏊 سباحة', met: 8 },
-    weights: { name:'🏋️ رفع أثقال', met: 5 },
-    hiit: { name:'⚡ HIIT', met: 12 },
-    yoga: { name:'🧘 يوغا', met: 3 },
-    football: { name:'⚽ كرة قدم', met: 8 },
-    basketball: { name:'🏀 كرة سلة', met: 7 },
-    boxing: { name:'🥊 ملاكمة', met: 10 },
-    jumping: { name:'⛹️ تمارين قفز', met: 9 },
-    stretching: { name:'🤸 إطالة', met: 2 },
-};
 
 // ══════════════════════════════════════════════════════
 //  STATE
@@ -1380,7 +1301,6 @@ const EXERCISE_DB = {
 let meals = {};
 let mealCounter = 0;
 let selectedFoods = {};
-let exercises = [];
 let waterMl = 0;
 let TARGET_CALORIES = 2000;
 let TARGET_PROTEIN = 150;
@@ -1412,7 +1332,6 @@ document.addEventListener('DOMContentLoaded', () => {
     renderFavorites();
     updateTotals();
     updateWaterUI();
-    updateExerciseUI();
     drawWeeklyChart();
     initParticles();
     updateStreak();
@@ -1492,7 +1411,6 @@ function drawWeeklyChart() {
 
     const days = getLast7Days();
     const cals = days.map(d => weeklyData[d] ? weeklyData[d].calories : 0);
-    const burns = days.map(d => weeklyData[d] ? weeklyData[d].burned : 0);
     const maxVal = Math.max(...cals, TARGET_CALORIES * 1.2, 100);
     const labels = ['الأحد','الإثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
     const dayNames = days.map(d => {
@@ -1522,17 +1440,6 @@ function drawWeeklyChart() {
     ctx.moveTo(pad.left, goalY); ctx.lineTo(W - pad.right, goalY);
     ctx.stroke();
     ctx.setLineDash([]);
-
-    // Burn area
-    if (burns.some(b => b > 0)) {
-        ctx.beginPath();
-        ctx.moveTo(xPos(0), yPos(0));
-        burns.forEach((b, i) => ctx.lineTo(xPos(i), yPos(b)));
-        ctx.lineTo(xPos(6), yPos(0));
-        ctx.closePath();
-        ctx.fillStyle = 'rgba(251,146,60,0.08)';
-        ctx.fill();
-    }
 
     // Calorie area fill
     if (cals.some(c => c > 0)) {
@@ -1876,9 +1783,7 @@ function updateTotals() {
         cal += f.calories; pro += f.protein; carb += f.carbs; fat += f.fats; fib += f.fiber;
     }));
 
-    const totalBurn = exercises.reduce((s,e) => s + e.burned, 0);
-    const netCal = Math.max(0, cal - totalBurn);
-    const remaining = Math.max(0, TARGET_CALORIES - cal + totalBurn);
+    const remaining = Math.max(0, TARGET_CALORIES - cal);
 
     // Animate numbers
     animateNumber('total-calories', Math.round(cal));
@@ -1905,10 +1810,6 @@ function updateTotals() {
     const circ = 502;
     const pct = Math.min(cal / TARGET_CALORIES, 1);
     document.getElementById('calories-ring').style.strokeDashoffset = circ * (1 - pct);
-
-    // Burn ring (inner)
-    const burnPct = Math.min(totalBurn / TARGET_CALORIES, 1);
-    document.getElementById('burn-ring').style.strokeDashoffset = circ * (1 - burnPct);
 
     // Ring color: green if under, orange if near, red if over
     const ring = document.getElementById('calories-ring');
@@ -1968,7 +1869,7 @@ function updateNutritionScore(cal, pro, carb, fat, fib) {
     let color, rating;
     if (score >= 85) { color = 'var(--protein-color)'; rating = '🏆 ممتاز! نظامك الغذائي رائع'; }
     else if (score >= 70) { color = 'var(--carbs-color)'; rating = '✅ جيد جداً! استمر'; }
-    else if (score >= 55) { color = 'var(--burn-color)'; rating = '⚡ جيد، يمكن التحسين'; }
+    else if (score >= 55) { color = 'var(--gold)'; rating = '⚡ جيد، يمكن التحسين'; }
     else if (score >= 40) { color = '#FF6B6B'; rating = '⚠️ يحتاج اهتمام'; }
     else { color = 'var(--red)'; rating = '❌ راجع نظامك الغذائي'; }
 
@@ -2030,57 +1931,6 @@ function updateWaterUI() {
 
 function focusWater() {
     document.getElementById('water-section').scrollIntoView({ behavior:'smooth', block:'center' });
-}
-function focusExercise() {
-    document.getElementById('exercise-section').scrollIntoView({ behavior:'smooth', block:'center' });
-}
-
-// ══════════════════════════════════════════════════════
-//  EXERCISE TRACKER
-// ══════════════════════════════════════════════════════
-function addExercise() {
-    const sel = document.getElementById('exercise-type');
-    const mins = parseInt(document.getElementById('exercise-mins').value) || 30;
-    if (!sel.value) { showToast('اختر نوع التمرين', 'error'); return; }
-
-    const [type, met] = sel.value.split('|');
-    const ex = EXERCISE_DB[type];
-    // Calories burned = MET × weight(kg) × time(hours)
-    const burned = Math.round(parseFloat(met) * USER_WEIGHT * (mins / 60));
-
-    exercises.push({ id: Date.now(), name: ex.name, mins, burned });
-    updateExerciseUI();
-    updateTotals();
-    saveSettings();
-    sel.value = '';
-    document.getElementById('exercise-mins').value = '30';
-    showToast(`🔥 ${ex.name} — ${burned} سعرة محروقة`, 'success');
-}
-
-function removeExercise(id) {
-    exercises = exercises.filter(e => e.id !== id);
-    updateExerciseUI();
-    updateTotals();
-    saveSettings();
-}
-
-function updateExerciseUI() {
-    const list = document.getElementById('exercise-list');
-    const total = exercises.reduce((s,e) => s + e.burned, 0);
-    document.getElementById('exercise-total-burn').textContent = total;
-    document.getElementById('strip-burn').textContent = total;
-
-    if (!exercises.length) {
-        list.innerHTML = '<div style="color:var(--text-muted);font-size:0.8rem;text-align:center;padding:10px">لم تضف تمارين بعد</div>';
-        return;
-    }
-    list.innerHTML = exercises.map(e => `
-        <div class="exercise-item">
-            <span class="exercise-item-name">${e.name} (${e.mins} دق)</span>
-            <span class="exercise-item-cal">-${e.burned} سعرة</span>
-            <button class="exercise-item-del" onclick="removeExercise(${e.id})"><i class="fas fa-times"></i></button>
-        </div>
-    `).join('');
 }
 
 // ══════════════════════════════════════════════════════
@@ -2308,7 +2158,7 @@ function saveData() {
 
 function saveSettings() {
     localStorage.setItem('popeyeSettings', JSON.stringify({
-        TARGET_CALORIES, TARGET_PROTEIN, TARGET_CARBS, TARGET_FATS, TARGET_FIBER, WATER_GOAL, USER_WEIGHT, waterMl, exercises
+        TARGET_CALORIES, TARGET_PROTEIN, TARGET_CARBS, TARGET_FATS, TARGET_FIBER, WATER_GOAL, USER_WEIGHT, waterMl
     }));
 }
 
@@ -2324,7 +2174,6 @@ function loadSettings() {
         WATER_GOAL = d.WATER_GOAL || 2500;
         USER_WEIGHT = d.USER_WEIGHT || 80;
         waterMl = d.waterMl || 0;
-        exercises = d.exercises || [];
     }
     document.getElementById('header-goal-display').textContent = TARGET_CALORIES;
     document.getElementById('ring-goal-display').textContent = TARGET_CALORIES;
@@ -2355,9 +2204,8 @@ function saveDay() {
     Object.values(meals).forEach(m => m.forEach(f => {
         cal += f.calories; pro += f.protein; carb += f.carbs; fat += f.fats; fib += f.fiber;
     }));
-    const burned = exercises.reduce((s,e) => s + e.burned, 0);
     if (!weeklyData) weeklyData = {};
-    weeklyData[today] = { calories: Math.round(cal), protein: Math.round(pro), burned, date: today };
+    weeklyData[today] = { calories: Math.round(cal), protein: Math.round(pro), date: today };
     localStorage.setItem('popeyeWeekly', JSON.stringify(weeklyData));
     localStorage.setItem('popeyeLastSave', today);
     localStorage.setItem('popeyeGymDay_' + today, JSON.stringify({ date:today, meals }));
@@ -2368,101 +2216,491 @@ function saveDay() {
 
 function clearAll() {
     showConfirmModal('⚠️', 'مسح جميع الوجبات', 'سيتم حذف كل الوجبات المضافة اليوم.', () => {
-        meals = {}; mealCounter = 0; exercises = [];
+        meals = {}; mealCounter = 0;
         document.getElementById('meals-container').innerHTML = '';
         waterMl = 0;
-        updateWaterUI(); updateExerciseUI(); updateTotals(); saveData(); saveSettings();
+        updateWaterUI(); updateTotals(); saveData(); saveSettings();
         showToast('تم مسح جميع البيانات', 'success');
     });
 }
 
 // ══════════════════════════════════════════════════════
-//  EXPORT
+//  EXPORT AS IMAGE
 // ══════════════════════════════════════════════════════
-function downloadPDF() {
-    const cal = document.getElementById('total-calories').textContent;
-    const pro = document.getElementById('total-protein').textContent;
-    const carb = document.getElementById('total-carbs').textContent;
-    const fat = document.getElementById('total-fats').textContent;
-    const fib = document.getElementById('total-fiber').textContent;
-    const burned = exercises.reduce((s,e) => s + e.burned, 0);
-    const score = document.getElementById('score-value').textContent;
-    const rating = document.getElementById('score-rating').textContent;
+function downloadImage() {
+    showToast('⏳ جاري إنشاء الصورة...', 'info');
+
+    const cal = parseInt(document.getElementById('total-calories').textContent) || 0;
+    const pro = parseFloat(document.getElementById('total-protein').textContent) || 0;
+    const carb = parseFloat(document.getElementById('total-carbs').textContent) || 0;
+    const fat = parseFloat(document.getElementById('total-fats').textContent) || 0;
+    const fib = parseFloat(document.getElementById('total-fiber').textContent) || 0;
+    const scoreText = document.getElementById('score-value').textContent || '—';
+    const ratingText = document.getElementById('score-rating').textContent || '';
     const dateStr = new Date().toLocaleDateString('ar-EG', {weekday:'long', year:'numeric', month:'long', day:'numeric'});
 
-    let mealsHtml = '';
+    const mealsList = [];
     Object.entries(meals).forEach(([id, foods], i) => {
         if (!foods.length) return;
         const total = foods.reduce((s,f) => s + f.calories, 0);
         const name = document.querySelector(`#${id} .meal-name`)?.textContent || `وجبة ${i+1}`;
-        mealsHtml += `<div class="meal-block">
-            <div class="meal-title">${name} — ${total} سعرة</div>
-            ${foods.map(f => `<div class="food-row">
-                <span class="food-name">${f.name} (${f.quantity}جم)</span>
-                <span class="food-macros">${f.calories} سعرة | ب${f.protein}جم | ك${f.carbs}جم | د${f.fats}جم | أ${f.fiber}جم</span>
-            </div>`).join('')}
-        </div>`;
+        mealsList.push({ name, total, foods });
     });
 
-    let exercisesHtml = '';
-    if (exercises.length) {
-        exercisesHtml = `<div class="section-title" style="margin-top:20px">🏋️ التمارين</div>
-        ${exercises.map(e => `<div class="food-row"><span class="food-name">${e.name} — ${e.mins} دقيقة</span><span class="food-macros">-${e.burned} سعرة محروقة</span></div>`).join('')}`;
+    const W = 1080, CARD_PAD = 48;
+    let H_estimate = 900 + mealsList.reduce((s,m) => s + 70 + m.foods.length * 44, 0);
+    H_estimate = Math.max(H_estimate, 1200);
+
+    const canvas = document.createElement('canvas');
+    canvas.width = W;
+    canvas.height = H_estimate;
+    const ctx = canvas.getContext('2d');
+
+    function drawRoundRect(cx, cy, cw, ch, r, fill, stroke) {
+        ctx.beginPath();
+        ctx.moveTo(cx+r, cy);
+        ctx.lineTo(cx+cw-r, cy);
+        ctx.quadraticCurveTo(cx+cw, cy, cx+cw, cy+r);
+        ctx.lineTo(cx+cw, cy+ch-r);
+        ctx.quadraticCurveTo(cx+cw, cy+ch, cx+cw-r, cy+ch);
+        ctx.lineTo(cx+r, cy+ch);
+        ctx.quadraticCurveTo(cx, cy+ch, cx, cy+ch-r);
+        ctx.lineTo(cx, cy+r);
+        ctx.quadraticCurveTo(cx, cy, cx+r, cy);
+        ctx.closePath();
+        if (fill) { ctx.fillStyle = fill; ctx.fill(); }
+        if (stroke) { ctx.strokeStyle = stroke; ctx.lineWidth = 1.5; ctx.stroke(); }
     }
 
-    const html = `<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
-    <style>
-        *{margin:0;padding:0;box-sizing:border-box}
-        body{font-family:Cairo,Arial,sans-serif;direction:rtl;background:#f0f0f8;color:#1a1a2e;padding:20px}
-        .header{background:linear-gradient(135deg,#DC143C,#A50E2B);color:white;padding:32px;border-radius:20px;margin-bottom:24px;text-align:center}
-        .header h1{font-size:2.2rem;font-weight:900;margin-bottom:8px}
-        .header .date{opacity:.85;font-size:0.9rem}
-        .stats-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:24px}
-        .stat{background:white;border-radius:14px;padding:18px;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,0.08);border-top:4px solid #DC143C}
-        .stat-val{font-size:1.7rem;font-weight:900;color:#DC143C}
-        .stat-label{font-size:0.72rem;color:#666;margin-top:4px;text-transform:uppercase;letter-spacing:1px}
-        .score-box{background:white;border-radius:14px;padding:16px;text-align:center;margin-bottom:20px;border:2px solid #DC143C;box-shadow:0 4px 12px rgba(0,0,0,0.08)}
-        .score-title{font-size:0.8rem;color:#666;margin-bottom:6px}
-        .score-val{font-size:1.4rem;font-weight:900;color:#DC143C}
-        .section-title{font-size:1rem;font-weight:700;color:#DC143C;margin:0 0 12px;padding-bottom:6px;border-bottom:2px solid rgba(220,20,60,0.2)}
-        .meal-block{background:white;border-radius:14px;padding:18px;margin-bottom:14px;box-shadow:0 4px 12px rgba(0,0,0,0.07)}
-        .meal-title{font-size:1rem;font-weight:700;color:#DC143C;margin-bottom:10px}
-        .food-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f0;font-size:0.85rem;align-items:center}
-        .food-row:last-child{border-bottom:none}
-        .food-name{font-weight:600;color:#1a1a2e}
-        .food-macros{color:#666;font-size:0.78rem}
-        .burn-box{background:#FFF3E0;border-radius:14px;padding:16px;margin-bottom:20px;border:2px solid #FB923C}
-        .footer{text-align:center;color:#999;font-size:0.75rem;margin-top:24px;padding-top:16px;border-top:1px solid #eee}
-        @media print{body{background:white;padding:10px}.header{border-radius:0}}
-    </style></head><body>
-    <div class="header">
-        <h1>💪 Popeye GYM</h1>
-        <div>تقرير التغذية اليومي</div>
-        <div class="date">${dateStr}</div>
-    </div>
-    <div class="stats-grid">
-        <div class="stat"><div class="stat-val">${cal}</div><div class="stat-label">سعرة مُستهلكة</div></div>
-        <div class="stat"><div class="stat-val">${pro}</div><div class="stat-label">بروتين (جم)</div></div>
-        <div class="stat"><div class="stat-val">${carb}</div><div class="stat-label">كربوهيدرات (جم)</div></div>
-        <div class="stat"><div class="stat-val">${fat}</div><div class="stat-label">دهون (جم)</div></div>
-        <div class="stat"><div class="stat-val">${fib}</div><div class="stat-label">ألياف (جم)</div></div>
-    </div>
-    ${burned ? `<div class="burn-box" style="text-align:center"><strong>🔥 سعرات محروقة: ${burned} سعرة</strong> | صافي السعرات: ${Math.max(0, parseInt(cal) - burned)}</div>` : ''}
-    <div class="score-box"><div class="score-title">🏆 النقاط الغذائية</div><div class="score-val">${score}</div><div>${rating}</div></div>
-    <div class="section-title">📋 تفاصيل الوجبات</div>
-    ${mealsHtml || '<div style="color:#999;text-align:center;padding:20px">لم تضف وجبات</div>'}
-    ${exercisesHtml}
-    <div class="footer">تم إنشاؤه بواسطة Popeye GYM Food Tracker — ${new Date().toLocaleString('ar-EG')}</div>
-    </body></html>`;
+    function wrapText(text, maxWidth) {
+        const words = text.split(' ');
+        const lines = [];
+        let current = '';
+        words.forEach(w => {
+            const test = current ? current + ' ' + w : w;
+            if (ctx.measureText(test).width > maxWidth && current) {
+                lines.push(current);
+                current = w;
+            } else { current = test; }
+        });
+        if (current) lines.push(current);
+        return lines;
+    }
 
-    const blob = new Blob([html], {type:'text/html;charset=utf-8'});
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url; a.download = `PopeyeGYM-${new Date().toISOString().split('T')[0]}.html`;
-    document.body.appendChild(a); a.click(); document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-    showToast('📄 تم تصدير التقرير', 'success');
+    // ─── DRAW BACKGROUND ───
+    const bgGrad = ctx.createLinearGradient(0, 0, 0, H_estimate);
+    bgGrad.addColorStop(0, '#07070E');
+    bgGrad.addColorStop(0.5, '#0F0F1A');
+    bgGrad.addColorStop(1, '#0a0a16');
+    ctx.fillStyle = bgGrad;
+    ctx.fillRect(0, 0, W, H_estimate);
+
+    // Glow orbs
+    const glow1 = ctx.createRadialGradient(W, 0, 0, W, 0, 500);
+    glow1.addColorStop(0, 'rgba(220,20,60,0.12)');
+    glow1.addColorStop(1, 'transparent');
+    ctx.fillStyle = glow1; ctx.fillRect(0, 0, W, H_estimate);
+    const glow2 = ctx.createRadialGradient(0, H_estimate, 0, 0, H_estimate, 400);
+    glow2.addColorStop(0, 'rgba(42,0,96,0.18)');
+    glow2.addColorStop(1, 'transparent');
+    ctx.fillStyle = glow2; ctx.fillRect(0, 0, W, H_estimate);
+
+    let y = 0;
+
+    // ─── HEADER ───
+    const headerH = 160;
+    const hGrad = ctx.createLinearGradient(0, 0, W, 0);
+    hGrad.addColorStop(0, '#DC143C');
+    hGrad.addColorStop(0.5, '#A50E2B');
+    hGrad.addColorStop(1, '#7a0a1f');
+    ctx.fillStyle = hGrad;
+    ctx.fillRect(0, 0, W, headerH);
+
+    // Header shimmer line
+    ctx.fillStyle = 'rgba(255,255,255,0.08)';
+    ctx.fillRect(0, 0, W, 2);
+    ctx.fillRect(0, headerH-2, W, 2);
+
+    // Gold accent line at bottom of header
+    const goldLine = ctx.createLinearGradient(0, 0, W, 0);
+    goldLine.addColorStop(0, 'transparent');
+    goldLine.addColorStop(0.3, '#F5A623');
+    goldLine.addColorStop(0.7, '#F5A623');
+    goldLine.addColorStop(1, 'transparent');
+    ctx.fillStyle = goldLine;
+    ctx.fillRect(0, headerH-3, W, 3);
+
+    // Logo circle
+    const logoX = CARD_PAD + 48, logoY = headerH/2;
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(logoX, logoY, 44, 0, Math.PI*2);
+    ctx.fillStyle = 'rgba(255,255,255,0.1)';
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(245,166,35,0.8)';
+    ctx.lineWidth = 2.5;
+    ctx.stroke();
+    ctx.restore();
+
+    function renderFinalCanvas(logoImg) {
+        // Clear and redraw
+        ctx.fillStyle = bgGrad;
+        ctx.fillRect(0, 0, W, H_estimate);
+        ctx.fillStyle = glow1; ctx.fillRect(0, 0, W, H_estimate);
+        ctx.fillStyle = glow2; ctx.fillRect(0, 0, W, H_estimate);
+
+        // Header bg
+        ctx.fillStyle = hGrad; ctx.fillRect(0, 0, W, headerH);
+        ctx.fillStyle = 'rgba(255,255,255,0.06)'; ctx.fillRect(0, 0, W, 2);
+        ctx.fillStyle = goldLine; ctx.fillRect(0, headerH-3, W, 3);
+
+        // Logo clip circle
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(logoX, logoY, 42, 0, Math.PI*2);
+        ctx.clip();
+        if (logoImg) {
+            ctx.drawImage(logoImg, logoX-42, logoY-42, 84, 84);
+        } else {
+            ctx.fillStyle = '#1a0010';
+            ctx.fill();
+            ctx.font = 'bold 36px sans-serif';
+            ctx.fillStyle = '#DC143C';
+            ctx.textAlign = 'center';
+            ctx.fillText('P', logoX, logoY+13);
+        }
+        ctx.restore();
+        // Logo border
+        ctx.beginPath();
+        ctx.arc(logoX, logoY, 42, 0, Math.PI*2);
+        ctx.strokeStyle = 'rgba(245,166,35,0.85)';
+        ctx.lineWidth = 2.5;
+        ctx.stroke();
+
+        // Gym name
+        ctx.textAlign = 'right';
+        ctx.font = 'bold 42px Cairo, Arial';
+        ctx.fillStyle = '#FFFFFF';
+        ctx.fillText('Popeye GYM', W - CARD_PAD, 70);
+        ctx.font = '600 20px Cairo, Arial';
+        ctx.fillStyle = 'rgba(255,255,255,0.75)';
+        ctx.fillText('تقرير التغذية اليومي', W - CARD_PAD, 100);
+        ctx.font = '500 17px Cairo, Arial';
+        ctx.fillStyle = 'rgba(245,166,35,0.9)';
+        ctx.fillText(dateStr, W - CARD_PAD, 128);
+
+        // Address / contact line
+        ctx.font = '500 15px Cairo, Arial';
+        ctx.fillStyle = 'rgba(255,255,255,0.5)';
+        ctx.fillText('الجمالية | الكردي  —  📞 لمتابعة نتائجك تواصل معنا', W - CARD_PAD, 152);
+
+        y = headerH + 36;
+
+        // ─── CALORIES RING + STATS ───
+        const ringCX = CARD_PAD + 100, ringCY = y + 100, ringR = 84;
+        // Ring background
+        ctx.beginPath();
+        ctx.arc(ringCX, ringCY, ringR, 0, Math.PI*2);
+        ctx.strokeStyle = 'rgba(255,255,255,0.07)';
+        ctx.lineWidth = 14;
+        ctx.stroke();
+
+        // Ring progress
+        const pct = TARGET_CALORIES > 0 ? Math.min(cal / TARGET_CALORIES, 1) : 0;
+        const startAngle = -Math.PI/2;
+        const endAngle = startAngle + pct * Math.PI * 2;
+        const ringGrad = ctx.createLinearGradient(ringCX-ringR, ringCY, ringCX+ringR, ringCY);
+        ringGrad.addColorStop(0, '#DC143C');
+        ringGrad.addColorStop(1, '#ff6b9d');
+        ctx.beginPath();
+        ctx.arc(ringCX, ringCY, ringR, startAngle, endAngle);
+        ctx.strokeStyle = ringGrad;
+        ctx.lineWidth = 14;
+        ctx.lineCap = 'round';
+        ctx.stroke();
+
+        // Ring center text
+        ctx.textAlign = 'center';
+        ctx.font = 'bold 38px Cairo, Arial';
+        ctx.fillStyle = '#EEEEFF';
+        ctx.fillText(cal, ringCX, ringCY + 12);
+        ctx.font = '500 14px Cairo, Arial';
+        ctx.fillStyle = 'rgba(238,238,255,0.5)';
+        ctx.fillText('سعرة', ringCX, ringCY + 32);
+        ctx.font = '500 13px Cairo, Arial';
+        ctx.fillStyle = 'rgba(238,238,255,0.4)';
+        ctx.fillText('من ' + TARGET_CALORIES, ringCX, ringCY + 52);
+
+        // Nutrition score badge inside ring area
+        const scoreNum = parseInt(scoreText) || 0;
+        let scoreColor = '#DC143C';
+        if (scoreNum >= 85) scoreColor = '#00D4AA';
+        else if (scoreNum >= 70) scoreColor = '#F5A623';
+        else if (scoreNum >= 55) scoreColor = '#F5A623';
+        drawRoundRect(CARD_PAD, y + 200, 200, 50, 14, 'rgba(255,255,255,0.05)', 'rgba(255,255,255,0.1)');
+        ctx.textAlign = 'center';
+        ctx.font = 'bold 13px Cairo, Arial';
+        ctx.fillStyle = scoreColor;
+        ctx.fillText('🏆 ' + scoreText + '  ' + ratingText, CARD_PAD + 100, y + 232);
+
+        // ─── MACRO STATS CARDS ───
+        const macros = [
+            { label:'بروتين', val:pro+'جم', color:'#00D4AA', target:TARGET_PROTEIN, curr:pro },
+            { label:'كارب', val:carb+'جم', color:'#F5A623', target:TARGET_CARBS, curr:carb },
+            { label:'دهون', val:fat+'جم', color:'#FF6B6B', target:TARGET_FATS, curr:fat },
+            { label:'ألياف', val:fib+'جم', color:'#A78BFA', target:TARGET_FIBER, curr:fib },
+        ];
+        const macroStartX = CARD_PAD + 220;
+        const macroW = (W - CARD_PAD - macroStartX - 16) / 4;
+        macros.forEach((m, i) => {
+            const mx = macroStartX + i * (macroW + 6);
+            const my = y;
+            const mh = 260;
+            drawRoundRect(mx, my, macroW, mh, 18, '#0F0F1A', 'rgba(255,255,255,0.07)');
+            // top accent line
+            const macroGrad = ctx.createLinearGradient(mx, my, mx+macroW, my);
+            macroGrad.addColorStop(0, m.color);
+            macroGrad.addColorStop(1, 'transparent');
+            ctx.fillStyle = macroGrad;
+            ctx.fillRect(mx+18, my, macroW-36, 3);
+
+            ctx.textAlign = 'center';
+            ctx.font = 'bold 28px Cairo, Arial';
+            ctx.fillStyle = m.color;
+            ctx.fillText(m.curr, mx + macroW/2, my + 78);
+            ctx.font = '500 13px Cairo, Arial';
+            ctx.fillStyle = 'rgba(255,255,255,0.5)';
+            ctx.fillText('جم', mx + macroW/2, my + 100);
+            ctx.font = 'bold 14px Cairo, Arial';
+            ctx.fillStyle = 'rgba(238,238,255,0.7)';
+            ctx.fillText(m.label, mx + macroW/2, my + 130);
+
+            // Progress bar
+            const barX = mx + 14, barY = my + 150, barW = macroW - 28, barH = 8;
+            drawRoundRect(barX, barY, barW, barH, 4, 'rgba(255,255,255,0.07)', null);
+            const barPct = m.target > 0 ? Math.min(m.curr / m.target, 1) : 0;
+            if (barPct > 0) {
+                ctx.save();
+                ctx.beginPath();
+                ctx.rect(barX, barY, barW * barPct, barH);
+                ctx.clip();
+                drawRoundRect(barX, barY, barW, barH, 4, m.color, null);
+                ctx.restore();
+            }
+            ctx.font = '500 12px Cairo, Arial';
+            ctx.fillStyle = 'rgba(255,255,255,0.35)';
+            ctx.fillText(Math.round(barPct*100)+'%', mx + macroW/2, my + 180);
+            ctx.font = '500 12px Cairo, Arial';
+            ctx.fillStyle = 'rgba(255,255,255,0.25)';
+            ctx.fillText('هدف ' + m.target, mx + macroW/2, my + 200);
+        });
+
+        y += 290;
+
+        // ─── DIVIDER ───
+        const divGrad = ctx.createLinearGradient(CARD_PAD, 0, W-CARD_PAD, 0);
+        divGrad.addColorStop(0, 'transparent');
+        divGrad.addColorStop(0.3, 'rgba(220,20,60,0.4)');
+        divGrad.addColorStop(0.7, 'rgba(245,166,35,0.4)');
+        divGrad.addColorStop(1, 'transparent');
+        ctx.fillStyle = divGrad;
+        ctx.fillRect(CARD_PAD, y, W - CARD_PAD*2, 1.5);
+        y += 28;
+
+        // ─── MEALS SECTION ───
+        if (mealsList.length > 0) {
+            ctx.textAlign = 'right';
+            ctx.font = 'bold 22px Cairo, Arial';
+            ctx.fillStyle = '#EEEEFF';
+            ctx.fillText('📋 تفاصيل الوجبات', W - CARD_PAD, y + 20);
+            y += 44;
+
+            mealsList.forEach((meal, mi) => {
+                // Meal header card
+                drawRoundRect(CARD_PAD, y, W - CARD_PAD*2, 52, 14, '#171726', 'rgba(220,20,60,0.2)');
+                // Red badge accent left
+                ctx.fillStyle = '#DC143C';
+                ctx.beginPath();
+                ctx.roundRect ? ctx.roundRect(CARD_PAD, y, 5, 52, [14,0,0,14]) : ctx.rect(CARD_PAD, y, 5, 52);
+                ctx.fill();
+
+                ctx.textAlign = 'right';
+                ctx.font = 'bold 18px Cairo, Arial';
+                ctx.fillStyle = '#EEEEFF';
+                ctx.fillText(meal.name, W - CARD_PAD - 18, y + 22);
+
+                ctx.font = '600 14px Cairo, Arial';
+                ctx.fillStyle = '#DC143C';
+                ctx.fillText(meal.total + ' سعرة', W - CARD_PAD - 18, y + 42);
+
+                const pctOfDay = TARGET_CALORIES > 0 ? Math.round(meal.total/TARGET_CALORIES*100) : 0;
+                ctx.textAlign = 'left';
+                ctx.font = '600 13px Cairo, Arial';
+                ctx.fillStyle = 'rgba(245,166,35,0.8)';
+                ctx.fillText(pctOfDay + '% من اليوم', CARD_PAD + 18, y + 34);
+                y += 60;
+
+                // Foods list
+                meal.foods.forEach((food, fi) => {
+                    const rowBg = fi % 2 === 0 ? 'rgba(255,255,255,0.03)' : 'rgba(255,255,255,0.015)';
+                    drawRoundRect(CARD_PAD, y, W - CARD_PAD*2, 38, 8, rowBg, 'rgba(255,255,255,0.05)');
+
+                    ctx.textAlign = 'right';
+                    ctx.font = '600 14px Cairo, Arial';
+                    ctx.fillStyle = '#DDDDEE';
+                    const nameLines = wrapText(food.name + ' (' + food.quantity + 'جم)', W/2.2);
+                    ctx.fillText(nameLines[0], W - CARD_PAD - 14, y + 24);
+
+                    // Macros chips
+                    const chips = [
+                        { txt: food.calories+' سعرة', color:'#DC143C' },
+                        { txt: 'ب'+food.protein+'جم', color:'#00D4AA' },
+                        { txt: 'ك'+food.carbs+'جم', color:'#F5A623' },
+                        { txt: 'د'+food.fats+'جم', color:'#FF6B6B' },
+                    ];
+                    let chipX = CARD_PAD + 14;
+                    chips.forEach(chip => {
+                        const tw = ctx.measureText(chip.txt).width + 16;
+                        drawRoundRect(chipX, y+10, tw, 20, 10, 'rgba(255,255,255,0.06)', null);
+                        ctx.font = '600 11px Cairo, Arial';
+                        ctx.fillStyle = chip.color;
+                        ctx.textAlign = 'left';
+                        ctx.fillText(chip.txt, chipX + 8, y + 24);
+                        chipX += tw + 6;
+                    });
+                    y += 44;
+                });
+                y += 14;
+            });
+        } else {
+            drawRoundRect(CARD_PAD, y, W - CARD_PAD*2, 80, 18, 'rgba(255,255,255,0.03)', 'rgba(255,255,255,0.06)');
+            ctx.textAlign = 'center';
+            ctx.font = '500 17px Cairo, Arial';
+            ctx.fillStyle = 'rgba(238,238,255,0.3)';
+            ctx.fillText('لم تضف أي وجبات بعد', W/2, y + 48);
+            y += 100;
+        }
+
+        // ─── FOOTER ───
+        y += 20;
+        const footerH = 100;
+        const footerGrad = ctx.createLinearGradient(0, y, 0, y+footerH);
+        footerGrad.addColorStop(0, 'rgba(220,20,60,0.0)');
+        footerGrad.addColorStop(1, 'rgba(220,20,60,0.15)');
+        ctx.fillStyle = footerGrad;
+        ctx.fillRect(0, y, W, footerH);
+        ctx.fillStyle = goldLine;
+        ctx.fillRect(CARD_PAD, y, W - CARD_PAD*2, 1.5);
+        y += 24;
+
+        if (logoImg) {
+            ctx.save();
+            ctx.beginPath();
+            ctx.arc(CARD_PAD + 28, y + 28, 26, 0, Math.PI*2);
+            ctx.clip();
+            ctx.drawImage(logoImg, CARD_PAD+2, y+2, 52, 52);
+            ctx.restore();
+            ctx.beginPath();
+            ctx.arc(CARD_PAD + 28, y + 28, 26, 0, Math.PI*2);
+            ctx.strokeStyle = 'rgba(245,166,35,0.6)';
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+        }
+
+        ctx.textAlign = 'right';
+        ctx.font = 'bold 17px Cairo, Arial';
+        ctx.fillStyle = '#EEEEFF';
+        ctx.fillText('Popeye GYM', W - CARD_PAD, y + 24);
+        ctx.font = '500 13px Cairo, Arial';
+        ctx.fillStyle = 'rgba(245,166,35,0.8)';
+        ctx.fillText('الجمالية | الكردي', W - CARD_PAD, y + 44);
+        ctx.font = '500 12px Cairo, Arial';
+        ctx.fillStyle = 'rgba(238,238,255,0.35)';
+        ctx.fillText('تم إنشاؤه بواسطة Popeye GYM Food Tracker — ' + new Date().toLocaleString('ar-EG'), W - CARD_PAD, y + 64);
+
+        // ─── CONTACT BAR ───
+        y += footerH + 10;
+        const contactBarH = 90;
+        const contactGrad = ctx.createLinearGradient(0, y, 0, y + contactBarH);
+        contactGrad.addColorStop(0, 'rgba(220,20,60,0.18)');
+        contactGrad.addColorStop(1, 'rgba(165,14,43,0.25)');
+        drawRoundRect(CARD_PAD, y, W - CARD_PAD*2, contactBarH, 20, contactGrad, 'rgba(220,20,60,0.3)');
+
+        // Gold separator line at top of contact bar
+        const cGoldLine = ctx.createLinearGradient(CARD_PAD, 0, W-CARD_PAD, 0);
+        cGoldLine.addColorStop(0, 'transparent');
+        cGoldLine.addColorStop(0.3, '#F5A623');
+        cGoldLine.addColorStop(0.7, '#F5A623');
+        cGoldLine.addColorStop(1, 'transparent');
+        ctx.fillStyle = cGoldLine;
+        ctx.fillRect(CARD_PAD+20, y, W-CARD_PAD*2-40, 2);
+
+        // Contact items - centered layout
+        const contacts = [
+            { icon: 'f', label: '@popeye.gym.10', color: '#1877F2', bg: 'rgba(24,119,242,0.15)' },
+            { icon: '📷', label: '@popeye.gym__', color: '#E1306C', bg: 'rgba(225,48,108,0.15)' },
+            { icon: '📞', label: '01555 037 364', color: '#25D366', bg: 'rgba(37,211,102,0.15)' },
+        ];
+
+        const itemW = (W - CARD_PAD*2 - 40) / 3;
+        const startXc = CARD_PAD + 20;
+        contacts.forEach((c, i) => {
+            const cx2 = startXc + i * itemW;
+            const cy2 = y + 14;
+            // Pill bg
+            drawRoundRect(cx2 + 8, cy2, itemW - 16, 62, 14, c.bg, c.color.replace(')', ',0.4)').replace('rgb', 'rgba'));
+
+            // Icon circle
+            const icX = cx2 + 8 + 28, icY = cy2 + 31;
+            ctx.beginPath();
+            ctx.arc(icX, icY, 20, 0, Math.PI*2);
+            ctx.fillStyle = c.color + '33';
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(icX, icY, 20, 0, Math.PI*2);
+            ctx.strokeStyle = c.color;
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+
+            ctx.textAlign = 'center';
+            ctx.font = 'bold 15px Arial';
+            ctx.fillStyle = c.color;
+            ctx.fillText(c.icon, icX, icY + 6);
+
+            // Label
+            ctx.font = '600 14px Cairo, Arial';
+            ctx.fillStyle = '#EEEEFF';
+            ctx.textAlign = 'center';
+            ctx.fillText(c.label, cx2 + itemW/2 + 10, cy2 + 42);
+        });
+
+        y += contactBarH + 10;
+
+        // ─── TRIM CANVAS & SAVE ───
+        const finalH = y + 30;
+        const finalCanvas = document.createElement('canvas');
+        finalCanvas.width = W;
+        finalCanvas.height = finalH;
+        const fc = finalCanvas.getContext('2d');
+        fc.drawImage(canvas, 0, 0);
+
+        finalCanvas.toBlob(blob => {
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `PopeyeGYM-nutrition-${new Date().toISOString().split('T')[0]}.png`;
+            document.body.appendChild(a); a.click(); document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            showToast('✅ تم تحميل الصورة بنجاح!', 'success');
+        }, 'image/png');
+    }
+
+    // Try to load logo
+    const logoImg = new Image();
+    logoImg.crossOrigin = 'anonymous';
+    logoImg.onload = () => renderFinalCanvas(logoImg);
+    logoImg.onerror = () => renderFinalCanvas(null);
+    logoImg.src = '/images/logo.png';
 }
 
 // ══════════════════════════════════════════════════════
