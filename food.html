@@ -84,19 +84,6 @@
             opacity: 0.5;
         }
         .header-brand { display: flex; align-items: center; gap: 14px; }
-        .header-logo {
-            width: 48px; height: 48px; border-radius: 14px;
-            border: 2px solid rgba(220,20,60,0.6);
-            box-shadow: 0 0 24px var(--red-glow), inset 0 0 10px rgba(220,20,60,0.1);
-            object-fit: contain;
-            background: var(--surface2);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.5rem;
-            overflow: hidden;
-        }
-        .header-logo img {
-            width: 100%; height: 100%; object-fit: contain; border-radius: 12px;
-        }
         .header-title { font-size: 1.2rem; font-weight: 900; letter-spacing: -0.5px; }
         .header-title span { color: var(--red); }
         .header-subtitle { font-size: 0.72rem; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase; }
@@ -183,7 +170,7 @@
         /* ── MAIN DASHBOARD ── */
         .dashboard {
             display: grid;
-            grid-template-columns: 320px 1fr;
+            grid-template-columns: minmax(260px, 300px) 1fr;
             gap: 20px;
             margin-bottom: 24px;
         }
@@ -368,6 +355,12 @@
             border-radius: 24px;
             padding: 24px;
             margin-bottom: 24px;
+            overflow: hidden;
+        }
+        .chart-wrapper {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
         }
         .weekly-header {
             display: flex; justify-content: space-between; align-items: center;
@@ -636,32 +629,6 @@
         }
         .empty-state i { font-size: 2rem; display: block; margin-bottom: 10px; opacity: 0.2; }
 
-        /* ── SMART TIPS ── */
-        .tips-card {
-            background: var(--surface);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px; padding: 20px 24px;
-            margin-top: 24px;
-        }
-        .tips-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
-        .tips-icon { font-size: 1.2rem; color: var(--gold); animation: pulse 2s ease-in-out infinite; }
-        @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.15); } }
-        .tips-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-        .tip-chip {
-            background: var(--surface2); border: 1px solid var(--glass-border);
-            border-radius: 14px; padding: 14px;
-            font-size: 0.8rem; line-height: 1.6; color: var(--text-muted);
-            position: relative; overflow: hidden;
-        }
-        .tip-chip::before {
-            content: '';
-            position: absolute; top: 0; left: 0; width: 3px; height: 100%;
-        }
-        .tip-chip.green::before { background: var(--protein-color); }
-        .tip-chip.yellow::before { background: var(--gold); }
-        .tip-chip.blue::before { background: var(--water-color); }
-        .tip-chip .tip-title { font-weight: 700; color: var(--text); font-size: 0.82rem; margin-bottom: 4px; }
-
         /* ── TOAST ── */
         .toast {
             position: fixed; bottom: 30px; left: 50%;
@@ -711,57 +678,74 @@
         /* Goal Modal */
         .goal-modal-box {
             background: var(--surface); border: 1px solid var(--glass-border2);
-            border-radius: 28px; padding: 36px;
-            max-width: 480px; width: 90%;
+            border-radius: 22px; padding: 24px 22px;
+            max-width: 400px; width: 92%;
+            max-height: 90vh; overflow-y: auto;
             animation: popIn 0.3s cubic-bezier(0.34,1.56,0.64,1);
+            scrollbar-width: thin;
+            scrollbar-color: var(--surface4) transparent;
         }
-        .goal-modal-title { font-size: 1.3rem; font-weight: 800; margin-bottom: 6px; }
-        .goal-modal-sub { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 24px; }
-        .goal-field { margin-bottom: 16px; }
-        .goal-field label { display: block; font-size: 0.78rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+        .goal-modal-box::-webkit-scrollbar { width: 4px; }
+        .goal-modal-box::-webkit-scrollbar-thumb { background: var(--surface4); border-radius: 4px; }
+        .goal-modal-title { font-size: 1.1rem; font-weight: 800; margin-bottom: 4px; }
+        .goal-modal-sub { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 16px; }
+        .goal-field { margin-bottom: 12px; }
+        .goal-field label { display: block; font-size: 0.72rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
         .goal-field input, .goal-field select {
             width: 100%;
             background: var(--surface2); border: 1px solid var(--glass-border);
-            border-radius: 12px; padding: 13px 16px;
-            font-family: 'Cairo', sans-serif; font-size: 0.95rem; color: var(--text); direction: rtl;
+            border-radius: 10px; padding: 10px 13px;
+            font-family: 'Cairo', sans-serif; font-size: 0.88rem; color: var(--text); direction: rtl;
         }
         .goal-field input:focus, .goal-field select:focus { outline: none; border-color: var(--red); box-shadow: 0 0 0 3px rgba(220,20,60,0.1); }
         .goal-field select option { background: var(--surface2); }
         .goal-result {
             background: var(--surface2); border: 1px solid var(--glass-border);
-            border-radius: 14px; padding: 16px; margin-bottom: 20px;
+            border-radius: 12px; padding: 12px; margin-bottom: 14px;
             text-align: center;
         }
-        .goal-result-val { font-size: 2rem; font-weight: 900; color: var(--red); }
-        .goal-result-label { font-size: 0.75rem; color: var(--text-muted); }
-        .goal-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+        .goal-result-val { font-size: 1.6rem; font-weight: 900; color: var(--red); }
+        .goal-result-label { font-size: 0.72rem; color: var(--text-muted); }
+        .goal-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
         .goal-save-btn {
             width: 100%; background: linear-gradient(135deg, var(--red), var(--red-dark));
-            color: white; border: none; border-radius: 14px;
-            padding: 14px; font-family: 'Cairo', sans-serif;
-            font-size: 1rem; font-weight: 700; cursor: pointer; transition: all 0.3s;
-            box-shadow: 0 4px 16px var(--red-glow);
+            color: white; border: none; border-radius: 12px;
+            padding: 11px; font-family: 'Cairo', sans-serif;
+            font-size: 0.92rem; font-weight: 700; cursor: pointer; transition: all 0.3s;
+            box-shadow: 0 4px 14px var(--red-glow);
         }
-        .goal-save-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px var(--red-glow); }
+        .goal-save-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 22px var(--red-glow); }
+
+        @media (max-width: 480px) {
+            .goal-modal-box {
+                padding: 18px 16px;
+                max-height: 85vh;
+                border-radius: 18px;
+            }
+            .goal-row { grid-template-columns: 1fr 1fr; gap: 8px; }
+            .goal-field { margin-bottom: 10px; }
+            .goal-field input, .goal-field select { padding: 9px 11px; font-size: 0.84rem; }
+        }
 
         /* ── MOBILE RESPONSIVE ── */
         @media (max-width: 768px) {
-            .main { padding: 16px 12px 80px; }
+            .main { padding: 14px 10px 80px; }
             .stats-strip { gap: 8px; }
-            .stat-pill { padding: 12px 12px; border-radius: 14px; }
-            .stat-pill-val { font-size: 1.2rem; }
-            .stat-pill-icon { width: 36px; height: 36px; font-size: 1rem; }
+            .stat-pill { padding: 10px 10px; border-radius: 14px; gap: 10px; }
+            .stat-pill-val { font-size: 1.1rem; }
+            .stat-pill-icon { width: 34px; height: 34px; font-size: 0.95rem; flex-shrink: 0; }
+            .stat-pill-label { font-size: 0.6rem; letter-spacing: 0.5px; }
             .dashboard { grid-template-columns: 1fr; }
-            .dash-left { padding: 20px; }
-            .ring-container { width: 150px; height: 150px; }
-            .ring-svg { width: 150px; height: 150px; }
+            .dash-left { padding: 18px; }
+            .ring-container { width: 140px; height: 140px; }
+            .ring-svg { width: 140px; height: 140px; }
             .macros-row { grid-template-columns: repeat(2, 1fr); gap: 8px; }
             .macro-card { padding: 12px; }
             .macro-val { font-size: 1.2rem; }
-            .dash-actions { gap: 8px; }
-            .action-btn { padding: 10px 14px; font-size: 0.8rem; }
+            .dash-actions { gap: 6px; flex-wrap: wrap; }
+            .action-btn { padding: 10px 12px; font-size: 0.78rem; }
             .add-meal-card {
-                flex-direction: column; padding: 14px 14px; gap: 10px;
+                flex-direction: column; padding: 14px 12px; gap: 10px;
                 margin-bottom: 16px;
             }
             .add-meal-card > i { display: none; }
@@ -781,21 +765,36 @@
             .badge-cal { grid-column: 3; grid-row: 1; }
             .badge-pro, .badge-carb, .badge-fat, .badge-fib, .badge-qty { font-size: 0.7rem; }
             .food-row-del { grid-column: 3; grid-row: 2; }
-            .tips-grid { grid-template-columns: 1fr; }
-            .weekly-card { padding: 16px; }
-            .favorites-section { padding: 14px 14px; }
+            .weekly-card { padding: 14px; }
+            .section-title-main { font-size: 0.95rem; }
+            .weekly-header { flex-wrap: wrap; gap: 8px; }
+            .favorites-section { padding: 12px 12px; }
             .fav-chips { gap: 6px; }
             .fav-chip { padding: 6px 10px; font-size: 0.75rem; }
-            .header { padding: 12px 16px; }
-            .header-logo { width: 40px; height: 40px; }
-            .header-title { font-size: 1rem; }
+            .header { padding: 10px 14px; }
+            .header-title { font-size: 0.95rem; }
+            .header-subtitle { display: none; }
+            .streak-badge { padding: 6px 10px; font-size: 0.78rem; }
             .goal-btn span { display: none; }
             .goal-btn::after { content: 'الهدف'; }
+            .goal-btn { padding: 6px 10px; }
         }
         @media (max-width: 480px) {
+            .main { padding: 10px 8px 80px; }
             .macros-row { grid-template-columns: repeat(2, 1fr); }
-            .stats-strip { grid-template-columns: repeat(3, 1fr); }
-            .stat-pill-label { font-size: 0.6rem; letter-spacing: 0.5px; }
+            .stats-strip { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+            .stat-pill { padding: 8px 8px; gap: 8px; border-radius: 12px; }
+            .stat-pill-icon { width: 30px; height: 30px; font-size: 0.85rem; }
+            .stat-pill-val { font-size: 1rem; }
+            .stat-pill-label { font-size: 0.55rem; letter-spacing: 0; }
+            .header-actions { gap: 6px; }
+            .action-btn { padding: 9px 10px; font-size: 0.75rem; }
+            .water-btns { gap: 6px; }
+            .water-btn { font-size: 0.72rem; padding: 7px 4px; }
+            .dash-left { padding: 14px; }
+            .ring-container { width: 130px; height: 130px; }
+            .ring-svg { width: 130px; height: 130px; }
+            .ring-calories { font-size: 2rem; }
         }
 
         /* BMI Modal */
@@ -827,20 +826,19 @@
         @media (max-width: 900px) {
             .dashboard { grid-template-columns: 1fr; }
             .macros-row { grid-template-columns: repeat(2, 1fr); }
-            .stats-strip { grid-template-columns: repeat(2, 1fr); }
-            .tips-grid { grid-template-columns: 1fr; }
+            .stats-strip { grid-template-columns: repeat(3, 1fr); }
             .bottom-row { grid-template-columns: 1fr; }
         }
         @media (max-width: 600px) {
-            .stats-strip { grid-template-columns: 1fr 1fr; }
+            .stats-strip { grid-template-columns: repeat(3, 1fr); gap: 6px; }
             .macros-row { grid-template-columns: 1fr 1fr; }
             .food-list-header { display: none; }
             .food-row { grid-template-columns: 1fr auto auto auto; gap: 4px; }
             .food-row .badge-pro, .food-row .badge-fib, .food-row .badge-qty { display: none; }
-            .header { padding: 14px 16px; }
-            .main { padding: 16px 12px 60px; }
-            .dash-actions { gap: 8px; }
-            .action-btn { padding: 10px 16px; font-size: 0.82rem; }
+            .header { padding: 10px 12px; }
+            .main { padding: 10px 8px 60px; }
+            .dash-actions { gap: 6px; }
+            .action-btn { padding: 9px 12px; font-size: 0.78rem; }
         }
 
         /* Scrollbar */
@@ -873,7 +871,6 @@
 <!-- HEADER -->
 <header class="header">
     <div class="header-brand">
-        <div class="header-logo"><img src="/images/logo.png" alt="Popeye GYM"></div>
         <div>
             <div class="header-title">Popeye <span>GYM</span></div>
             <div class="header-subtitle">Food & Nutrition Tracker</div>
@@ -1028,7 +1025,9 @@
                 <span><span style="color:var(--gold)">—</span> الهدف</span>
             </div>
         </div>
-        <canvas id="weekly-chart"></canvas>
+        <div class="chart-wrapper">
+            <canvas id="weekly-chart"></canvas>
+        </div>
     </div>
 
     <!-- ACTIONS -->
@@ -1066,27 +1065,6 @@
     <!-- MEALS CONTAINER -->
     <div class="meals-container" id="meals-container"></div>
 
-    <!-- SMART TIPS -->
-    <div class="tips-card" id="tips-card">
-        <div class="tips-header">
-            <span class="tips-icon">💡</span>
-            <span class="section-title-main">نصائح ذكية لليوم</span>
-        </div>
-        <div class="tips-grid" id="tips-grid">
-            <div class="tip-chip green">
-                <div class="tip-title">🥩 البروتين أولاً</div>
-                <div>ابدأ وجباتك بالبروتين لتعزيز الشعور بالشبع وحماية العضلات أثناء التخسيس.</div>
-            </div>
-            <div class="tip-chip yellow">
-                <div class="tip-title">⏰ توزيع الوجبات</div>
-                <div>وزّع سعراتك على 4-5 وجبات صغيرة يومياً لتثبيت مستوى السكر والطاقة.</div>
-            </div>
-            <div class="tip-chip blue">
-                <div class="tip-title">💧 الترطيب مهم</div>
-                <div>اشرب 300 مل ماء قبل كل وجبة لتقليل الكميات وتحسين الهضم.</div>
-            </div>
-        </div>
-    </div>
 
 </main>
 
@@ -1395,15 +1373,17 @@ function drawWeeklyChart() {
     const canvas = document.getElementById('weekly-chart');
     const ctx = canvas.getContext('2d');
     const DPR = window.devicePixelRatio || 1;
-    const rect = canvas.parentElement.getBoundingClientRect();
-    canvas.width = rect.width * DPR;
+    // Use the canvas wrapper's client width to avoid parent padding overflow
+    const wrapper = canvas.parentElement;
+    const availW = wrapper.clientWidth || wrapper.getBoundingClientRect().width;
+    canvas.width = availW * DPR;
     canvas.height = 160 * DPR;
-    canvas.style.width = rect.width + 'px';
+    canvas.style.width = availW + 'px';
     canvas.style.height = '160px';
     ctx.scale(DPR, DPR);
 
-    const W = rect.width, H = 160;
-    const pad = { top:20, bottom:30, left:10, right:10 };
+    const W = availW, H = 160;
+    const pad = { top:24, bottom:32, left:12, right:12 };
     const chartW = W - pad.left - pad.right;
     const chartH = H - pad.top - pad.bottom;
 
@@ -1411,7 +1391,7 @@ function drawWeeklyChart() {
 
     const days = getLast7Days();
     const cals = days.map(d => weeklyData[d] ? weeklyData[d].calories : 0);
-    const maxVal = Math.max(...cals, TARGET_CALORIES * 1.2, 100);
+    const maxVal = Math.max(...cals, TARGET_CALORIES * 1.35, 100);
     const labels = ['الأحد','الإثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
     const dayNames = days.map(d => {
         const dt = new Date(d);
@@ -1484,10 +1464,13 @@ function drawWeeklyChart() {
         ctx.fillText(d, xPos(i), H - 6);
     });
 
-    // Today highlight
+    // Today highlight (clamped to chart area)
     const todayIdx = 6;
+    const todayCenterX = xPos(todayIdx);
+    const hlW = 40;
+    const hlX = Math.max(pad.left, Math.min(todayCenterX - hlW / 2, W - pad.right - hlW));
     ctx.fillStyle = 'rgba(220,20,60,0.12)';
-    ctx.fillRect(xPos(todayIdx) - 22, pad.top, 44, chartH);
+    ctx.fillRect(hlX, pad.top, hlW, chartH);
 }
 
 function getLast7Days() {
@@ -1820,8 +1803,6 @@ function updateTotals() {
     // Nutrition score
     updateNutritionScore(cal, pro, carb, fat, fib);
 
-    // Smart tips update
-    updateSmartTips(cal, pro, carb, fat, fib, remaining);
 }
 
 function animateNumber(id, target) {
@@ -1878,28 +1859,6 @@ function updateNutritionScore(cal, pro, carb, fat, fib) {
     ratingEl.style.color = color;
 }
 
-function updateSmartTips(cal, pro, carb, fat, fib, remaining) {
-    const tips = [];
-    if (pro < TARGET_PROTEIN * 0.8) tips.push({ c:'green', t:'⚠️ البروتين منخفض', b:`تحتاج ${Math.round(TARGET_PROTEIN - pro)}جم بروتين إضافي. أضف صدر دجاج أو بيض أو بروتين واي.` });
-    if (fib < TARGET_FIBER * 0.5) tips.push({ c:'green', t:'🥦 زِد الألياف', b:'الألياف تحسن الهضم وتقلل الجوع. أضف خضروات وبقوليات.' });
-    if (remaining > 500 && cal > 0) tips.push({ c:'yellow', t:`🍽️ باقي ${Math.round(remaining)} سعرة`, b:'يمكنك إضافة وجبة متوازنة من بروتين مع خضروات ونشويات.' });
-    if (cal > TARGET_CALORIES * 1.1) tips.push({ c:'yellow', t:'🚨 تجاوزت الهدف!', b:`تجاوزت هدفك بـ ${Math.round(cal - TARGET_CALORIES)} سعرة. خطط لتمرين اليوم.` });
-    if (waterMl < WATER_GOAL * 0.5) tips.push({ c:'blue', t:'💧 اشرب ماء أكثر', b:`شربت ${waterMl} مل فقط. الهدف ${WATER_GOAL} مل. الماء يحسن الأداء.` });
-
-    if (!tips.length) {
-        tips.push({ c:'green', t:'🥩 البروتين أولاً', b:'ابدأ وجباتك بالبروتين لتعزيز الشعور بالشبع وحماية العضلات.' });
-        tips.push({ c:'yellow', t:'⏰ توزيع الوجبات', b:'وزّع سعراتك على 4-5 وجبات صغيرة يومياً لتثبيت الطاقة.' });
-        tips.push({ c:'blue', t:'💧 الترطيب مهم', b:'اشرب 300 مل ماء قبل كل وجبة لتقليل الكميات وتحسين الهضم.' });
-    }
-    while (tips.length < 3) tips.push({ c:'blue', t:'💡 نصيحة', b:'اجعل نظامك الغذائي متنوعاً ومتوازناً للحصول على أفضل النتائج.' });
-
-    document.getElementById('tips-grid').innerHTML = tips.slice(0,3).map(tip => `
-        <div class="tip-chip ${tip.c}">
-            <div class="tip-title">${tip.t}</div>
-            <div>${tip.b}</div>
-        </div>
-    `).join('');
-}
 
 // ══════════════════════════════════════════════════════
 //  WATER TRACKER
@@ -2330,19 +2289,7 @@ function downloadImage() {
     ctx.fillStyle = goldLine;
     ctx.fillRect(0, headerH-3, W, 3);
 
-    // Logo circle
-    const logoX = CARD_PAD + 48, logoY = headerH/2;
-    ctx.save();
-    ctx.beginPath();
-    ctx.arc(logoX, logoY, 44, 0, Math.PI*2);
-    ctx.fillStyle = 'rgba(255,255,255,0.1)';
-    ctx.fill();
-    ctx.strokeStyle = 'rgba(245,166,35,0.8)';
-    ctx.lineWidth = 2.5;
-    ctx.stroke();
-    ctx.restore();
-
-    function renderFinalCanvas(logoImg) {
+    function renderFinalCanvas() {
         // Clear and redraw
         ctx.fillStyle = bgGrad;
         ctx.fillRect(0, 0, W, H_estimate);
@@ -2353,29 +2300,6 @@ function downloadImage() {
         ctx.fillStyle = hGrad; ctx.fillRect(0, 0, W, headerH);
         ctx.fillStyle = 'rgba(255,255,255,0.06)'; ctx.fillRect(0, 0, W, 2);
         ctx.fillStyle = goldLine; ctx.fillRect(0, headerH-3, W, 3);
-
-        // Logo clip circle
-        ctx.save();
-        ctx.beginPath();
-        ctx.arc(logoX, logoY, 42, 0, Math.PI*2);
-        ctx.clip();
-        if (logoImg) {
-            ctx.drawImage(logoImg, logoX-42, logoY-42, 84, 84);
-        } else {
-            ctx.fillStyle = '#1a0010';
-            ctx.fill();
-            ctx.font = 'bold 36px sans-serif';
-            ctx.fillStyle = '#DC143C';
-            ctx.textAlign = 'center';
-            ctx.fillText('P', logoX, logoY+13);
-        }
-        ctx.restore();
-        // Logo border
-        ctx.beginPath();
-        ctx.arc(logoX, logoY, 42, 0, Math.PI*2);
-        ctx.strokeStyle = 'rgba(245,166,35,0.85)';
-        ctx.lineWidth = 2.5;
-        ctx.stroke();
 
         // Gym name
         ctx.textAlign = 'right';
@@ -2583,101 +2507,25 @@ function downloadImage() {
 
         // ─── FOOTER ───
         y += 20;
-        const footerH = 100;
-        const footerGrad = ctx.createLinearGradient(0, y, 0, y+footerH);
-        footerGrad.addColorStop(0, 'rgba(220,20,60,0.0)');
-        footerGrad.addColorStop(1, 'rgba(220,20,60,0.15)');
-        ctx.fillStyle = footerGrad;
-        ctx.fillRect(0, y, W, footerH);
         ctx.fillStyle = goldLine;
         ctx.fillRect(CARD_PAD, y, W - CARD_PAD*2, 1.5);
-        y += 24;
+        y += 14;
 
-        if (logoImg) {
-            ctx.save();
-            ctx.beginPath();
-            ctx.arc(CARD_PAD + 28, y + 28, 26, 0, Math.PI*2);
-            ctx.clip();
-            ctx.drawImage(logoImg, CARD_PAD+2, y+2, 52, 52);
-            ctx.restore();
-            ctx.beginPath();
-            ctx.arc(CARD_PAD + 28, y + 28, 26, 0, Math.PI*2);
-            ctx.strokeStyle = 'rgba(245,166,35,0.6)';
-            ctx.lineWidth = 1.5;
-            ctx.stroke();
-        }
-
-        ctx.textAlign = 'right';
-        ctx.font = 'bold 17px Cairo, Arial';
+        ctx.textAlign = 'center';
+        ctx.font = 'bold 14px Cairo, Arial';
         ctx.fillStyle = '#EEEEFF';
-        ctx.fillText('Popeye GYM', W - CARD_PAD, y + 24);
-        ctx.font = '500 13px Cairo, Arial';
+        ctx.fillText('Popeye GYM', W / 2, y + 16);
+        ctx.font = '500 11px Cairo, Arial';
         ctx.fillStyle = 'rgba(245,166,35,0.8)';
-        ctx.fillText('الجمالية | الكردي', W - CARD_PAD, y + 44);
-        ctx.font = '500 12px Cairo, Arial';
-        ctx.fillStyle = 'rgba(238,238,255,0.35)';
-        ctx.fillText('تم إنشاؤه بواسطة Popeye GYM Food Tracker — ' + new Date().toLocaleString('ar-EG'), W - CARD_PAD, y + 64);
+        ctx.fillText('الجمالية | الكردي', W / 2, y + 32);
+        ctx.font = '500 10px Cairo, Arial';
+        ctx.fillStyle = 'rgba(238,238,255,0.3)';
+        ctx.fillText('تم إنشاؤه بواسطة Popeye GYM Food Tracker — ' + new Date().toLocaleString('ar-EG'), W / 2, y + 48);
 
-        // ─── CONTACT BAR ───
-        y += footerH + 10;
-        const contactBarH = 90;
-        const contactGrad = ctx.createLinearGradient(0, y, 0, y + contactBarH);
-        contactGrad.addColorStop(0, 'rgba(220,20,60,0.18)');
-        contactGrad.addColorStop(1, 'rgba(165,14,43,0.25)');
-        drawRoundRect(CARD_PAD, y, W - CARD_PAD*2, contactBarH, 20, contactGrad, 'rgba(220,20,60,0.3)');
-
-        // Gold separator line at top of contact bar
-        const cGoldLine = ctx.createLinearGradient(CARD_PAD, 0, W-CARD_PAD, 0);
-        cGoldLine.addColorStop(0, 'transparent');
-        cGoldLine.addColorStop(0.3, '#F5A623');
-        cGoldLine.addColorStop(0.7, '#F5A623');
-        cGoldLine.addColorStop(1, 'transparent');
-        ctx.fillStyle = cGoldLine;
-        ctx.fillRect(CARD_PAD+20, y, W-CARD_PAD*2-40, 2);
-
-        // Contact items - centered layout
-        const contacts = [
-            { icon: 'f', label: '@popeye.gym.10', color: '#1877F2', bg: 'rgba(24,119,242,0.15)' },
-            { icon: '📷', label: '@popeye.gym__', color: '#E1306C', bg: 'rgba(225,48,108,0.15)' },
-            { icon: '📞', label: '01555 037 364', color: '#25D366', bg: 'rgba(37,211,102,0.15)' },
-        ];
-
-        const itemW = (W - CARD_PAD*2 - 40) / 3;
-        const startXc = CARD_PAD + 20;
-        contacts.forEach((c, i) => {
-            const cx2 = startXc + i * itemW;
-            const cy2 = y + 14;
-            // Pill bg
-            drawRoundRect(cx2 + 8, cy2, itemW - 16, 62, 14, c.bg, c.color.replace(')', ',0.4)').replace('rgb', 'rgba'));
-
-            // Icon circle
-            const icX = cx2 + 8 + 28, icY = cy2 + 31;
-            ctx.beginPath();
-            ctx.arc(icX, icY, 20, 0, Math.PI*2);
-            ctx.fillStyle = c.color + '33';
-            ctx.fill();
-            ctx.beginPath();
-            ctx.arc(icX, icY, 20, 0, Math.PI*2);
-            ctx.strokeStyle = c.color;
-            ctx.lineWidth = 1.5;
-            ctx.stroke();
-
-            ctx.textAlign = 'center';
-            ctx.font = 'bold 15px Arial';
-            ctx.fillStyle = c.color;
-            ctx.fillText(c.icon, icX, icY + 6);
-
-            // Label
-            ctx.font = '600 14px Cairo, Arial';
-            ctx.fillStyle = '#EEEEFF';
-            ctx.textAlign = 'center';
-            ctx.fillText(c.label, cx2 + itemW/2 + 10, cy2 + 42);
-        });
-
-        y += contactBarH + 10;
+        y += 60;
 
         // ─── TRIM CANVAS & SAVE ───
-        const finalH = y + 30;
+        const finalH = y + 20;
         const finalCanvas = document.createElement('canvas');
         finalCanvas.width = W;
         finalCanvas.height = finalH;
@@ -2686,21 +2534,28 @@ function downloadImage() {
 
         finalCanvas.toBlob(blob => {
             const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `PopeyeGYM-nutrition-${new Date().toISOString().split('T')[0]}.png`;
-            document.body.appendChild(a); a.click(); document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-            showToast('✅ تم تحميل الصورة بنجاح!', 'success');
+            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+            if (isMobile) {
+                const win = window.open(url, '_blank');
+                if (!win) {
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `PopeyeGYM-nutrition-${new Date().toISOString().split('T')[0]}.png`;
+                    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+                }
+                showToast('✅ اضغط مطولاً على الصورة لحفظها في المعرض', 'success');
+            } else {
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `PopeyeGYM-nutrition-${new Date().toISOString().split('T')[0]}.png`;
+                document.body.appendChild(a); a.click(); document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                showToast('✅ تم تحميل الصورة بنجاح!', 'success');
+            }
         }, 'image/png');
     }
 
-    // Try to load logo
-    const logoImg = new Image();
-    logoImg.crossOrigin = 'anonymous';
-    logoImg.onload = () => renderFinalCanvas(logoImg);
-    logoImg.onerror = () => renderFinalCanvas(null);
-    logoImg.src = '/images/logo.png';
+    renderFinalCanvas();
 }
 
 // ══════════════════════════════════════════════════════
