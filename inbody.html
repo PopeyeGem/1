@@ -1779,13 +1779,13 @@ function exportImage() {
 
     canvas.toBlob(blob => {
         const url = URL.createObjectURL(blob);
+        const filename = `InBody-${new Date().toISOString().split('T')[0]}.png`;
         const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
         if (isMobile) {
-            window.open(url,'_blank');
-            showToast('✅ اضغط مطولاً على الصورة لحفظها', 'success');
+            showImageSaveModal(url, filename);
         } else {
             const a = document.createElement('a');
-            a.href = url; a.download = `InBody-${new Date().toISOString().split('T')[0]}.png`;
+            a.href = url; a.download = filename;
             document.body.appendChild(a); a.click(); document.body.removeChild(a);
             URL.revokeObjectURL(url);
             showToast('✅ تم تحميل الصورة!', 'success');
@@ -1819,6 +1819,44 @@ function showToast(msg, type='success') {
 
 // Init
 renderHistory();
+
+// ══════════════════════════════════════════════════════
+//  IMAGE SAVE MODAL (mobile-friendly)
+// ══════════════════════════════════════════════════════
+function showImageSaveModal(imgUrl, filename) {
+    const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+    const isAndroid = /Android/i.test(navigator.userAgent);
+
+    const overlay = document.createElement('div');
+    overlay.style.cssText = `
+        position:fixed;inset:0;z-index:99999;
+        background:rgba(0,0,0,0.93);
+        display:flex;flex-direction:column;align-items:center;justify-content:flex-start;
+        padding:16px;overflow-y:auto;
+        -webkit-overflow-scrolling:touch;
+    `;
+
+    const hint = isIOS
+        ? '👇 اضغط مطولاً على الصورة واختر <b>حفظ في الصور</b>'
+        : '👇 اضغط على زر التحميل أو اضغط مطولاً على الصورة';
+
+    overlay.innerHTML = `
+        <div style="width:100%;max-width:500px;display:flex;flex-direction:column;align-items:center;gap:14px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;width:100%;">
+                <div style="font-family:Cairo,sans-serif;color:#00D4AA;font-weight:800;font-size:1rem;">📸 احفظ الصورة</div>
+                <button id="img-modal-close" style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:#fff;border-radius:50%;width:36px;height:36px;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;">✕</button>
+            </div>
+            <div style="font-family:Cairo,sans-serif;color:#eee;font-size:0.88rem;text-align:center;background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.3);border-radius:12px;padding:10px 16px;width:100%;">${hint}</div>
+            ${isAndroid ? `<a href="${imgUrl}" download="${filename}" style="background:linear-gradient(135deg,#00D4AA,#00b89a);color:#07070E;border:none;border-radius:50px;padding:12px 32px;font-family:Cairo,sans-serif;font-weight:800;font-size:0.95rem;text-decoration:none;display:flex;align-items:center;gap:8px;"><i class="fas fa-download"></i> تحميل الصورة</a>` : ''}
+            <img src="${imgUrl}" style="width:100%;border-radius:16px;box-shadow:0 8px 40px rgba(0,0,0,0.6);touch-action:pinch-zoom;" />
+            <div style="font-family:Cairo,sans-serif;color:rgba(255,255,255,0.35);font-size:0.75rem;text-align:center;">Popeye GYM · InBody Analyzer</div>
+        </div>
+    `;
+
+    document.body.appendChild(overlay);
+    overlay.querySelector('#img-modal-close').onclick = () => overlay.remove();
+    overlay.addEventListener('click', e => { if (e.target === overlay) overlay.remove(); });
+}
 </script>
 </body>
 </html>
