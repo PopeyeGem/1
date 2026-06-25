@@ -483,6 +483,25 @@
                 font-size: 1rem;
             }
 
+            .inbody-btn {
+                position: relative;
+                overflow: hidden;
+            }
+            .inbody-btn::before {
+                content: '';
+                position: absolute;
+                top: 0; left: -100%;
+                width: 60%;
+                height: 100%;
+                background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
+                animation: inbody-shine 2.4s ease-in-out infinite;
+            }
+            @keyframes inbody-shine {
+                0%   { left: -100%; }
+                50%  { left: 130%; }
+                100% { left: 130%; }
+            }
+
             /* Hide old dropdown styles since we are moving to direct buttons */
             .nav-dropdown {
                 display: none;
@@ -5368,9 +5387,13 @@
                             <i class="fas fa-calculator"></i>
                             <span>حساب السعرات</span>
                         </div>
-                        <a href="food.html" class="direct-nav-btn">
+                        <a href="food.html" class="direct-nav-btn inbody-btn">
                             <i class="fas fa-utensils"></i>
                             <span>سعرات الطعام</span>
+                        </a>
+                        <a href="inbody.html" class="direct-nav-btn inbody-btn">
+                            <i class="fas fa-dna"></i>
+                            <span>InBody تحليل</span>
                         </a>
                     </div>
                 </div>

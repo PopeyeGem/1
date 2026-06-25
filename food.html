@@ -2301,22 +2301,41 @@ function downloadImage() {
         ctx.fillStyle = 'rgba(255,255,255,0.06)'; ctx.fillRect(0, 0, W, 2);
         ctx.fillStyle = goldLine; ctx.fillRect(0, headerH-3, W, 3);
 
-        // Gym name
+        // Logo (left side)
+        if (window._gymLogo && window._gymLogo.complete) {
+            const lSize = 100;
+            const lX = CARD_PAD;
+            const lY = (headerH - lSize) / 2;
+            ctx.save();
+            ctx.beginPath();
+            ctx.arc(lX + lSize/2, lY + lSize/2, lSize/2, 0, Math.PI*2);
+            ctx.clip();
+            ctx.drawImage(window._gymLogo, lX, lY, lSize, lSize);
+            ctx.restore();
+            // Gold ring around logo
+            ctx.beginPath();
+            ctx.arc(lX + lSize/2, lY + lSize/2, lSize/2, 0, Math.PI*2);
+            ctx.strokeStyle = 'rgba(245,166,35,0.6)';
+            ctx.lineWidth = 2.5;
+            ctx.stroke();
+        }
+
+        // Gym name (right side)
         ctx.textAlign = 'right';
         ctx.font = 'bold 42px Cairo, Arial';
         ctx.fillStyle = '#FFFFFF';
-        ctx.fillText('Popeye GYM', W - CARD_PAD, 70);
+        ctx.fillText('Popeye GYM', W - CARD_PAD, 58);
         ctx.font = '600 20px Cairo, Arial';
         ctx.fillStyle = 'rgba(255,255,255,0.75)';
-        ctx.fillText('تقرير التغذية اليومي', W - CARD_PAD, 100);
+        ctx.fillText('تقرير التغذية اليومي', W - CARD_PAD, 88);
         ctx.font = '500 17px Cairo, Arial';
         ctx.fillStyle = 'rgba(245,166,35,0.9)';
-        ctx.fillText(dateStr, W - CARD_PAD, 128);
-
-        // Address / contact line
-        ctx.font = '500 15px Cairo, Arial';
-        ctx.fillStyle = 'rgba(255,255,255,0.5)';
-        ctx.fillText('الجمالية | الكردي  —  📞 لمتابعة نتائجك تواصل معنا', W - CARD_PAD, 152);
+        ctx.fillText(dateStr, W - CARD_PAD, 116);
+        ctx.font = '500 14px Cairo, Arial';
+        ctx.fillStyle = 'rgba(255,255,255,0.55)';
+        ctx.fillText('📍 الجمالية | الكردي', W - CARD_PAD, 140);
+        ctx.fillStyle = 'rgba(255,255,255,0.4)';
+        ctx.fillText('💪 نتائجك أمانة — استمر في التحدي', W - CARD_PAD, 158);
 
         y = headerH + 36;
 
@@ -2511,16 +2530,33 @@ function downloadImage() {
         ctx.fillRect(CARD_PAD, y, W - CARD_PAD*2, 1.5);
         y += 14;
 
+        // Footer logo
+        if (window._gymLogo && window._gymLogo.complete) {
+            const lSize = 40;
+            const lX = CARD_PAD + 10;
+            const lY = y + 8;
+            ctx.save();
+            ctx.beginPath();
+            ctx.arc(lX + lSize/2, lY + lSize/2, lSize/2, 0, Math.PI*2);
+            ctx.clip();
+            ctx.drawImage(window._gymLogo, lX, lY, lSize, lSize);
+            ctx.restore();
+            ctx.beginPath();
+            ctx.arc(lX + lSize/2, lY + lSize/2, lSize/2, 0, Math.PI*2);
+            ctx.strokeStyle = 'rgba(245,166,35,0.5)';
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+        }
         ctx.textAlign = 'center';
-        ctx.font = 'bold 14px Cairo, Arial';
+        ctx.font = 'bold 16px Cairo, Arial';
         ctx.fillStyle = '#EEEEFF';
-        ctx.fillText('Popeye GYM', W / 2, y + 16);
-        ctx.font = '500 11px Cairo, Arial';
+        ctx.fillText('Popeye GYM', W / 2, y + 18);
+        ctx.font = '500 12px Cairo, Arial';
         ctx.fillStyle = 'rgba(245,166,35,0.8)';
-        ctx.fillText('الجمالية | الكردي', W / 2, y + 32);
+        ctx.fillText('📍 الجمالية | الكردي', W / 2, y + 36);
         ctx.font = '500 10px Cairo, Arial';
         ctx.fillStyle = 'rgba(238,238,255,0.3)';
-        ctx.fillText('تم إنشاؤه بواسطة Popeye GYM Food Tracker — ' + new Date().toLocaleString('ar-EG'), W / 2, y + 48);
+        ctx.fillText('تم إنشاؤه بواسطة Popeye GYM Food Tracker — ' + new Date().toLocaleString('ar-EG'), W / 2, y + 52);
 
         y += 60;
 
@@ -2555,7 +2591,10 @@ function downloadImage() {
         }, 'image/png');
     }
 
-    renderFinalCanvas();
+    const _logo = new Image();
+    _logo.onload = () => { window._gymLogo = _logo; renderFinalCanvas(); };
+    _logo.onerror = () => { window._gymLogo = null; renderFinalCanvas(); };
+    _logo.src = 'images/logo.png';
 }
 
 // ══════════════════════════════════════════════════════
