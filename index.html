@@ -3149,159 +3149,521 @@
             }
 
             /* Footer Styles */
+            /* ══════════════════════════════════════════════
+               LUXURY FOOTER — POPEYE GYM
+            ══════════════════════════════════════════════ */
             .footer {
-                background: var(--secondary-color);
+                position: relative;
+                background: #07070d;
                 color: white;
-                margin-top: 1.5rem;
-                padding: 1.2rem 0;
+                margin-top: 3rem;
+                overflow: hidden;
             }
-
-            .footer-content {
+            .footer::before {
+                content: '';
+                position: absolute;
+                top: 0; left: 0; right: 0;
+                height: 3px;
+                background: linear-gradient(90deg, transparent, #dc2626, #f59e0b, #dc2626, transparent);
+            }
+            .footer-glow {
+                position: absolute;
+                top: -120px; left: 50%; transform: translateX(-50%);
+                width: 600px; height: 240px;
+                background: radial-gradient(ellipse, rgba(220,38,38,0.12) 0%, transparent 70%);
+                pointer-events: none;
+            }
+            .footer-inner {
+                position: relative; z-index: 2;
                 max-width: 1200px;
                 margin: 0 auto;
-                padding: 0 1rem;
-                display: grid;
-                grid-template-columns: 1fr 1fr;
+                padding: 0 1.5rem;
+            }
+
+            /* ── TOP: brand + stats ── */
+            .footer-top {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 2.5rem 0 2rem;
+                border-bottom: 1px solid rgba(255,255,255,0.06);
                 gap: 1.5rem;
-                align-items: start;
+                flex-wrap: wrap;
             }
-
-            /* Right Section - Brand Info */
-            .footer-brand {
+            .footer-logo-area {
+                display: flex;
+                align-items: center;
+                gap: 14px;
+            }
+            .footer-logo-circle {
+                width: 56px; height: 56px;
+                border-radius: 50%;
+                overflow: hidden;
+                border: 2px solid rgba(220,38,38,0.5);
+                box-shadow: 0 0 20px rgba(220,38,38,0.25);
+                flex-shrink: 0;
+            }
+            .footer-logo-circle img {
+                width: 100%; height: 100%;
+                object-fit: cover;
+            }
+            .footer-brand-text .f-title {
+                font-size: 1.3rem;
+                font-weight: 900;
+                letter-spacing: -0.5px;
+                line-height: 1;
+            }
+            .footer-brand-text .f-title span { color: #dc2626; }
+            .footer-brand-text .f-sub {
+                font-size: 0.7rem;
+                color: rgba(255,255,255,0.4);
+                letter-spacing: 2.5px;
+                text-transform: uppercase;
+                margin-top: 3px;
+            }
+            .footer-stats {
+                display: flex;
+                gap: 2rem;
+                flex-wrap: wrap;
+            }
+            .f-stat {
                 text-align: center;
-                padding: 0.5rem;
+            }
+            .f-stat-num {
+                font-size: 1.6rem;
+                font-weight: 900;
+                color: #f59e0b;
+                line-height: 1;
+            }
+            .f-stat-label {
+                font-size: 0.7rem;
+                color: rgba(255,255,255,0.4);
+                margin-top: 4px;
+                letter-spacing: 0.5px;
             }
 
-
-            .footer-brand h3 {
-                font-size: 1.5rem;
+            /* ── MIDDLE: 3 columns ── */
+            .footer-grid {
+                display: grid;
+                grid-template-columns: 1.4fr 1fr 1.4fr;
+                gap: 2.5rem;
+                padding: 2.5rem 0;
+                border-bottom: 1px solid rgba(255,255,255,0.06);
+            }
+            .fg-col-title {
+                font-size: 0.75rem;
                 font-weight: 700;
-                margin: 0 0 0.5rem 0;
-                color: white;
+                letter-spacing: 2px;
+                text-transform: uppercase;
+                color: #dc2626;
+                margin-bottom: 1.2rem;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+            .fg-col-title::after {
+                content: '';
+                flex: 1;
+                height: 1px;
+                background: rgba(220,38,38,0.2);
             }
 
-            .footer-brand p {
-                color: rgba(255, 255, 255, 0.8);
-                font-size: 0.9rem;
-                line-height: 1.4;
-                margin: 0 0 1rem 0;
-            }
-
-            .footer-location-btn {
-                background: var(--primary-color);
-                color: white;
-                padding: 0.5rem 1rem;
-                border: none;
-                border-radius: 8px;
+            /* About col */
+            .fg-about-text {
                 font-size: 0.85rem;
+                color: rgba(255,255,255,0.5);
+                line-height: 1.7;
+                margin-bottom: 1.2rem;
+            }
+            .fg-branches {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+            }
+            .fg-branch {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                padding: 8px 12px;
+                background: rgba(255,255,255,0.04);
+                border: 1px solid rgba(255,255,255,0.07);
+                border-radius: 10px;
+                font-size: 0.82rem;
+                color: rgba(255,255,255,0.7);
+                transition: all 0.3s;
                 text-decoration: none;
+                cursor: pointer;
+            }
+            .fg-branch:hover {
+                background: rgba(220,38,38,0.08);
+                border-color: rgba(220,38,38,0.3);
+                color: white;
+            }
+            .fg-branch i { color: #dc2626; width: 14px; }
+
+            /* ── Modern Map Cards ── */
+            .fg-map-cards {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+            .fg-map-card {
+                display: flex;
+                border-radius: 14px;
+                overflow: hidden;
+                border: 1px solid rgba(255,255,255,0.07);
+                text-decoration: none;
+                transition: all 0.4s cubic-bezier(0.23,1,0.32,1);
+                background: rgba(255,255,255,0.02);
+                position: relative;
+            }
+            .fg-map-card::before {
+                content: '';
+                position: absolute;
+                inset: 0;
+                border-radius: 14px;
+                background: linear-gradient(135deg, rgba(220,38,38,0.05) 0%, transparent 60%);
+                opacity: 0;
+                transition: opacity 0.4s;
+            }
+            .fg-map-card:hover {
+                transform: translateY(-4px);
+                border-color: rgba(220,38,38,0.35);
+                box-shadow: 0 16px 40px rgba(220,38,38,0.18), 0 4px 12px rgba(0,0,0,0.4);
+            }
+            .fg-map-card:hover::before { opacity: 1; }
+
+            /* Map visual side */
+            .fmc-map-bg {
+                width: 90px;
+                flex-shrink: 0;
+                background:
+                    linear-gradient(135deg, #0d1117 0%, #131a25 50%, #0d1117 100%);
+                position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                overflow: hidden;
+            }
+            .fmc-map-bg--green {
+                background:
+                    linear-gradient(135deg, #0d170d 0%, #131a13 50%, #0a150a 100%);
+            }
+            .fmc-grid {
+                position: absolute;
+                inset: 0;
+                background-image:
+                    linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+                background-size: 14px 14px;
+            }
+            /* Pin animation area */
+            .fmc-pin-wrap {
+                position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 54px;
+                height: 54px;
+                z-index: 2;
+            }
+            @keyframes fmc-pulse {
+                0%   { transform: translate(-50%,-50%) scale(0.6); opacity: 0.7; }
+                100% { transform: translate(-50%,-50%) scale(2.2); opacity: 0; }
+            }
+            .fmc-ring {
+                position: absolute;
+                top: 50%; left: 50%;
+                border-radius: 50%;
+                border: 1.5px solid rgba(220,38,38,0.6);
+                animation: fmc-pulse 2.4s ease-out infinite;
+            }
+            .fmc-ring.r1 { width: 22px; height: 22px; animation-delay: 0s; }
+            .fmc-ring.r2 { width: 22px; height: 22px; animation-delay: 0.8s; }
+            .fmc-ring.r3 { width: 22px; height: 22px; animation-delay: 1.6s; }
+            .fmc-pin {
+                width: 30px; height: 30px;
+                border-radius: 50% 50% 50% 0;
+                transform: rotate(-45deg);
+                background: linear-gradient(135deg, #dc2626, #991b1b);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-shadow: 0 0 14px rgba(220,38,38,0.7), 0 0 30px rgba(220,38,38,0.3);
+                z-index: 3;
+                position: relative;
+            }
+            .fmc-pin i {
+                transform: rotate(45deg);
+                font-size: 0.75rem;
+                color: white;
+            }
+            .fmc-pin--green {
+                background: linear-gradient(135deg, #16a34a, #15803d);
+                box-shadow: 0 0 14px rgba(22,163,74,0.7), 0 0 30px rgba(22,163,74,0.3);
+            }
+            .fmc-map-bg--green .fmc-ring {
+                border-color: rgba(22,163,74,0.6);
+            }
+
+            /* Info side */
+            .fmc-info {
+                flex: 1;
+                padding: 12px 14px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                gap: 5px;
+            }
+            .fmc-badge {
                 display: inline-flex;
                 align-items: center;
-                gap: 0.5rem;
-                cursor: pointer;
-                transition: all 0.3s ease;
+                gap: 5px;
+                background: rgba(220,38,38,0.12);
+                border: 1px solid rgba(220,38,38,0.25);
+                color: #f87171;
+                font-size: 0.72rem;
+                font-weight: 700;
+                padding: 3px 9px;
+                border-radius: 20px;
+                letter-spacing: 0.5px;
+                width: fit-content;
             }
-
-            .footer-location-btn:hover {
-                background: #dc3545;
-                transform: translateY(-2px);
+            .fmc-badge--green {
+                background: rgba(22,163,74,0.12);
+                border-color: rgba(22,163,74,0.25);
+                color: #4ade80;
             }
-
-            /* Center Section - Social Media */
-            .footer-social {
+            .fmc-address {
+                font-size: 0.75rem;
+                color: rgba(255,255,255,0.45);
                 display: flex;
-                flex-direction: column;
                 align-items: center;
-                gap: 1rem;
-                padding: 1rem;
+                gap: 5px;
             }
-
-            .footer-social h4 {
-                font-size: 1.1rem;
-                font-weight: 600;
-                margin: 0 0 0.5rem 0;
-                color: white;
+            .fmc-address i { color: rgba(255,255,255,0.25); font-size: 0.65rem; }
+            .fmc-cta {
+                font-size: 0.72rem;
+                font-weight: 700;
+                color: rgba(220,38,38,0.7);
+                display: flex;
+                align-items: center;
+                gap: 5px;
+                margin-top: 2px;
+                transition: color 0.25s;
             }
+            .fg-map-card:hover .fmc-cta { color: #f87171; }
+            .fg-map-card:hover .fmc-badge--green ~ .fmc-cta,
+            .fg-map-card:has(.fmc-badge--green):hover .fmc-cta { color: #4ade80; }
 
-            .social-buttons {
+            /* Quick links col */
+            .fg-links {
                 display: flex;
                 flex-direction: column;
-                gap: 0.75rem;
-                width: 100%;
-                max-width: 200px;
+                gap: 6px;
             }
-
-            .social-btn {
-                background: rgba(255, 255, 255, 0.1);
-                border: 1px solid rgba(255, 255, 255, 0.2);
-                color: white;
-                padding: 0.6rem 1rem;
-                border-radius: 8px;
+            .fg-link {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                padding: 7px 0;
+                font-size: 0.85rem;
+                color: rgba(255,255,255,0.55);
                 text-decoration: none;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                gap: 0.5rem;
-                font-size: 0.85rem;
-                transition: all 0.3s ease;
+                border-bottom: 1px solid rgba(255,255,255,0.04);
+                transition: all 0.25s;
+                cursor: pointer;
             }
+            .fg-link:hover { color: #f59e0b; padding-right: 6px; }
+            .fg-link i { width: 16px; color: rgba(255,255,255,0.2); font-size: 0.75rem; }
 
-            .social-btn.whatsapp:hover {
-                background: #25d366;
-                border-color: #25d366;
+            /* Social + contact col */
+            .fg-social-row {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 10px;
+                margin-bottom: 1.4rem;
             }
-
-            .social-btn.instagram:hover {
-                background: #E4405F;
-                border-color: #E4405F;
-            }
-
-            .social-btn.facebook:hover {
-                background: #1877F2;
-                border-color: #1877F2;
-            }
-
-            .social-btn.tiktok:hover {
-                background: #000000;
-                border-color: #000000;
-            }
-
-            .social-btn i {
-                font-size: 1rem;
-            }
-
-            /* Left Section - Contact Info */
-            .footer-contact {
-                text-align: center;
-                padding: 1rem;
-            }
-
-            .footer-contact h4 {
-                font-size: 1.1rem;
-                font-weight: 600;
-                margin: 0 0 1rem 0;
-                color: white;
-            }
-
-            .contact-info {
+            .fg-social-btn {
                 display: flex;
                 flex-direction: column;
-                gap: 0.5rem;
-                font-size: 0.85rem;
-                color: rgba(255, 255, 255, 0.8);
-            }
-
-            .contact-info div {
-                display: flex;
                 align-items: center;
                 justify-content: center;
+                gap: 5px;
+                padding: 12px 6px;
+                border-radius: 12px;
+                border: 1px solid rgba(255,255,255,0.08);
+                background: rgba(255,255,255,0.04);
+                text-decoration: none;
+                color: rgba(255,255,255,0.6);
+                font-size: 0.68rem;
+                transition: all 0.3s;
+            }
+            .fg-social-btn i { font-size: 1.1rem; }
+            .fg-social-btn:hover { transform: translateY(-3px); }
+            .fg-social-btn.wa:hover  { background: rgba(37,211,102,0.15); border-color: #25d366; color: #25d366; }
+            .fg-social-btn.ig:hover  { background: rgba(228,64,95,0.15);  border-color: #E4405F; color: #E4405F; }
+            .fg-social-btn.fb:hover  { background: rgba(24,119,242,0.15); border-color: #1877F2; color: #1877F2; }
+            .fg-social-btn.tt:hover  { background: rgba(255,255,255,0.1); border-color: #fff;    color: #fff; }
+            .fg-social-btn.ph:hover  { background: rgba(220,38,38,0.15);  border-color: #dc2626; color: #dc2626; }
+            .fg-social-btn.map:hover { background: rgba(245,158,11,0.15); border-color: #f59e0b; color: #f59e0b; }
+
+            .fg-contact-item {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                padding: 8px 12px;
+                background: rgba(255,255,255,0.03);
+                border-radius: 8px;
+                font-size: 0.82rem;
+                color: rgba(255,255,255,0.6);
+                text-decoration: none;
+                margin-bottom: 6px;
+                transition: all 0.25s;
+            }
+            .fg-contact-item:hover { background: rgba(255,255,255,0.07); color: white; }
+            .fg-contact-item i { color: #dc2626; width: 16px; text-align: center; }
+
+            /* ── BOTTOM strip ── */
+            .footer-bottom {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 1.2rem 0;
+                font-size: 0.78rem;
+                color: rgba(255,255,255,0.25);
+                flex-wrap: wrap;
                 gap: 0.5rem;
             }
+            .footer-bottom a {
+                text-decoration: none;
+            }
 
-            .contact-info i {
-                color: var(--primary-color);
-                width: 16px;
-                text-align: center;
+            /* ── Dev Badge ── */
+            @keyframes dev-spin {
+                from { transform: rotate(0deg); }
+                to   { transform: rotate(360deg); }
+            }
+            @keyframes dev-dot-pulse {
+                0%, 100% { opacity: 1; transform: scale(1); }
+                50%       { opacity: 0.4; transform: scale(0.7); }
+            }
+            @keyframes dev-glow-breathe {
+                0%, 100% { opacity: 0.4; transform: translate(-50%,-50%) scale(1); }
+                50%       { opacity: 0.8; transform: translate(-50%,-50%) scale(1.3); }
+            }
+
+            .dev-badge {
+                position: relative;
+                display: inline-flex;
+                align-items: center;
+                gap: 10px;
+                padding: 7px 14px 7px 10px;
+                border-radius: 40px;
+                background: linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.02) 100%);
+                border: 1px solid rgba(255,255,255,0.08);
+                text-decoration: none;
+                transition: all 0.4s cubic-bezier(0.23,1,0.32,1);
+                overflow: hidden;
+                cursor: pointer;
+            }
+            .dev-badge:hover {
+                border-color: rgba(245,158,11,0.5);
+                background: linear-gradient(135deg, rgba(245,158,11,0.08) 0%, rgba(220,38,38,0.05) 100%);
+                transform: translateY(-2px);
+                box-shadow: 0 8px 30px rgba(245,158,11,0.15), 0 2px 8px rgba(0,0,0,0.4);
+            }
+
+            .dev-badge-glow {
+                position: absolute;
+                top: 50%; left: 50%;
+                width: 80px; height: 80px;
+                border-radius: 50%;
+                background: radial-gradient(circle, rgba(245,158,11,0.25) 0%, transparent 70%);
+                animation: dev-glow-breathe 3s ease-in-out infinite;
+                pointer-events: none;
+            }
+
+            .dev-badge-avatar {
+                position: relative;
+                width: 30px; height: 30px;
+                border-radius: 50%;
+                background: linear-gradient(135deg, #f59e0b 0%, #dc2626 100%);
+                display: flex; align-items: center; justify-content: center;
+                flex-shrink: 0;
+                z-index: 1;
+            }
+            .dev-badge-avatar i {
+                font-size: 0.75rem;
+                color: #fff;
+            }
+            .dev-badge-avatar-ring {
+                position: absolute;
+                inset: -3px;
+                border-radius: 50%;
+                border: 1.5px solid transparent;
+                border-top-color: #f59e0b;
+                border-right-color: rgba(245,158,11,0.3);
+                animation: dev-spin 3s linear infinite;
+            }
+            .dev-badge:hover .dev-badge-avatar-ring {
+                animation-duration: 1s;
+            }
+
+            .dev-badge-text {
+                display: flex;
+                flex-direction: column;
+                line-height: 1.1;
+                z-index: 1;
+            }
+            .dev-badge-label {
+                font-size: 0.6rem;
+                color: rgba(255,255,255,0.3);
+                letter-spacing: 1px;
+                text-transform: uppercase;
+            }
+            .dev-badge-name {
+                font-size: 0.78rem;
+                font-weight: 700;
+                color: rgba(255,255,255,0.75);
+                display: flex; align-items: center; gap: 4px;
+                transition: color 0.3s;
+            }
+            .dev-badge:hover .dev-badge-name { color: #f59e0b; }
+            .dev-badge-dot {
+                font-size: 0.55rem;
+                color: #f59e0b;
+                animation: dev-dot-pulse 2s ease-in-out infinite;
+            }
+
+            .dev-badge-arrow {
+                width: 22px; height: 22px;
+                border-radius: 50%;
+                background: rgba(245,158,11,0.1);
+                border: 1px solid rgba(245,158,11,0.2);
+                display: flex; align-items: center; justify-content: center;
+                z-index: 1;
+                transition: all 0.3s;
+            }
+            .dev-badge-arrow i {
+                font-size: 0.6rem;
+                color: rgba(245,158,11,0.6);
+                transition: all 0.3s;
+            }
+            .dev-badge:hover .dev-badge-arrow {
+                background: rgba(245,158,11,0.2);
+                border-color: rgba(245,158,11,0.5);
+                transform: translateX(-3px);
+            }
+            .dev-badge:hover .dev-badge-arrow i { color: #f59e0b; }
+
+            /* ── Mobile responsive ── */
+            @media (max-width: 768px) {
+                .footer-top { flex-direction: column; align-items: flex-start; }
+                .footer-stats { gap: 1.2rem; }
+                .footer-grid { grid-template-columns: 1fr; gap: 1.8rem; }
+                .fg-social-row { grid-template-columns: repeat(3, 1fr); }
+                .footer-bottom { flex-direction: column; align-items: center; text-align: center; }
             }
 
             /* Header Quick Buttons */
@@ -3637,49 +3999,6 @@
                     grid-template-columns: 1fr;
                 }
 
-                .footer-content {
-                    grid-template-columns: 1fr;
-                    gap: 1rem;
-                    text-align: center;
-                }
-
-                .footer-brand,
-                .footer-contact {
-                    padding: 0.5rem;
-                }
-
-                .footer-brand h3 {
-                    font-size: 1.3rem;
-                }
-
-                .footer-brand p {
-                    font-size: 0.8rem;
-                    margin: 0 0 0.75rem 0;
-                }
-
-                .footer-location-btn {
-                    font-size: 0.75rem;
-                    padding: 0.4rem 0.75rem;
-                }
-
-                .footer-social h4,
-                .footer-contact h4 {
-                    font-size: 1rem;
-                }
-
-                .social-buttons {
-                    max-width: 180px;
-                    margin: 0 auto;
-                }
-
-                .social-btn {
-                    font-size: 0.75rem;
-                    padding: 0.5rem 0.75rem;
-                }
-
-                .contact-info {
-                    font-size: 0.75rem;
-                }
 
                 /* Quick Access Mobile Styles */
                 .quick-access-section {
@@ -5375,7 +5694,7 @@
                             <i class="fas fa-map-marker-alt"></i>
                             <span>فرع الجمالية</span>
                         </a>
-                        <a href="kash.html" class="direct-nav-btn">
+                        <a href="kash.html" class="direct-nav-btn inbody-btn">
                             <i class="fas fa-wallet"></i>
                             <span>تجديد الاشتراك</span>
                         </a>
@@ -11321,53 +11640,110 @@
 
         <!-- Footer -->
         <footer class="footer">
-            <div class="footer-content">
-                <!-- Right Section - Brand Info -->
-                <div class="footer-brand">
-                    <h3>Popeye Gym</h3>
-                    <p>يمكننا مساعدتك على التدرب بطريقة آمنة وذكية وصحية</p>
-                </div>
+            <div class="footer-glow"></div>
+            <div class="footer-inner">
 
-                <!-- Combined Contact Section -->
-                <div class="footer-contact">
-                    <h4>تواصل معنا</h4>
-                    <div class="contact-info">
-                        <div>
-                            <i class="fas fa-phone"></i>
-                            <a href="tel:01555037364" style="color: inherit; text-decoration: none;">01555037364</a>
+
+                <!-- MIDDLE: 3-column grid -->
+                <div class="footer-grid">
+
+                    <!-- Col 1: About + Locations -->
+                    <div>
+                        <div class="fg-col-title"><i class="fas fa-dumbbell"></i> عن الجيم</div>
+                        <p class="fg-about-text">Popeye GYM — وجهتك المثالية للتدريب وبناء جسم قوي.</p>
+                        <div class="fg-map-cards">
+                            <a href="https://maps.app.goo.gl/NKZj1KynGYWic8fm8?g_st=ipc" class="fg-map-card" target="_blank">
+                                <div class="fmc-map-bg">
+                                    <div class="fmc-grid"></div>
+                                    <div class="fmc-pin-wrap">
+                                        <div class="fmc-ring r1"></div>
+                                        <div class="fmc-ring r2"></div>
+                                        <div class="fmc-ring r3"></div>
+                                        <div class="fmc-pin"><i class="fas fa-map-marker-alt"></i></div>
+                                    </div>
+                                </div>
+                                <div class="fmc-info">
+                                    <div class="fmc-badge">فرع الجمالية</div>
+                                    <div class="fmc-address"><i class="fas fa-location-arrow"></i> خلف مطعم شيخ الحارة</div>
+                                    <div class="fmc-cta">فتح الخريطة <i class="fas fa-external-link-alt"></i></div>
+                                </div>
+                            </a>
+                            <a href="kurdy.html" class="fg-map-card">
+                                <div class="fmc-map-bg fmc-map-bg--green">
+                                    <div class="fmc-grid"></div>
+                                    <div class="fmc-pin-wrap">
+                                        <div class="fmc-ring r1"></div>
+                                        <div class="fmc-ring r2"></div>
+                                        <div class="fmc-ring r3"></div>
+                                        <div class="fmc-pin fmc-pin--green"><i class="fas fa-map-marker-alt"></i></div>
+                                    </div>
+                                </div>
+                                <div class="fmc-info">
+                                    <div class="fmc-badge fmc-badge--green">فرع الكردي</div>
+                                    <div class="fmc-address"><i class="fas fa-location-arrow"></i> صفحة الأسعار والمواعيد</div>
+                                    <div class="fmc-cta">عرض التفاصيل <i class="fas fa-chevron-left"></i></div>
+                                </div>
+                            </a>
                         </div>
-                        <div>
-                            <i class="fas fa-map-marker-alt"></i>
-                            <a href="https://maps.app.goo.gl/NKZj1KynGYWic8fm8?g_st=ipc" style="color: inherit; text-decoration: none;">الجماليه - خلف مطعم شيخ الحاره</a>
+                    </div>
+
+                    <!-- Col 2: Quick links -->
+                    <div>
+                        <div class="fg-col-title"><i class="fas fa-bolt"></i> روابط سريعة</div>
+                        <div class="fg-links">
+                            <a href="kurdy.html" class="fg-link"><i class="fas fa-chevron-left"></i> فرع الكردي</a>
+                            <a href="elgmalia.html" class="fg-link"><i class="fas fa-chevron-left"></i> فرع الجمالية</a>
+                            <a href="kash.html" class="fg-link"><i class="fas fa-chevron-left"></i> منتجات كاش</a>
+                            <a href="food.html" class="fg-link"><i class="fas fa-chevron-left"></i> سعرات الطعام</a>
+                            <a href="inbody.html" class="fg-link"><i class="fas fa-chevron-left"></i> InBody تحليل</a>
+                            <div class="fg-link" onclick="showUltraCaloriesCalculator()" style="cursor:pointer"><i class="fas fa-chevron-left"></i> حاسبة السعرات</div>
                         </div>
-                        <div>
-                            <i class="fab fa-whatsapp"></i>
-                            <a href="https://wa.me/201555037364" style="color: inherit; text-decoration: none;">واتساب</a>
+                    </div>
+
+                    <!-- Col 3: Social + Contact -->
+                    <div>
+                        <div class="fg-col-title"><i class="fas fa-satellite-dish"></i> تواصل معنا</div>
+                        <div class="fg-social-row">
+                            <a href="https://wa.me/201555037364" class="fg-social-btn wa" target="_blank">
+                                <i class="fab fa-whatsapp"></i><span>واتساب</span>
+                            </a>
+                            <a href="https://www.instagram.com/popeyegym___?igsh=MTdtc3J5cmNpYWU3Zg==" class="fg-social-btn ig" target="_blank">
+                                <i class="fab fa-instagram"></i><span>انستجرام</span>
+                            </a>
+                            <a href="https://www.facebook.com/share/1Lh1ngiXdT/" class="fg-social-btn fb" target="_blank">
+                                <i class="fab fa-facebook-f"></i><span>فيس بوك</span>
+                            </a>
+                            <a href="https://vt.tiktok.com/ZSB7Ape5Q/" class="fg-social-btn tt" target="_blank">
+                                <i class="fab fa-tiktok"></i><span>تيك توك</span>
+                            </a>
+                            <a href="tel:01555037364" class="fg-social-btn ph">
+                                <i class="fas fa-phone"></i><span>اتصل</span>
+                            </a>
+                            <a href="https://maps.app.goo.gl/NKZj1KynGYWic8fm8?g_st=ipc" class="fg-social-btn map" target="_blank">
+                                <i class="fas fa-map-marked-alt"></i><span>خريطة</span>
+                            </a>
                         </div>
-                        <div>
-                            <i class="fab fa-instagram"></i>
-                            <a href="https://www.instagram.com/popeyegym___?igsh=MTdtc3J5cmNpYWU3Zg==" style="color: inherit; text-decoration: none;">انستجرام</a>
-                        </div>
-                        <div>
-                            <i class="fab fa-tiktok"></i>
-                            <a href="https://vt.tiktok.com/ZSB7Ape5Q/" style="color: inherit; text-decoration: none;">تيك توك</a>
-                        </div>
-                        <div>
-                            <i class="fab fa-facebook"></i>
-                            <a href="https://www.facebook.com/share/1Lh1ngiXdT/" style="color: inherit; text-decoration: none;">فيس بوك</a>
-                        </div>
+                        <a href="tel:01555037364" class="fg-contact-item">
+                            <i class="fas fa-phone"></i> 01555037364
+                        </a>
                     </div>
                 </div>
 
-                <!-- Developer Section -->
-                <div class="footer-contact">
-                    <h4>المطور</h4>
-                    <div class="contact-info">
-                        <div>
+                <!-- BOTTOM: copyright -->
+                <div class="footer-bottom">
+                    <span>© 2026 Popeye GYM · جميع الحقوق محفوظة</span>
+                    <a href="https://ahmedmehleb1.github.io/1/" target="_blank" class="dev-badge">
+                        <div class="dev-badge-glow"></div>
+                        <div class="dev-badge-avatar">
                             <i class="fas fa-code"></i>
-                            <a href="https://ahmedmehleb1.github.io/1/" style="color: inherit; text-decoration: none;">حول المطور</a>
+                            <div class="dev-badge-avatar-ring"></div>
                         </div>
-                    </div>
+                        <div class="dev-badge-text">
+                            <span class="dev-badge-label">صُنع بـ</span>
+                            <span class="dev-badge-name">Ahmed Mehleb <span class="dev-badge-dot">✦</span></span>
+                        </div>
+                        <div class="dev-badge-arrow"><i class="fas fa-arrow-left"></i></div>
+                    </a>
                 </div>
             </div>
         </footer>

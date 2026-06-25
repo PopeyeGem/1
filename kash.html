@@ -3,478 +3,717 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Popeye Gym - دفع وتجديد الاشتراك</title>
+    <title>دفع وتجديد الاشتراك - Popeye GYM</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         :root {
-            --primary-red: #DC143C;
-            --dark-red: #B01030;
-            --accent-red: #FF1744;
-            --dark-bg: #f8f9fa;
-            --card-bg: #ffffff;
-            --text-dark: #2c3e50;
-            --text-gray: #6c757d;
-            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --red: #DC143C;
+            --red-dark: #A50E2B;
+            --red-glow: rgba(220,20,60,0.35);
+            --gold: #F5A623;
+            --gold-glow: rgba(245,166,35,0.3);
+            --green: #25D366;
+            --green-glow: rgba(37,211,102,0.3);
+            --blue: #38BDF8;
+            --blue-glow: rgba(56,189,248,0.25);
+            --purple: #A78BFA;
+            --bg: #07070E;
+            --surface: #0F0F1A;
+            --surface2: #171726;
+            --surface3: #1E1E32;
+            --surface4: #252540;
+            --glass: rgba(255,255,255,0.03);
+            --glass-border: rgba(255,255,255,0.07);
+            --glass-border2: rgba(255,255,255,0.12);
+            --text: #EEEEFF;
+            --text-muted: #7777AA;
+            --text-dim: #4444AA;
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Cairo', sans-serif;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
         body {
-            background: var(--dark-bg);
-            color: var(--text-dark);
+            font-family: 'Cairo', sans-serif;
+            background: var(--bg);
+            color: var(--text);
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
+            overflow-x: hidden;
+            direction: rtl;
         }
 
-        .bg-pattern {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(ellipse at top right, rgba(220, 20, 60, 0.05) 0%, transparent 50%),
-                radial-gradient(ellipse at bottom left, rgba(220, 20, 60, 0.03) 0%, transparent 50%);
-            z-index: -1;
+        /* ── PARTICLE BG ── */
+        #particles-canvas { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+        .bg-glow { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+        .orb { position: absolute; border-radius: 50%; filter: blur(100px); animation: drift 25s ease-in-out infinite; }
+        .orb-1 { width: 700px; height: 700px; background: radial-gradient(circle, #DC143C 0%, transparent 70%); opacity: 0.07; top: -300px; right: -200px; }
+        .orb-2 { width: 500px; height: 500px; background: radial-gradient(circle, #2a0060 0%, transparent 70%); opacity: 0.12; bottom: -100px; left: -100px; animation-delay: -10s; }
+        .orb-3 { width: 350px; height: 350px; background: radial-gradient(circle, #F5A623 0%, transparent 70%); opacity: 0.05; top: 40%; left: 20%; animation-delay: -18s; }
+        @keyframes drift {
+            0%,100% { transform: translate(0,0) scale(1); }
+            33% { transform: translate(60px,-80px) scale(1.1); }
+            66% { transform: translate(-40px,60px) scale(0.9); }
         }
 
-        .container {
-            width: 100%;
-            max-width: 600px;
-            background: var(--card-bg);
-            padding: 30px;
-            border-radius: 30px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-            border: 1px solid rgba(220, 20, 60, 0.1);
-            margin-top: 20px;
+        /* ── HEADER ── */
+        .header {
+            position: sticky; top: 0; z-index: 200;
+            padding: 16px 28px;
+            display: flex; align-items: center; justify-content: space-between;
+            background: rgba(7,7,14,0.88);
+            backdrop-filter: blur(24px);
+            border-bottom: 1px solid var(--glass-border);
+        }
+        .header::after {
+            content: '';
+            position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+            background: linear-gradient(90deg, transparent, var(--red), transparent);
+            opacity: 0.5;
+        }
+        .header-brand { display: flex; align-items: center; gap: 14px; }
+        .header-logo { width: 44px; height: 44px; object-fit: contain; filter: drop-shadow(0 0 10px rgba(220,20,60,0.4)); }
+        .header-text {}
+        .header-title { font-size: 1.15rem; font-weight: 900; letter-spacing: -0.5px; }
+        .header-title span { color: var(--red); }
+        .header-subtitle { font-size: 0.68rem; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase; }
+        .home-link {
+            display: flex; align-items: center; gap: 7px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border2);
+            color: var(--text-muted);
+            padding: 9px 18px; border-radius: 50px;
+            font-family: 'Cairo', sans-serif; font-size: 0.82rem; font-weight: 700;
+            cursor: pointer; transition: all 0.3s; text-decoration: none;
+        }
+        .home-link:hover { border-color: var(--red); color: var(--red); background: rgba(220,20,60,0.06); }
+
+        /* ── MAIN ── */
+        .main {
+            position: relative; z-index: 5;
+            max-width: 680px; margin: 0 auto;
+            padding: 32px 20px 80px;
+        }
+
+        /* ── HERO BANNER ── */
+        .hero-banner {
+            background: linear-gradient(135deg, var(--surface) 0%, var(--surface2) 100%);
+            border: 1px solid var(--glass-border);
+            border-radius: 26px;
+            padding: 28px 32px;
+            margin-bottom: 28px;
+            position: relative; overflow: hidden;
+            display: flex; align-items: center; gap: 24px;
+        }
+        .hero-banner::before {
+            content: '';
+            position: absolute; top: 0; left: 0; right: 0; height: 3px;
+            background: linear-gradient(90deg, var(--red), var(--gold), var(--red));
+        }
+        .hero-banner::after {
+            content: '';
+            position: absolute; inset: 0; z-index: 0;
+            background: radial-gradient(ellipse at 80% 50%, rgba(220,20,60,0.05) 0%, transparent 70%);
+        }
+        .hero-icon {
+            width: 72px; height: 72px; border-radius: 18px; flex-shrink: 0;
+            background: linear-gradient(135deg, rgba(220,20,60,0.18), rgba(220,20,60,0.05));
+            border: 1px solid rgba(220,20,60,0.3);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2rem; z-index: 1;
+            box-shadow: 0 0 30px rgba(220,20,60,0.15);
+            animation: pulse-icon 3s ease-in-out infinite;
+        }
+        @keyframes pulse-icon {
+            0%,100% { box-shadow: 0 0 20px rgba(220,20,60,0.15); }
+            50% { box-shadow: 0 0 40px rgba(220,20,60,0.35); }
+        }
+        .hero-text { z-index: 1; }
+        .hero-title { font-size: 1.6rem; font-weight: 900; margin-bottom: 6px; }
+        .hero-title span { color: var(--red); }
+        .hero-desc { font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; }
+        .hero-badges { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+        .hero-badge {
+            display: flex; align-items: center; gap: 5px;
+            background: rgba(255,255,255,0.04); border: 1px solid var(--glass-border2);
+            border-radius: 20px; padding: 5px 12px;
+            font-size: 0.72rem; color: var(--text-muted);
+        }
+
+        /* ── STEP PROGRESS ── */
+        .progress-bar {
+            display: flex; align-items: center;
+            background: var(--surface);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 16px 24px;
+            margin-bottom: 24px;
+            gap: 0;
+        }
+        .step-dot {
+            display: flex; flex-direction: column; align-items: center; gap: 6px;
+            flex: 1;
             position: relative;
         }
-
-        .home-link {
+        .step-dot:not(:last-child)::after {
+            content: '';
             position: absolute;
-            top: 20px;
-            right: 20px;
-            color: var(--primary-red);
-            text-decoration: none;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-size: 0.9rem;
-            background: rgba(220, 20, 60, 0.05);
-            padding: 8px 15px;
-            border-radius: 50px;
-            transition: var(--transition);
+            top: 15px;
+            left: -50%;
+            width: 100%;
+            height: 2px;
+            background: var(--surface3);
+            z-index: 0;
         }
-
-        .home-link:hover {
-            background: var(--primary-red);
-            color: white;
+        .step-dot.done:not(:last-child)::after { background: linear-gradient(90deg, var(--red), var(--red)); }
+        .step-dot.active:not(:last-child)::after { background: var(--surface3); }
+        .step-circle {
+            width: 30px; height: 30px; border-radius: 50%;
+            background: var(--surface3); border: 2px solid var(--surface4);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.7rem; font-weight: 800; color: var(--text-muted);
+            position: relative; z-index: 1; transition: all 0.4s;
         }
-
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
-            margin-top: 20px;
+        .step-dot.active .step-circle {
+            background: var(--red); border-color: var(--red);
+            color: white; box-shadow: 0 0 16px var(--red-glow);
         }
-
-        .logo {
-            width: 120px;
-            margin-bottom: 15px;
-            filter: drop-shadow(0 0 5px rgba(220, 20, 60, 0.2));
+        .step-dot.done .step-circle {
+            background: var(--surface2); border-color: var(--red);
+            color: var(--red);
         }
+        .step-label { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-dim); text-align: center; }
+        .step-dot.active .step-label { color: var(--text-muted); }
+        .step-dot.done .step-label { color: var(--red); opacity: 0.7; }
 
-        h1 {
-            font-size: 1.8rem;
-            font-weight: 900;
-            color: var(--primary-red);
-            margin-bottom: 10px;
-        }
-
-        .step-container {
-            display: none;
-            animation: fadeIn 0.5s ease-out;
-        }
-
-        .step-container.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+        /* ── STEP CONTAINER ── */
+        .step-container { display: none; animation: fadeSlide 0.4s ease-out; }
+        .step-container.active { display: block; }
+        @keyframes fadeSlide {
+            from { opacity: 0; transform: translateY(14px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .btn-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin: 20px 0;
+        /* ── CARD ── */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 26px;
+            margin-bottom: 16px;
+            position: relative; overflow: hidden;
         }
-
-        .choice-btn {
-            background: #fdfdfd;
-            border: 2px solid #eee;
-            padding: 20px;
-            border-radius: 20px;
-            color: var(--text-dark);
-            cursor: pointer;
-            transition: var(--transition);
-            text-align: center;
-            font-weight: 700;
-        }
-
-        .choice-btn:hover, .choice-btn.active {
-            border-color: var(--primary-red);
-            background: rgba(220, 20, 60, 0.05);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(220, 20, 60, 0.1);
-        }
-
-        .choice-btn i {
-            display: block;
-            font-size: 2rem;
-            margin-bottom: 10px;
-            color: var(--primary-red);
-        }
-
-        .package-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin: 15px 0;
-        }
-
-        .package-card {
-            background: #f9f9f9;
-            border: 2px solid #eee;
-            padding: 15px;
-            border-radius: 15px;
-            cursor: pointer;
-            text-align: center;
-            transition: var(--transition);
-        }
-
-        .package-card:hover, .package-card.active {
-            border-color: var(--primary-red);
-            background: rgba(220, 20, 60, 0.05);
-        }
-
-        .package-card h4 { color: var(--primary-red); font-size: 1rem; }
-        .package-card .price { font-size: 1.2rem; font-weight: 900; }
-
-        .qr-section {
-            text-align: center;
-            margin: 20px 0;
-            padding: 20px;
-            background: #f9f9f9;
-            border-radius: 20px;
-            border: 2px solid #eee;
-        }
-
-        .qr-image {
-            width: 180px;
-            border-radius: 15px;
-            border: 3px solid white;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            margin-bottom: 15px;
-            transition: var(--transition);
-        }
-
-        .qr-image:hover { transform: scale(1.1); }
-
-        .btn-fancy {
-            background: linear-gradient(135deg, var(--primary-red), var(--dark-red));
-            color: white;
-            border: none;
-            padding: 15px 40px;
-            border-radius: 50px;
-            font-weight: 800;
-            font-size: 1.1rem;
-            cursor: pointer;
-            box-shadow: 0 10px 20px rgba(220, 20, 60, 0.2);
-            transition: var(--transition);
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            width: 100%;
-            justify-content: center;
-        }
-
-        .btn-fancy:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 30px rgba(220, 20, 60, 0.3);
-        }
-
-        .payment-methods {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            margin: 20px 0;
-        }
-
-        .method-btn {
-            background: white;
-            border: 2px solid #f0f0f0;
-            border-radius: 15px;
-            padding: 12px;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .method-btn img {
-            max-width: 100%;
-            height: 35px;
-            object-fit: contain;
-        }
-
-        .method-btn:hover, .method-btn.active {
-            transform: scale(1.05);
-            border-color: var(--primary-red);
-            background: rgba(220, 20, 60, 0.02);
-            box-shadow: 0 5px 15px rgba(220, 20, 60, 0.1);
-        }
-
-        .cash-number-box {
-            background: #fdfdfd;
-            padding: 20px;
-            border-radius: 20px;
-            text-align: center;
-            margin: 20px 0;
-            border: 1px dashed var(--primary-red);
-        }
-
-        .number-display {
-            font-size: 1.5rem;
-            font-weight: 900;
-            color: var(--primary-red);
-            margin-bottom: 10px;
-            display: block;
-        }
-
-        .copy-btn {
-            background: var(--primary-red);
-            color: white;
-            border: none;
-            padding: 8px 20px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        .input-group {
-            margin: 20px 0;
-        }
-
-        .input-group label {
-            display: block;
-            margin-bottom: 8px;
-            color: var(--text-dark);
-            font-weight: 700;
-        }
-
-        .input-group input {
-            width: 100%;
-            background: #fff;
-            border: 2px solid #eee;
-            padding: 14px;
-            border-radius: 15px;
-            color: var(--text-dark);
-            font-size: 1rem;
-            transition: border-color 0.3s;
-        }
-
-        .input-group input:focus {
-            border-color: var(--primary-red);
-            outline: none;
-        }
-
-        .whatsapp-btn {
-            background: #25D366;
-            color: white;
-            width: 100%;
-            padding: 16px;
-            border-radius: 15px;
-            border: none;
-            font-weight: 800;
-            font-size: 1.1rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            text-decoration: none;
-            margin-top: 15px;
-            box-shadow: 0 10px 20px rgba(37, 211, 102, 0.2);
-            transition: var(--transition);
-        }
-
-        .whatsapp-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 30px rgba(37, 211, 102, 0.3);
-        }
-
-        .back-btn {
-            background: transparent;
-            color: var(--text-gray);
-            border: none;
-            cursor: pointer;
+        .card-title {
+            font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 2px; color: var(--text-muted);
+            display: flex; align-items: center; gap: 8px;
             margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-weight: 600;
+        }
+        .card-title .ct-dot {
+            width: 6px; height: 6px; border-radius: 50%;
+            background: var(--red); box-shadow: 0 0 8px var(--red-glow);
+            animation: pulse-dot 2s ease-in-out infinite;
+        }
+        @keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.8)} }
+
+        /* ── CHOICE BUTTONS ── */
+        .btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+        .choice-btn {
+            background: var(--surface2);
+            border: 1px solid var(--glass-border2);
+            padding: 26px 20px;
+            border-radius: 20px;
+            color: var(--text);
+            cursor: pointer;
+            transition: all 0.35s;
+            text-align: center;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 700; font-size: 1rem;
+            position: relative; overflow: hidden;
+        }
+        .choice-btn::before {
+            content: '';
+            position: absolute; top: 0; left: 0; right: 0; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--red), transparent);
+            opacity: 0; transition: opacity 0.3s;
+        }
+        .choice-btn:hover::before, .choice-btn.active::before { opacity: 1; }
+        .choice-btn:hover, .choice-btn.active {
+            border-color: var(--red);
+            background: rgba(220,20,60,0.08);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 32px rgba(220,20,60,0.15);
+        }
+        .choice-btn .btn-icon {
+            display: block;
+            font-size: 2.2rem;
+            margin-bottom: 12px;
+            color: var(--red);
+            filter: drop-shadow(0 0 8px var(--red-glow));
+        }
+        .choice-btn .btn-label { font-size: 1rem; font-weight: 800; }
+        .choice-btn .btn-sub { font-size: 0.72rem; color: var(--text-muted); margin-top: 4px; }
+
+        /* ── PACKAGE GRID ── */
+        .package-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .package-card {
+            background: var(--surface2);
+            border: 1px solid var(--glass-border2);
+            padding: 16px;
+            border-radius: 16px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s;
+            position: relative; overflow: hidden;
+        }
+        .package-card::after {
+            content: '';
+            position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--red), transparent);
+            opacity: 0; transition: opacity 0.3s;
+        }
+        .package-card:hover::after, .package-card.active::after { opacity: 1; }
+        .package-card:hover, .package-card.active {
+            border-color: var(--red);
+            background: rgba(220,20,60,0.07);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(220,20,60,0.12);
+        }
+        .package-card h4 { color: var(--text); font-size: 0.88rem; font-weight: 700; margin-bottom: 8px; line-height: 1.4; }
+        .package-card .price {
+            font-size: 1.3rem; font-weight: 900; color: var(--gold);
+            text-shadow: 0 0 12px var(--gold-glow);
+        }
+        .package-card .price-unit { font-size: 0.65rem; color: var(--text-muted); margin-top: 2px; }
+        .package-card.active h4 { color: var(--red); }
+
+        /* ── QR SECTION ── */
+        .qr-section {
+            background: var(--surface2);
+            border: 1px solid var(--glass-border2);
+            border-radius: 20px;
+            padding: 24px;
+            text-align: center;
+            margin-bottom: 20px;
+            position: relative; overflow: hidden;
+        }
+        .qr-section::before {
+            content: '';
+            position: absolute; top: 0; left: 0; right: 0; height: 2px;
+            background: linear-gradient(90deg, var(--gold), var(--red), var(--gold));
+        }
+        .qr-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); margin-bottom: 14px; }
+        .qr-image {
+            width: 170px; border-radius: 16px;
+            border: 2px solid var(--glass-border2);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+            margin-bottom: 12px;
+            transition: all 0.3s;
+        }
+        .qr-image:hover { transform: scale(1.06); box-shadow: 0 12px 36px rgba(245,166,35,0.2); border-color: var(--gold); }
+        .qr-hint { font-size: 0.75rem; color: var(--text-dim); }
+
+        /* ── INPUT FIELD ── */
+        .input-group { margin-bottom: 16px; }
+        .input-label {
+            display: block; margin-bottom: 8px;
+            font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 1.5px; color: var(--text-muted);
+        }
+        .form-input {
+            width: 100%;
+            background: var(--surface2);
+            border: 1px solid var(--glass-border2);
+            border-radius: 14px;
+            padding: 13px 18px;
+            font-family: 'Cairo', sans-serif;
+            font-size: 0.95rem; font-weight: 600;
+            color: var(--text);
+            transition: all 0.3s; outline: none;
+        }
+        .form-input:focus {
+            border-color: var(--red);
+            box-shadow: 0 0 0 3px rgba(220,20,60,0.1);
+            background: var(--surface3);
+        }
+        .form-input::placeholder { color: var(--text-dim); font-weight: 400; }
+
+        /* ── PAYMENT METHODS ── */
+        .payment-methods { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
+        .method-btn {
+            background: var(--surface2);
+            border: 1px solid var(--glass-border2);
+            border-radius: 16px; padding: 14px 10px;
+            cursor: pointer; transition: all 0.3s;
+            display: flex; align-items: center; justify-content: center;
+            position: relative; overflow: hidden;
+        }
+        .method-btn::after {
+            content: '';
+            position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--red), transparent);
+            opacity: 0; transition: opacity 0.3s;
+        }
+        .method-btn:hover::after, .method-btn.active::after { opacity: 1; }
+        .method-btn:hover, .method-btn.active {
+            border-color: var(--red);
+            background: rgba(220,20,60,0.07);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(220,20,60,0.15);
+        }
+        .method-btn img { max-width: 100%; height: 36px; object-fit: contain; border-radius: 6px; }
+
+        /* ── PAYMENT DETAILS ── */
+        .number-card {
+            background: var(--surface2);
+            border: 1px solid rgba(220,20,60,0.25);
+            border-radius: 20px;
+            padding: 22px;
+            text-align: center;
+            margin-bottom: 16px;
+            position: relative; overflow: hidden;
+        }
+        .number-card::before {
+            content: '';
+            position: absolute; top: 0; left: 0; right: 0; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--red), transparent);
+        }
+        .number-card-label { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); margin-bottom: 10px; }
+        .number-display {
+            font-size: 1.8rem; font-weight: 900;
+            color: var(--red);
+            text-shadow: 0 0 20px var(--red-glow);
+            display: block; margin-bottom: 8px; letter-spacing: 2px;
+        }
+        .bank-info {
+            font-size: 0.82rem; color: var(--text-muted); margin-bottom: 12px;
+            padding: 8px 16px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 10px; border: 1px solid var(--glass-border);
+            display: none;
+        }
+        .copy-btn {
+            background: rgba(220,20,60,0.1);
+            border: 1px solid rgba(220,20,60,0.3);
+            color: var(--red);
+            padding: 9px 24px; border-radius: 50px;
+            cursor: pointer; font-family: 'Cairo', sans-serif;
+            font-weight: 700; font-size: 0.85rem;
+            transition: all 0.3s; display: inline-flex; align-items: center; gap: 6px;
+        }
+        .copy-btn:hover { background: rgba(220,20,60,0.18); box-shadow: 0 4px 16px var(--red-glow); }
+
+        /* ── BUTTONS ── */
+        .btn-primary {
+            background: linear-gradient(135deg, var(--red), var(--red-dark));
+            color: white; border: none;
+            padding: 15px 32px; border-radius: 50px;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 800; font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 6px 20px var(--red-glow);
+            transition: all 0.3s;
+            display: inline-flex; align-items: center; gap: 10px;
+            width: 100%; justify-content: center;
+        }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 32px var(--red-glow); }
+        .btn-primary:active { transform: translateY(-1px); }
+
+        .btn-whatsapp {
+            background: linear-gradient(135deg, #25D366, #1da851);
+            color: white; border: none;
+            padding: 15px 32px; border-radius: 50px;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 800; font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 6px 20px var(--green-glow);
+            transition: all 0.3s;
+            display: flex; align-items: center; gap: 10px;
+            width: 100%; justify-content: center;
+            text-decoration: none; margin-top: 16px;
+        }
+        .btn-whatsapp:hover { transform: translateY(-3px); box-shadow: 0 12px 32px var(--green-glow); }
+
+        .btn-back {
+            background: transparent;
+            border: 1px solid var(--glass-border2);
+            color: var(--text-muted);
+            padding: 8px 18px; border-radius: 50px;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 600; font-size: 0.82rem;
+            cursor: pointer; transition: all 0.3s;
+            display: inline-flex; align-items: center; gap: 7px;
+            margin-bottom: 18px;
+        }
+        .btn-back:hover { border-color: var(--red); color: var(--red); }
+
+        /* ── SECTION TITLE ── */
+        .section-title {
+            font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 2px; color: var(--text-muted);
+            margin-bottom: 14px; display: flex; align-items: center; gap: 8px;
+        }
+        .section-title::before {
+            content: '';
+            display: block; width: 3px; height: 14px;
+            background: var(--red); border-radius: 2px;
+            box-shadow: 0 0 8px var(--red-glow);
         }
 
-        .account-info {
-            font-size: 0.95rem;
-            color: var(--text-dark);
-            margin-top: 8px;
-            font-weight: 700;
+        /* ── SUMMARY BAR ── */
+        .summary-bar {
+            background: var(--surface2);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 14px 20px;
+            display: flex; align-items: center; gap: 12px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .summary-item { display: flex; align-items: center; gap: 6px; font-size: 0.82rem; }
+        .summary-label { color: var(--text-muted); }
+        .summary-value { color: var(--text); font-weight: 700; }
+        .summary-sep { color: var(--text-dim); font-size: 0.6rem; }
+
+        /* ── WHATSAPP NOTICE ── */
+        .whatsapp-notice {
+            display: flex; align-items: center; gap: 14px;
+            background: rgba(37,211,102,0.08);
+            border: 1px solid rgba(37,211,102,0.25);
+            border-radius: 16px;
+            padding: 18px 20px;
+            margin-bottom: 18px;
+        }
+        .notice-icon {
+            font-size: 2rem; color: #25D366;
+            filter: drop-shadow(0 0 10px rgba(37,211,102,0.4));
+            flex-shrink: 0;
+        }
+        .notice-text {
+            font-size: 0.95rem; font-weight: 700; color: var(--text);
+            line-height: 1.5;
+        }
+
+        /* ── SHINE ANIMATION ── */
+        .shine-btn { position: relative; overflow: hidden; }
+        .shine-btn::before {
+            content: '';
+            position: absolute; top: 0; left: -100%;
+            width: 60%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
+            animation: shine 2.8s ease-in-out infinite;
+        }
+        @keyframes shine { 0%{left:-100%} 50%{left:130%} 100%{left:130%} }
+
+        /* mobile */
+        @media (max-width: 540px) {
+            .btn-grid { grid-template-columns: 1fr; }
+            .payment-methods { grid-template-columns: repeat(2, 1fr); }
+            .package-grid { grid-template-columns: 1fr; }
+            .hero-banner { flex-direction: column; text-align: center; padding: 24px 20px; }
+            .hero-badges { justify-content: center; }
+            .main { padding: 20px 14px 60px; }
         }
     </style>
 </head>
 <body>
-    <div class="bg-pattern"></div>
-    
-    <div class="container">
-        <a href="index.html" class="home-link"><i class="fas fa-home"></i> الرئيسية</a>
-        
-        <div class="header">
-            <img src="images/logo.png" alt="Popeye Gym" class="logo">
-            <h1>دفع وتجديد الاشتراك</h1>
-            <p style="color: var(--text-gray)">يرجى ملء البيانات التالية للمتابعة</p>
-        </div>
-
-        <!-- Step 1: Branch Selection -->
-        <div id="step-branch" class="step-container active">
-            <h3 style="text-align: center; margin-bottom: 15px;">اختر الفرع</h3>
-            <div class="btn-grid">
-                <button class="choice-btn" onclick="selectBranch('kurdy')">
-                    <i class="fas fa-map-marker-alt"></i>
-                    فرع الكردي
-                </button>
-                <button class="choice-btn" onclick="selectBranch('elgmalia')">
-                    <i class="fas fa-building"></i>
-                    فرع الجمالية
-                </button>
-            </div>
-        </div>
-
-        <!-- Step 2: Action Selection (New/Renew) -->
-        <div id="step-action" class="step-container">
-            <button class="back-btn" onclick="showStep('step-branch')"><i class="fas fa-arrow-right"></i> رجوع</button>
-            <h3 style="text-align: center; margin-bottom: 15px;">نوع العملية</h3>
-            <div class="btn-grid">
-                <button class="choice-btn" onclick="selectAction('new')">
-                    <i class="fas fa-user-plus"></i>
-                    اشتراك جديد
-                </button>
-                <button class="choice-btn" onclick="selectAction('renew')">
-                    <i class="fas fa-sync-alt"></i>
-                    تجديد اشتراك
-                </button>
-            </div>
-        </div>
-
-        <!-- Step 3: Information Input (Name/Package Selection) -->
-        <div id="step-info" class="step-container">
-            <button class="back-btn" onclick="showStep('step-action')"><i class="fas fa-arrow-right"></i> رجوع</button>
-            
-            <div class="qr-section">
-                <p style="margin-bottom: 10px; font-weight: 700;">باقات الاشتراك المتاحة</p>
-                <img src="images/qr.png" alt="Packages QR" class="qr-image">
-                <p style="font-size: 0.8rem; color: var(--text-gray);">يمكنك مسح الكود لمشاهدة التفاصيل</p>
-            </div>
-
-            <div id="new-fields" style="display: none;">
-                <div class="input-group">
-                    <label>الاسم بالكامل</label>
-                    <input type="text" id="user-name" placeholder="ادخل اسمك الثلاثي">
-                </div>
-            </div>
-
-            <div id="renew-fields" style="display: none;">
-                <div class="input-group">
-                    <label>كود العضوية</label>
-                    <input type="text" id="membership-code" placeholder="ادخل كود العضوية الخاص بك">
-                </div>
-            </div>
-
-            <h4 style="margin-bottom: 10px;">اختر الباقة المناسبة</h4>
-            <div id="package-list" class="package-grid">
-                <!-- Will be populated dynamically -->
-            </div>
-
-            <button class="btn-fancy" style="margin-top: 20px;" onclick="goToPayment()">
-                متابعة لاختيار وسيلة الدفع
-                <i class="fas fa-credit-card"></i>
-            </button>
-        </div>
-
-        <!-- Step 4: Payment Method -->
-        <div id="step-payment" class="step-container">
-            <button class="back-btn" onclick="showStep('step-info')"><i class="fas fa-arrow-right"></i> رجوع</button>
-            <h3 style="text-align: center; margin-bottom: 15px;">اختر وسيلة الدفع</h3>
-            <div class="payment-methods">
-                <button class="method-btn" onclick="selectMethod('vodafone', '01065278069')">
-                    <img src="images/vedafone.jpg" alt="Vodafone Cash">
-                </button>
-                <button class="method-btn" onclick="selectMethod('orange', '01065278069')">
-                    <img src="images/orange.png" alt="Orange Cash">
-                </button>
-                <button class="method-btn" onclick="selectMethod('instapay', '01065278069')">
-                    <img src="images/inistapay.png" alt="InstaPay">
-                </button>
-                <button class="method-btn" onclick="selectMethod('wepay', '01065278069')">
-                    <img src="images/wepay.png" alt="WE Pay">
-                </button>
-                <button class="method-btn" onclick="selectMethod('bank', '2130333000037498')">
-                    <img src="images/bank.png" alt="Bank">
-                </button>
-            </div>
-
-            <div id="payment-details" style="display: none;">
-                <div class="cash-number-box">
-                    <p style="color: var(--text-gray); margin-bottom: 5px; font-weight: 700;">رقم التحويل:</p>
-                    <span id="display-number" class="number-display">01065278069</span>
-                    <div id="bank-info" class="account-info" style="display: none;">
-                        الاسم: خالد محمد احمد احمد
-                    </div>
-                    <button class="copy-btn" onclick="copyNumber()">نسخ الرقم <i class="fas fa-copy"></i></button>
-                </div>
-
-                <div class="input-group">
-                    <label>الرقم المحول منه المال</label>
-                    <input type="text" id="sender-number" placeholder="ادخل رقم الموبايل أو رقم المحفظة">
-                </div>
-
-                <button class="whatsapp-btn" onclick="sendToWhatsApp()">
-                    <i class="fab fa-whatsapp"></i>
-                    تأكيد وإرسال البيانات عبر واتساب
-                </button>
-            </div>
-        </div>
+    <canvas id="particles-canvas"></canvas>
+    <div class="bg-glow">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
     </div>
 
+    <!-- HEADER -->
+    <header class="header" style="justify-content: flex-start;">
+        <a href="index.html" class="home-link">
+            <i class="fas fa-home"></i> الرئيسية
+        </a>
+    </header>
+
+    <main class="main">
+
+        <!-- STEP PROGRESS -->
+        <div class="progress-bar" id="progress-bar">
+            <div class="step-dot active" id="prog-1">
+                <div class="step-circle">1</div>
+                <div class="step-label">الفرع</div>
+            </div>
+            <div class="step-dot" id="prog-2">
+                <div class="step-circle">2</div>
+                <div class="step-label">النوع</div>
+            </div>
+            <div class="step-dot" id="prog-3">
+                <div class="step-circle">3</div>
+                <div class="step-label">الباقة</div>
+            </div>
+            <div class="step-dot" id="prog-4">
+                <div class="step-circle">4</div>
+                <div class="step-label">الدفع</div>
+            </div>
+        </div>
+
+        <!-- STEP 1: BRANCH -->
+        <div id="step-branch" class="step-container active">
+            <div class="card">
+                <div class="card-title"><span class="ct-dot"></span> اختر الفرع</div>
+                <div class="btn-grid">
+                    <button class="choice-btn" onclick="selectBranch('kurdy')">
+                        <span class="btn-icon"><i class="fas fa-map-marker-alt"></i></span>
+                        <div class="btn-label">فرع الكردي</div>
+                        <div class="btn-sub">الفرع الرئيسي</div>
+                    </button>
+                    <button class="choice-btn" onclick="selectBranch('elgmalia')">
+                        <span class="btn-icon"><i class="fas fa-building"></i></span>
+                        <div class="btn-label">فرع الجمالية</div>
+                        <div class="btn-sub">الفرع الثاني</div>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 2: ACTION -->
+        <div id="step-action" class="step-container">
+            <button class="btn-back" onclick="goBack('step-branch', 1)">
+                <i class="fas fa-arrow-right"></i> رجوع
+            </button>
+            <div class="card">
+                <div class="card-title"><span class="ct-dot"></span> نوع العملية</div>
+                <div class="btn-grid">
+                    <button class="choice-btn" onclick="selectAction('new')">
+                        <span class="btn-icon"><i class="fas fa-user-plus"></i></span>
+                        <div class="btn-label">اشتراك جديد</div>
+                        <div class="btn-sub">عضو جديد</div>
+                    </button>
+                    <button class="choice-btn" onclick="selectAction('renew')">
+                        <span class="btn-icon"><i class="fas fa-sync-alt"></i></span>
+                        <div class="btn-label">تجديد اشتراك</div>
+                        <div class="btn-sub">عضو حالي</div>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 3: INFO + PACKAGES -->
+        <div id="step-info" class="step-container">
+            <button class="btn-back" onclick="goBack('step-action', 2)">
+                <i class="fas fa-arrow-right"></i> رجوع
+            </button>
+
+            <div class="card">
+                <div class="card-title"><span class="ct-dot"></span> بياناتك الشخصية</div>
+
+                <div id="new-fields" style="display:none;">
+                    <div class="whatsapp-notice">
+                        <i class="fab fa-whatsapp notice-icon"></i>
+                        <div class="notice-text">سيتم إرسال كود العضوية الجديد لك عبر واتساب</div>
+                    </div>
+                </div>
+
+                <div id="renew-fields" style="display:none;">
+                    <div class="input-group">
+                        <label class="input-label"><i class="fas fa-id-card"></i> كود العضوية القديم</label>
+                        <input type="text" id="membership-code" class="form-input" placeholder="ادخل كود العضوية الخاص بك">
+                    </div>
+                </div>
+
+                <div class="section-title">اختر الباقة المناسبة</div>
+                <div id="package-list" class="package-grid"></div>
+
+                <button class="btn-primary shine-btn" style="margin-top: 22px;" onclick="goToPayment()">
+                    متابعة لاختيار وسيلة الدفع
+                    <i class="fas fa-credit-card"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- STEP 4: PAYMENT -->
+        <div id="step-payment" class="step-container">
+            <button class="btn-back" onclick="goBack('step-info', 3)">
+                <i class="fas fa-arrow-right"></i> رجوع
+            </button>
+
+            <!-- Summary -->
+            <div class="summary-bar" id="summary-bar"></div>
+
+            <div class="card">
+                <div class="card-title"><span class="ct-dot"></span> اختر وسيلة الدفع</div>
+                <div class="payment-methods">
+                    <button class="method-btn" onclick="selectMethod('vodafone', '01065278069')">
+                        <img src="images/vedafone.jpg" alt="Vodafone Cash">
+                    </button>
+                    <button class="method-btn" onclick="selectMethod('orange', '01065278069')">
+                        <img src="images/orange.png" alt="Orange Cash">
+                    </button>
+                    <button class="method-btn" onclick="selectMethod('instapay', '01065278069')">
+                        <img src="images/inistapay.png" alt="InstaPay">
+                    </button>
+                    <button class="method-btn" onclick="selectMethod('wepay', '01065278069')">
+                        <img src="images/wepay.png" alt="WE Pay">
+                    </button>
+                    <button class="method-btn" onclick="selectMethod('bank', '2130333000037498')">
+                        <img src="images/bank.png" alt="Bank">
+                    </button>
+                </div>
+
+                <div id="payment-details" style="display:none; animation: fadeSlide 0.4s ease-out;">
+                    <div class="number-card">
+                        <div class="number-card-label"><i class="fas fa-phone-alt"></i> &nbsp;رقم التحويل</div>
+                        <span id="display-number" class="number-display">01065278069</span>
+                        <div id="bank-info" class="bank-info">👤 الاسم: خالد محمد احمد احمد</div>
+                        <button class="copy-btn" onclick="copyNumber()">
+                            <i class="fas fa-copy"></i> نسخ الرقم
+                        </button>
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label"><i class="fas fa-mobile-alt"></i> الرقم المحول منه</label>
+                        <input type="text" id="sender-number" class="form-input" placeholder="ادخل رقم الموبايل أو المحفظة">
+                    </div>
+
+                    <button class="btn-whatsapp" onclick="sendToWhatsApp()">
+                        <i class="fab fa-whatsapp" style="font-size: 1.3rem;"></i>
+                        تأكيد وإرسال البيانات عبر واتساب
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
     <script>
-        let selectedBranch = '';
-        let selectedAction = '';
-        let selectedMethod = '';
-        let selectedPackage = '';
+        /* ── PARTICLE BACKGROUND ── */
+        (function() {
+            const canvas = document.getElementById('particles-canvas');
+            const ctx = canvas.getContext('2d');
+            let W, H, particles = [];
+            function resize() { W = canvas.width = innerWidth; H = canvas.height = innerHeight; }
+            resize(); window.addEventListener('resize', resize);
+            function Particle() {
+                this.x = Math.random() * W; this.y = Math.random() * H;
+                this.r = Math.random() * 1.5 + 0.4;
+                this.vx = (Math.random() - 0.5) * 0.3; this.vy = (Math.random() - 0.5) * 0.3;
+                this.alpha = Math.random() * 0.5 + 0.1;
+                this.color = Math.random() < 0.5 ? '#DC143C' : '#F5A623';
+            }
+            for (let i = 0; i < 90; i++) particles.push(new Particle());
+            function draw() {
+                ctx.clearRect(0, 0, W, H);
+                particles.forEach(p => {
+                    p.x += p.vx; p.y += p.vy;
+                    if (p.x < 0) p.x = W; if (p.x > W) p.x = 0;
+                    if (p.y < 0) p.y = H; if (p.y > H) p.y = 0;
+                    ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                    ctx.fillStyle = p.color; ctx.globalAlpha = p.alpha; ctx.fill();
+                });
+                ctx.globalAlpha = 1;
+                requestAnimationFrame(draw);
+            }
+            draw();
+        })();
+
+        /* ── APP STATE ── */
+        let selectedBranch = '', selectedAction = '', selectedMethod = '', selectedPackage = null;
 
         const packages = {
             kurdy: [
@@ -495,22 +734,36 @@
             ]
         };
 
-        function showStep(stepId) {
+        function setProgress(step) {
+            for (let i = 1; i <= 4; i++) {
+                const el = document.getElementById('prog-' + i);
+                el.className = 'step-dot' + (i < step ? ' done' : i === step ? ' active' : '');
+                const circle = el.querySelector('.step-circle');
+                if (i < step) circle.innerHTML = '<i class="fas fa-check" style="font-size:0.65rem;"></i>';
+                else circle.innerHTML = i;
+            }
+        }
+
+        function showStep(stepId, progress) {
             document.querySelectorAll('.step-container').forEach(s => s.classList.remove('active'));
             document.getElementById(stepId).classList.add('active');
+            setProgress(progress);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
+
+        function goBack(stepId, progress) { showStep(stepId, progress); }
 
         function selectBranch(branch) {
             selectedBranch = branch;
             updatePackageList();
-            showStep('step-action');
+            showStep('step-action', 2);
         }
 
         function selectAction(action) {
             selectedAction = action;
             document.getElementById('new-fields').style.display = action === 'new' ? 'block' : 'none';
             document.getElementById('renew-fields').style.display = action === 'renew' ? 'block' : 'none';
-            showStep('step-info');
+            showStep('step-info', 3);
         }
 
         function updatePackageList() {
@@ -532,16 +785,27 @@
         }
 
         function goToPayment() {
-            if (selectedAction === 'new' && !document.getElementById('user-name').value) {
-                alert('يرجى إدخال الاسم بالكامل'); return;
+            if (selectedAction === 'renew' && !document.getElementById('membership-code').value.trim()) {
+                shakeAlert('يرجى إدخال كود العضوية'); return;
             }
-            if (selectedAction === 'renew' && !document.getElementById('membership-code').value) {
-                alert('يرجى إدخال كود العضوية'); return;
-            }
-            if (!selectedPackage) {
-                alert('يرجى اختيار الباقة'); return;
-            }
-            showStep('step-payment');
+            if (!selectedPackage) { shakeAlert('يرجى اختيار الباقة'); return; }
+
+            // Build summary
+            const branchName = selectedBranch === 'kurdy' ? 'فرع الكردي' : 'فرع الجمالية';
+            const actionName = selectedAction === 'new' ? 'اشتراك جديد' : 'تجديد اشتراك';
+            document.getElementById('summary-bar').innerHTML = `
+                <div class="summary-item"><i class="fas fa-map-marker-alt" style="color:var(--red);"></i><span class="summary-value">${branchName}</span></div>
+                <span class="summary-sep">●</span>
+                <div class="summary-item"><i class="fas fa-tag" style="color:var(--gold);"></i><span class="summary-value">${actionName}</span></div>
+                <span class="summary-sep">●</span>
+                <div class="summary-item"><i class="fas fa-box" style="color:var(--blue);"></i><span class="summary-value">${selectedPackage.name}</span></div>
+                <span class="summary-sep">●</span>
+                <div class="summary-item"><span class="summary-value" style="color:var(--gold);">${selectedPackage.price}</span></div>
+            `;
+
+            document.getElementById('payment-details').style.display = 'none';
+            document.querySelectorAll('.method-btn').forEach(b => b.classList.remove('active'));
+            showStep('step-payment', 4);
         }
 
         function selectMethod(method, number) {
@@ -549,37 +813,56 @@
             document.querySelectorAll('.method-btn').forEach(b => b.classList.remove('active'));
             event.currentTarget.classList.add('active');
             document.getElementById('display-number').innerText = number;
-            document.getElementById('payment-details').style.display = 'block';
-            document.getElementById('bank-info').style.display = method === 'bank' ? 'block' : 'none';
+            const bankInfo = document.getElementById('bank-info');
+            bankInfo.style.display = method === 'bank' ? 'block' : 'none';
+            const details = document.getElementById('payment-details');
+            details.style.display = 'block';
+            details.style.animation = 'none';
+            details.offsetHeight;
+            details.style.animation = 'fadeSlide 0.4s ease-out';
         }
 
         function copyNumber() {
             const num = document.getElementById('display-number').innerText;
-            navigator.clipboard.writeText(num).then(() => alert('تم نسخ الرقم: ' + num));
+            navigator.clipboard.writeText(num).then(() => {
+                const btn = event.currentTarget;
+                btn.innerHTML = '<i class="fas fa-check"></i> تم النسخ!';
+                btn.style.borderColor = 'var(--green)';
+                btn.style.color = 'var(--green)';
+                setTimeout(() => {
+                    btn.innerHTML = '<i class="fas fa-copy"></i> نسخ الرقم';
+                    btn.style.borderColor = '';
+                    btn.style.color = '';
+                }, 2000);
+            });
         }
 
         function sendToWhatsApp() {
-            const senderNum = document.getElementById('sender-number').value;
-            if (!senderNum) { alert('يرجى إدخال الرقم المحول منه المال'); return; }
+            const senderNum = document.getElementById('sender-number').value.trim();
+            if (!senderNum) { shakeAlert('يرجى إدخال الرقم المحول منه المال'); return; }
 
             const branchName = selectedBranch === 'kurdy' ? 'الكردي' : 'الجمالية';
             const actionName = selectedAction === 'new' ? 'اشتراك جديد' : 'تجديد اشتراك';
-            const userInfo = selectedAction === 'new' ? 
-                `الاسم: ${document.getElementById('user-name').value}` : 
-                `كود العضوية: ${document.getElementById('membership-code').value}`;
+            const userInfo = selectedAction === 'new'
+                ? `ملاحظة: سيتم إرسال كود العضوية الجديد عبر واتساب`
+                : `كود العضوية القديم: ${document.getElementById('membership-code').value}`;
 
-            const text = `تأكيد عملية دفع Popeye Gym:
----------------------------
-الفرع: ${branchName}
-العملية: ${actionName}
-الباقة: ${selectedPackage.name} (${selectedPackage.price})
-${userInfo}
-وسيلة الدفع: ${selectedMethod}
-رقم التحويل: ${document.getElementById('display-number').innerText}
-الرقم المحول منه: ${senderNum}
----------------------------`;
-            
+            const text = `✅ تأكيد عملية دفع - Popeye GYM\n` +
+                `━━━━━━━━━━━━━━━━━━━━━\n` +
+                `🏋️ الفرع: ${branchName}\n` +
+                `📋 العملية: ${actionName}\n` +
+                `📦 الباقة: ${selectedPackage.name} (${selectedPackage.price})\n` +
+                `👤 ${userInfo}\n` +
+                `💳 وسيلة الدفع: ${selectedMethod}\n` +
+                `📞 رقم التحويل: ${document.getElementById('display-number').innerText}\n` +
+                `📱 الرقم المحول منه: ${senderNum}\n` +
+                `━━━━━━━━━━━━━━━━━━━━━`;
+
             window.open('https://wa.me/201065278069?text=' + encodeURIComponent(text), '_blank');
+        }
+
+        function shakeAlert(msg) {
+            alert(msg);
         }
     </script>
 </body>
